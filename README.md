@@ -118,19 +118,22 @@ Responda SAIR para nao receber mais.
 
 ## Endpoints do MVP
 
-| Método | Rota                             | Descrição                         | Limite                   |
-| ------ | -------------------------------- | --------------------------------- | ------------------------ |
-| GET    | `/health`                        | Liveness/readiness                | 100/min por IP           |
-| POST   | `/api/v1/panic`                  | Aciona o botão de pânico          | 5/h e 10/dia por usuário |
-| GET    | `/api/v1/panic/:eventId`         | Status por destinatário           | —                        |
-| POST   | `/api/v1/panic/:eventId/resolve` | Marca "já estou bem"              | —                        |
-| POST   | `/api/v1/contacts`               | Cadastra contato (fica `pending`) | 10/h por usuário         |
-| GET    | `/api/v1/contacts`               | Lista contatos                    | —                        |
-| POST   | `/api/v1/contacts/:id/verify`    | Verifica com código de 6 dígitos  | 5/15 min                 |
-| POST   | `/api/v1/contacts/:id/resend`    | Reenvia o código                  | 3/h                      |
-| DELETE | `/api/v1/contacts/:id`           | Revoga contato                    | —                        |
+| Método   | Rota                             | Descrição                                                     | Limite                   |
+| -------- | -------------------------------- | ------------------------------------------------------------- | ------------------------ |
+| GET      | `/health`                        | Liveness/readiness                                            | 100/min por IP           |
+| POST     | `/api/v1/panic`                  | Aciona o botão de pânico                                      | 5/h e 10/dia por usuário |
+| GET      | `/api/v1/panic/:eventId`         | Status por destinatário                                       | —                        |
+| POST     | `/api/v1/panic/:eventId/resolve` | Marca "já estou bem"                                          | —                        |
+| POST     | `/api/v1/contacts`               | Cadastra contato (fica `pending`)                             | 10/h por usuário         |
+| GET      | `/api/v1/contacts`               | Lista contatos                                                | —                        |
+| POST     | `/api/v1/contacts/:id/verify`    | Verifica com código de 6 dígitos                              | 5/15 min                 |
+| POST     | `/api/v1/contacts/:id/resend`    | Reenvia o código                                              | 3/h                      |
+| DELETE   | `/api/v1/contacts/:id`           | Revoga contato                                                | —                        |
+| GET/POST | `/api/v1/opt-out`                | **Público.** Descadastro do contato pelo link assinado        | 30/min por IP            |
+| POST     | `/api/v1/webhooks/sms/inbound`   | **Público.** Resposta "SAIR" do contato (assinatura validada) | 30/min por IP            |
 
-Todas as rotas `/api/v1/**` exigem `Authorization: Bearer <jwt>`.
+Todas as rotas `/api/v1/**` exigem `Authorization: Bearer <jwt>`, exceto as marcadas como
+públicas — quem quer parar de receber mensagens que nunca pediu não deve precisar de conta.
 Erros seguem o formato `{ "error": { "code", "message", "details?" } }`.
 
 ---
@@ -176,7 +179,7 @@ de Privacidade voltados ao usuário final serão publicados em `apps/web/src/app
 
 ```bash
 npm run dev                                  # API em watch mode
-npm test                                     # 46 testes (Jest + Supertest)
+npm test                                     # 64 testes (Jest + Supertest)
 npm run test:coverage --workspace services/api
 npm run lint                                 # ESLint
 npm run typecheck --workspace services/api   # tsc --noEmit

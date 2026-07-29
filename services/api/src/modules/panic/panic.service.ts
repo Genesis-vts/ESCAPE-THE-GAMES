@@ -3,6 +3,7 @@ import { env } from '../../config/env';
 import type { Contact, PanicEvent, PanicNotification } from '../../domain/types';
 import { AppError } from '../../errors/AppError';
 import type { NotificationJob } from '../../notifications/queue';
+import { ContactsService } from '../contacts/contacts.service';
 import {
   DISCLAIMER_LONGO,
   buildWhatsappDeepLink,
@@ -19,8 +20,18 @@ export interface RecipientView {
   displayName: string;
   channel: Contact['channel'];
   status: PanicNotification['status'];
-  /** Presente apenas para whatsapp_deeplink: envio é manual pelo usuário. */
-  whatsappDeepLink?: string;
+}
+
+/**
+ * Contatos que o SERVIDOR não aciona (hoje, WhatsApp): devolvemos o link pronto
+ * para o próprio usuário enviar. Ficam separados de `recipients` justamente para
+ * o app não poder confundir "avisado" com "você pode avisar".
+ */
+export interface ManualContactView {
+  contactId: string;
+  displayName: string;
+  channel: Contact['channel'];
+  deepLink: string;
 }
 
 export interface PanicTriggerResult {
@@ -28,11 +39,22 @@ export interface PanicTriggerResult {
   status: PanicEvent['status'];
   createdAt: string;
   recipients: RecipientView[];
+  manualContacts: ManualContactView[];
   warnings: string[];
   disclaimer: string;
   /** Canais públicos de apoio, sempre devolvidos ao cliente. */
   supportChannels: { label: string; phone: string }[];
 }
+
+/**
+ * Janela de idempotência: 60 s, conforme MVP_SPEC.md §5.1.
+ *
+ * A janela é essencial. Sem ela, uma chave reaproveitada pelo app dias depois
+ * devolveria um acionamento antigo já "entregue" — o usuário veria "seu apoio
+ * foi avisado" sem que ninguém tivesse sido avisado agora. Falha silenciosa que
+ * parece sucesso é o pior modo de falha possível neste produto.
+ */
+const JANELA_IDEMPOTENCIA_MS = 60_000;
 
 const CANAIS_DE_APOIO = [
   { label: 'CVV — apoio emocional 24h', phone: '188' },
@@ -82,7 +104,11 @@ export class PanicService {
 
     // Idempotência: reenvio do app (retry de rede) não gera novo fan-out.
     if (idempotencyKey) {
-      const existente = await this.deps.panic.findEventByIdempotencyKey(userId, idempotencyKey);
+      const existente = await this.deps.panic.findEventByIdempotencyKey(
+        userId,
+        idempotencyKey,
+        JANELA_IDEMPOTENCIA_MS,
+      );
       if (existente) return this.getEvent(userId, existente.id);
     }
 
@@ -131,9 +157,7 @@ export class PanicService {
         panicEventId: evento.id,
         contactId: contato.id,
         channel: contato.channel,
-        // O canal de WhatsApp não é despachado pelo servidor: fica "skipped"
-        // e o app abre o deep link para envio manual (ADR-006).
-        status: contato.channel === 'whatsapp_deeplink' ? 'skipped' : 'queued',
+        status: 'queued',
         attempts: 0,
         providerMessageId: null,
         lastError: null,
@@ -142,16 +166,14 @@ export class PanicService {
       };
       await this.deps.panic.createNotification(notificacao);
       notificacoes.push(notificacao);
-
-      if (notificacao.status === 'queued') {
-        jobs.push(this.montarJob(evento, contato, notificacao, user.displayName, user.phone));
-      }
+      jobs.push(this.montarJob(evento, contato, notificacao, user.displayName, user.phone));
     }
 
     // 4) Enfileiramento assíncrono: a resposta HTTP não espera o provedor.
     if (jobs.length > 0) this.deps.queue.enqueue(jobs);
 
-    const resultado = this.montarResultado(evento, notificacoes, contatos);
+    const todos = await this.deps.contacts.listByUser(userId);
+    const resultado = this.montarResultado(evento, notificacoes, todos);
 
     if (contatos.length === 0) {
       resultado.warnings.push('NO_VERIFIED_CONTACTS');
@@ -209,7 +231,7 @@ export class PanicService {
       timestamp: new Date(evento.createdAt),
       message: evento.message,
       location: evento.location,
-      optOutUrl: `${env.WEB_BASE_URL}/opt-out?c=${contato.id}`,
+      optOutUrl: ContactsService.buildOptOutUrl(contato.id, env.JWT_SECRET, env.WEB_BASE_URL),
       eventId: evento.id,
       riskFlag: evento.riskFlag,
     };
@@ -254,28 +276,31 @@ export class PanicService {
   ): PanicTriggerResult {
     const porId = new Map(contatos.map((c) => [c.id, c]));
 
-    const recipients: RecipientView[] = notificacoes.map((n) => {
-      const contato = porId.get(n.contactId);
-      const view: RecipientView = {
-        contactId: n.contactId,
-        displayName: contato?.displayName ?? 'Contato',
-        channel: n.channel,
-        status: n.status,
-      };
-      if (contato?.channel === 'whatsapp_deeplink') {
-        view.whatsappDeepLink = buildWhatsappDeepLink(
-          contato.destination,
+    const recipients: RecipientView[] = notificacoes.map((n) => ({
+      contactId: n.contactId,
+      displayName: porId.get(n.contactId)?.displayName ?? 'Contato',
+      channel: n.channel,
+      status: n.status,
+    }));
+
+    const manualContacts: ManualContactView[] = contatos
+      .filter((c) => c.status === 'manual_only')
+      .map((c) => ({
+        contactId: c.id,
+        displayName: c.displayName,
+        channel: c.channel,
+        deepLink: buildWhatsappDeepLink(
+          c.destination,
           `Preciso de apoio agora. ${evento.message ?? ''}`.trim(),
-        );
-      }
-      return view;
-    });
+        ),
+      }));
 
     return {
       eventId: evento.id,
       status: evento.status,
       createdAt: evento.createdAt,
       recipients,
+      manualContacts,
       warnings: [],
       disclaimer: DISCLAIMER_LONGO,
       supportChannels: CANAIS_DE_APOIO,

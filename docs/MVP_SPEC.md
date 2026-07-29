@@ -399,7 +399,12 @@ Base: `/api/v1` · Autenticação: `Authorization: Bearer <jwt>` (exceto `/healt
 | `location`    | objeto | não         | `lat` −90..90, `lon` −180..180; só com consentimento do evento |
 | `triggerType` | enum   | **sim**     | `tap` \| `hold`                                                |
 
-Headers opcionais: `Idempotency-Key` (uuid; janela de 60 s).
+Headers opcionais: `Idempotency-Key` (uuid; janela de **60 s**). Fora da janela, a mesma
+chave gera um acionamento NOVO — devolver um evento antigo faria o app anunciar "seu apoio
+foi avisado" sem que ninguém tivesse sido avisado naquele momento.
+
+`recipients` traz apenas quem o servidor notifica. Contatos de canal manual (WhatsApp) vêm
+em `manualContacts`, com o link para o próprio usuário enviar.
 
 **200 OK**
 
@@ -412,6 +417,7 @@ Headers opcionais: `Idempotency-Key` (uuid; janela de 60 s).
     { "contactId": "c1", "displayName": "Cláudia", "channel": "sms", "status": "queued" },
     { "contactId": "c2", "displayName": "Pedro", "channel": "email", "status": "queued" }
   ],
+  "manualContacts": [],
   "warnings": [],
   "disclaimer": "Este aplicativo não substitui serviços de emergência. Em risco imediato, ligue 192 (SAMU) ou 188 (CVV)."
 }
@@ -451,6 +457,7 @@ Headers opcionais: `Idempotency-Key` (uuid; janela de 60 s).
     "verificationToken": "vt_9f2b…",
     "expiresAt": "2026-03-21T23:45:00.000Z",
     "channel": "sms",
+    "required": true,
     "devCode": "123456"
   }
 }

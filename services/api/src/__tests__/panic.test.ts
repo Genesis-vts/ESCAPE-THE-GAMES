@@ -160,6 +160,39 @@ describe('POST /api/v1/panic', () => {
     expect(smsDePanico(h)).toHaveLength(1);
   });
 
+  it('trata Idempotency-Key fora da janela de 60 s como novo acionamento', async () => {
+    await criarContatoVerificado(h);
+    const chave = 'idem-antiga';
+
+    const primeira = await request(h.app)
+      .post('/api/v1/panic')
+      .set('Authorization', `Bearer ${h.token}`)
+      .set('Idempotency-Key', chave)
+      .send({ triggerType: 'tap' })
+      .expect(200);
+
+    // Envelhece o evento além da janela, simulando reuso da chave dias depois.
+    const antigo = await h.deps.panic.findEventById(primeira.body.eventId);
+    await h.deps.panic.updateEvent({
+      ...antigo!,
+      createdAt: new Date(Date.now() - 10 * 60_000).toISOString(),
+    });
+
+    const segunda = await request(h.app)
+      .post('/api/v1/panic')
+      .set('Authorization', `Bearer ${h.token}`)
+      .set('Idempotency-Key', chave)
+      .send({ triggerType: 'tap' })
+      .expect(200);
+
+    await h.drain();
+
+    // Precisa ser um acionamento NOVO: devolver o antigo diria "seu apoio foi
+    // avisado" sem que ninguém tivesse sido avisado agora.
+    expect(segunda.body.eventId).not.toBe(primeira.body.eventId);
+    expect(smsDePanico(h)).toHaveLength(2);
+  });
+
   it('aplica limite de 5 acionamentos por hora com Retry-After', async () => {
     for (let i = 0; i < 5; i += 1) {
       await request(h.app)
@@ -211,6 +244,29 @@ describe('POST /api/v1/panic', () => {
       .expect(404);
 
     expect(res.body.error.code).toBe('NOT_FOUND');
+  });
+
+  it('não inclui contato de WhatsApp entre os notificados, e sim como envio manual', async () => {
+    await request(h.app)
+      .post('/api/v1/contacts')
+      .set('Authorization', `Bearer ${h.token}`)
+      .send({ displayName: 'Pedro', channel: 'whatsapp_deeplink', destination: '+5511911112222' })
+      .expect(201);
+
+    const res = await request(h.app)
+      .post('/api/v1/panic')
+      .set('Authorization', `Bearer ${h.token}`)
+      .send({ triggerType: 'tap', message: 'preciso conversar' })
+      .expect(200);
+
+    await h.drain();
+
+    // Ninguém foi notificado pelo servidor: o app não pode dizer "avisado".
+    expect(res.body.recipients).toHaveLength(0);
+    expect(res.body.warnings).toContain('NO_VERIFIED_CONTACTS');
+    expect(res.body.manualContacts).toHaveLength(1);
+    expect(res.body.manualContacts[0].deepLink).toContain('https://wa.me/5511911112222');
+    expect(h.sms.sent).toHaveLength(0);
   });
 
   it('registra o acionamento no log de auditoria com a cadeia íntegra', async () => {

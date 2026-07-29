@@ -17,6 +17,8 @@ export interface ContactRepository {
   create(contact: Contact): Promise<Contact>;
   findById(id: string): Promise<Contact | null>;
   listByUser(userId: string): Promise<Contact[]>;
+  /** Todos os contatos com este destino, de QUALQUER usuário — usado no opt-out. */
+  findAllByDestinationHash(destinationHash: string): Promise<Contact[]>;
   listVerifiedByUser(userId: string): Promise<Contact[]>;
   countByUser(userId: string): Promise<number>;
   update(contact: Contact): Promise<Contact>;
@@ -27,7 +29,12 @@ export interface ContactRepository {
 export interface PanicRepository {
   createEvent(event: PanicEvent): Promise<PanicEvent>;
   findEventById(id: string): Promise<PanicEvent | null>;
-  findEventByIdempotencyKey(userId: string, key: string): Promise<PanicEvent | null>;
+  /** `withinMs` limita a janela de idempotência; fora dela, o acionamento é novo. */
+  findEventByIdempotencyKey(
+    userId: string,
+    key: string,
+    withinMs: number,
+  ): Promise<PanicEvent | null>;
   updateEvent(event: PanicEvent): Promise<PanicEvent>;
   listEventsByUser(userId: string): Promise<PanicEvent[]>;
   createNotification(notification: PanicNotification): Promise<PanicNotification>;
@@ -69,6 +76,12 @@ export class InMemoryContactRepository implements ContactRepository {
       .sort((a, b) => a.priority - b.priority);
   }
 
+  async findAllByDestinationHash(destinationHash: string): Promise<Contact[]> {
+    return [...this.contacts.values()].filter(
+      (c) => c.destinationHash === destinationHash && c.status !== 'revoked',
+    );
+  }
+
   async listVerifiedByUser(userId: string): Promise<Contact[]> {
     return (await this.listByUser(userId)).filter((c) => c.status === 'verified');
   }
@@ -104,9 +117,19 @@ export class InMemoryPanicRepository implements PanicRepository {
     return this.events.get(id) ?? null;
   }
 
-  async findEventByIdempotencyKey(userId: string, key: string): Promise<PanicEvent | null> {
+  async findEventByIdempotencyKey(
+    userId: string,
+    key: string,
+    withinMs: number,
+  ): Promise<PanicEvent | null> {
+    const limite = Date.now() - withinMs;
     return (
-      [...this.events.values()].find((e) => e.userId === userId && e.idempotencyKey === key) ?? null
+      [...this.events.values()].find(
+        (e) =>
+          e.userId === userId &&
+          e.idempotencyKey === key &&
+          new Date(e.createdAt).getTime() >= limite,
+      ) ?? null
     );
   }
 

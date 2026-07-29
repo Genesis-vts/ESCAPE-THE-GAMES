@@ -94,6 +94,29 @@ describe('POST /api/v1/contacts', () => {
     // Nenhum SMS/e-mail parte do servidor nesse canal (ADR-006).
     expect(h.sms.sent).toHaveLength(0);
     expect(h.email.sent).toHaveLength(0);
+
+    // O canal não passa por verificação: emitir um código que voltasse ao próprio
+    // usuário permitiria a ele "consentir" no lugar do contato.
+    expect(res.body.contact.status).toBe('manual_only');
+    expect(res.body.verification.required).toBe(false);
+    expect(res.body.verification.devCode).toBeUndefined();
+    expect(res.body.verification.verificationToken).toBeUndefined();
+  });
+
+  it('recusa verificar um contato de canal manual', async () => {
+    const criado = await request(h.app)
+      .post('/api/v1/contacts')
+      .set(auth())
+      .send({ displayName: 'Pedro', channel: 'whatsapp_deeplink', destination: '+5511911112222' })
+      .expect(201);
+
+    const res = await request(h.app)
+      .post(`/api/v1/contacts/${criado.body.contact.id}/verify`)
+      .set(auth())
+      .send({ verificationToken: 'x'.repeat(20), code: '123456' })
+      .expect(409);
+
+    expect(res.body.error.code).toBe('CONFLICT');
   });
 });
 

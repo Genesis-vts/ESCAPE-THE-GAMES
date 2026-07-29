@@ -10,6 +10,7 @@ import {
 } from '../../notifications/templates';
 import { logger } from '../../utils/logger';
 import {
+  buildOptOutToken,
   maskDestination,
   newId,
   normalizePhone,
@@ -17,6 +18,7 @@ import {
   randomToken,
   safeEqual,
   sha256,
+  verifyOptOutToken,
 } from '../../utils/crypto';
 import type { CreateContactInput, VerifyContactInput } from './contacts.schema';
 
@@ -37,17 +39,22 @@ export interface ContactPublicView {
   whatsappDeepLink?: string;
 }
 
+export interface VerificationInfo {
+  channel: ContactChannel;
+  /** `false` em canais `manual_only`, que nunca recebem acionamento automático. */
+  required: boolean;
+  verificationToken?: string;
+  expiresAt?: string;
+  /** Presente apenas fora de produção, para facilitar o desenvolvimento. */
+  devCode?: string;
+  /** Canal de entrega manual: link que o próprio usuário abre e envia. */
+  manualDeliveryUrl?: string;
+  note?: string;
+}
+
 export interface CreateContactResult {
   contact: ContactPublicView;
-  verification: {
-    verificationToken: string;
-    expiresAt: string;
-    channel: ContactChannel;
-    /** Presente apenas fora de produção, para facilitar o desenvolvimento. */
-    devCode?: string;
-    /** Instrução quando o canal não permite envio automático pelo servidor. */
-    manualDeliveryUrl?: string;
-  };
+  verification: VerificationInfo;
 }
 
 /**
@@ -89,6 +96,12 @@ export class ContactsService {
       throw new AppError('CONFLICT', 'Este contato já está cadastrado neste canal.');
     }
 
+    // Canal sem envio pelo servidor não passa por verificação: emitir um código
+    // que voltasse para o PRÓPRIO usuário permitiria a ele "consentir" no lugar
+    // do contato, esvaziando o double opt-in. Ele fica em `manual_only`, fora do
+    // fan-out. Ver ARCHITECTURE.md ADR-006 e PANIC_BUTTON_DESIGN.md §3.2.
+    const manual = input.channel === 'whatsapp_deeplink';
+
     const code = randomNumericCode(6);
     const verificationToken = randomToken();
     const expiresAt = new Date(
@@ -103,12 +116,12 @@ export class ContactsService {
       channel: input.channel,
       destination,
       destinationHash,
-      status: 'pending',
+      status: manual ? 'manual_only' : 'pending',
       priority: input.priority ?? 5,
       // Código e token só existem em hash — ver SECURITY_AND_COMPLIANCE.md §5.1.
-      verificationCodeHash: sha256(code, saltDoContato(destination)),
-      verificationTokenHash: sha256(verificationToken, 'contact-token'),
-      verificationExpiresAt: expiresAt,
+      verificationCodeHash: manual ? null : sha256(code, saltDoContato(destination)),
+      verificationTokenHash: manual ? null : sha256(verificationToken, 'contact-token'),
+      verificationExpiresAt: manual ? null : expiresAt,
       verificationAttempts: 0,
       consentAt: null,
       consentVersion: null,
@@ -124,19 +137,36 @@ export class ContactsService {
       action: 'CONTACT_CREATED',
       entityType: 'contact',
       entityId: contact.id,
-      metadata: { channel: contact.channel, priority: contact.priority },
+      metadata: { channel: contact.channel, priority: contact.priority, manual },
     });
 
-    const manualDeliveryUrl = await this.enviarConvite(contact, user.displayName, code);
+    if (manual) {
+      return {
+        contact: toPublicView(contact),
+        verification: {
+          channel: contact.channel,
+          required: false,
+          note:
+            'Este canal não recebe acionamentos automáticos: o envio é feito por você, ' +
+            'manualmente, pelo link do WhatsApp.',
+          manualDeliveryUrl: buildWhatsappDeepLink(
+            contact.destination,
+            `${user.displayName} está usando o ESCAPE-THE-GAMES e quer você por perto.`,
+          ),
+        },
+      };
+    }
+
+    await this.enviarConvite(contact, user.displayName, code);
 
     return {
       contact: toPublicView(contact),
       verification: {
+        required: true,
         verificationToken,
         expiresAt,
         channel: contact.channel,
         ...(env.isProduction ? {} : { devCode: code }),
-        ...(manualDeliveryUrl ? { manualDeliveryUrl } : {}),
       },
     };
   }
@@ -154,6 +184,12 @@ export class ContactsService {
     const contact = await this.carregarDoUsuario(userId, contactId);
 
     if (contact.status === 'verified') return toPublicView(contact);
+    if (contact.status === 'manual_only') {
+      throw new AppError(
+        'CONFLICT',
+        'Este canal não passa por verificação e nunca recebe acionamentos automáticos.',
+      );
+    }
     if (contact.status === 'revoked') {
       throw new AppError('CONFLICT', 'Este contato foi removido e não pode ser verificado.');
     }
@@ -254,15 +290,86 @@ export class ContactsService {
       metadata: { channel: contact.channel },
     });
 
-    const manualDeliveryUrl = await this.enviarConvite(atualizado, user.displayName, code);
+    await this.enviarConvite(atualizado, user.displayName, code);
 
     return {
+      required: true,
       verificationToken,
       expiresAt,
       channel: contact.channel,
       ...(env.isProduction ? {} : { devCode: code }),
-      ...(manualDeliveryUrl ? { manualDeliveryUrl } : {}),
     };
+  }
+
+  /**
+   * Opt-out pelo LINK enviado ao contato (e-mail).
+   *
+   * Rota pública, sem login: exigir autenticação de quem quer parar de receber
+   * mensagens que nunca pediu seria abusivo. A autorização vem do token HMAC,
+   * que só existe nas mensagens que enviamos àquele contato.
+   */
+  async optOutByToken(contactId: string, token: string): Promise<{ status: 'revoked' }> {
+    const contact = await this.deps.contacts.findById(contactId);
+    // Resposta idêntica para token inválido e contato inexistente: não confirmamos
+    // a existência de um cadastro a quem não prova posse do link.
+    if (!contact || !verifyOptOutToken(contactId, token, env.JWT_SECRET)) {
+      throw AppError.notFound('Link de descadastro inválido ou expirado.');
+    }
+
+    await this.aplicarOptOut(contact.destinationHash, 'email_link');
+    return { status: 'revoked' };
+  }
+
+  /**
+   * Opt-out por RESPOSTA de SMS ("SAIR"), vindo do webhook do provedor.
+   *
+   * Bloqueia o destino para TODOS os usuários — quem pediu para não ser mais
+   * contatado não deve precisar repetir o pedido a cada novo cadastro.
+   */
+  async optOutByDestination(
+    destinationBruto: string,
+    origin: 'sms_reply' | 'email_link',
+  ): Promise<{ revoked: number }> {
+    const e164 = normalizePhone(destinationBruto);
+    if (!e164) throw AppError.validation('Remetente inválido.');
+
+    const destinationHash = sha256(e164, 'contact-destination');
+    return this.aplicarOptOut(destinationHash, origin);
+  }
+
+  /** Revoga todos os contatos com aquele destino e bloqueia novos cadastros. */
+  private async aplicarOptOut(
+    destinationHash: string,
+    origin: 'sms_reply' | 'email_link',
+  ): Promise<{ revoked: number }> {
+    const contatos = await this.deps.contacts.findAllByDestinationHash(destinationHash);
+
+    for (const contato of contatos) {
+      await this.deps.contacts.update({
+        ...contato,
+        status: 'revoked',
+        revokedAt: new Date().toISOString(),
+      });
+      this.deps.audit.append({
+        actorId: contato.id,
+        actorType: 'contact',
+        action: 'CONTACT_REVOKED',
+        entityType: 'contact',
+        entityId: contato.id,
+        metadata: { origin, channel: contato.channel },
+      });
+    }
+
+    // O bloqueio é permanente e independe de existir cadastro agora: alguém pode
+    // pedir para sair antes mesmo de ser cadastrado de novo por outra pessoa.
+    await this.deps.contacts.block(destinationHash);
+
+    return { revoked: contatos.length };
+  }
+
+  /** URL de descadastro incluída em toda mensagem enviada ao contato. */
+  static buildOptOutUrl(contactId: string, secret: string, webBaseUrl: string): string {
+    return `${webBaseUrl}/opt-out?c=${contactId}&t=${buildOptOutToken(contactId, secret)}`;
   }
 
   /**
@@ -322,7 +429,7 @@ export class ContactsService {
       contactDisplayName: contact.displayName,
       code,
       ttlMinutes: env.CONTACT_VERIFICATION_TTL_MINUTES,
-      optOutUrl: `${env.WEB_BASE_URL}/opt-out?c=${contact.id}`,
+      optOutUrl: ContactsService.buildOptOutUrl(contact.id, env.JWT_SECRET, env.WEB_BASE_URL),
     };
 
     try {
@@ -352,9 +459,9 @@ export class ContactsService {
           });
           return undefined;
         case 'whatsapp_deeplink':
-          // Sem WhatsApp Business API, o servidor não envia nada: devolvemos o
-          // deep link para o usuário enviar manualmente. TODO [LEGAL]
-          return buildWhatsappDeepLink(contact.destination, renderVerificationSms(input));
+          // Inalcançável: canais manuais não chegam a `enviarConvite`. Mantido
+          // para o switch permanecer exaustivo se um novo canal for adicionado.
+          return undefined;
       }
     } catch (erro) {
       logger.warn('convite_contato_falhou', {

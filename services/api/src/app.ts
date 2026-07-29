@@ -8,6 +8,7 @@ import { requestContext } from './middleware/requestContext';
 import { createRateLimiter } from './middleware/rateLimit';
 import { createContactsRouter } from './modules/contacts/contacts.routes';
 import { createHealthRouter } from './modules/health/health.routes';
+import { createOptOutRouter } from './modules/optout/optout.routes';
 import { createPanicRouter } from './modules/panic/panic.routes';
 
 /**
@@ -34,6 +35,8 @@ export function createApp(deps: Container = createContainer()): Express {
   );
   // Limite de payload: o maior corpo legítimo é um /panic com mensagem de 280 caracteres.
   app.use(express.json({ limit: '100kb' }));
+  // Webhooks de provedor chegam como form-urlencoded (padrão da Twilio).
+  app.use(express.urlencoded({ extended: false, limit: '100kb' }));
   app.use(requestContext());
 
   // Limite global por IP, antes da autenticação (defesa contra força bruta).
@@ -46,6 +49,8 @@ export function createApp(deps: Container = createContainer()): Express {
   app.use(limiteGlobal.middleware);
 
   app.use(createHealthRouter(deps));
+  // Rotas públicas (sem JWT): descadastro do contato e webhook de SMS entrante.
+  app.use('/api/v1', createOptOutRouter(deps));
   app.use('/api/v1', createPanicRouter(deps));
   app.use('/api/v1', createContactsRouter(deps));
 

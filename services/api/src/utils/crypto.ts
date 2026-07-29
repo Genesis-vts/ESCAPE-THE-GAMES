@@ -1,4 +1,11 @@
-import { createHash, randomBytes, randomInt, randomUUID, timingSafeEqual } from 'node:crypto';
+import {
+  createHash,
+  createHmac,
+  randomBytes,
+  randomInt,
+  randomUUID,
+  timingSafeEqual,
+} from 'node:crypto';
 
 /** Identificador opaco para eventos, contatos e notificações. */
 export function newId(prefix?: string): string {
@@ -59,4 +66,46 @@ export function maskDestination(channel: string, destination: string): string {
   const digits = destination.replace(/\D/g, '');
   const finais = digits.slice(-4);
   return `${destination.startsWith('+') ? '+' : ''}${digits.slice(0, 4)}*****${finais}`;
+}
+
+/**
+ * Token de opt-out derivado por HMAC — determinístico e sem armazenamento.
+ *
+ * Precisa ser reproduzível porque o link "não quero mais receber" acompanha TODA
+ * mensagem enviada ao contato, não apenas a primeira. Como é derivado do segredo
+ * do servidor, não é adivinhável, e sem ele o `contactId` sozinho não permite
+ * revogar nada (impede enumeração de ids vazados por e-mail).
+ */
+export function buildOptOutToken(contactId: string, secret: string): string {
+  return createHmac('sha256', secret)
+    .update(`optout:${contactId}`)
+    .digest('base64url')
+    .slice(0, 32);
+}
+
+export function verifyOptOutToken(contactId: string, token: string, secret: string): boolean {
+  return safeEqual(buildOptOutToken(contactId, secret), token);
+}
+
+/**
+ * Validação da assinatura de webhook da Twilio (X-Twilio-Signature).
+ *
+ * Algoritmo da Twilio: HMAC-SHA1 sobre a URL completa concatenada com cada par
+ * chave+valor do corpo, ordenado por chave, usando o auth token como segredo.
+ * Sem isso, qualquer pessoa poderia forjar um "SAIR" e derrubar a rede de apoio
+ * de um usuário — por isso a validação é obrigatória em produção.
+ */
+export function validateTwilioSignature(
+  url: string,
+  params: Record<string, string>,
+  signature: string,
+  authToken: string,
+): boolean {
+  const payload = Object.keys(params)
+    .sort()
+    .reduce((acc, chave) => acc + chave + (params[chave] ?? ''), url);
+  const esperado = createHmac('sha1', authToken)
+    .update(Buffer.from(payload, 'utf8'))
+    .digest('base64');
+  return safeEqual(esperado, signature);
 }

@@ -1,7 +1,12 @@
 /** Tipos de domínio compartilhados entre módulos. */
 
 export type ContactChannel = 'sms' | 'email' | 'push' | 'whatsapp_deeplink';
-export type ContactStatus = 'pending' | 'verified' | 'revoked';
+/**
+ * `manual_only`: canal em que o SERVIDOR não envia nada (hoje, whatsapp_deeplink).
+ * Nunca entra no fan-out do botão de pânico e nunca é "verificado" — o envio é
+ * ação manual do próprio usuário. Ver ARCHITECTURE.md ADR-006.
+ */
+export type ContactStatus = 'pending' | 'verified' | 'revoked' | 'manual_only';
 export type TriggerType = 'tap' | 'hold';
 export type PanicEventStatus = 'queued' | 'dispatching' | 'partial' | 'delivered' | 'failed';
 export type NotificationStatus = 'queued' | 'sent' | 'delivered' | 'failed' | 'skipped';

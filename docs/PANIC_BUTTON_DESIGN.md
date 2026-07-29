@@ -81,8 +81,11 @@ O evento é registrado mesmo assim — é dado clínico relevante.
 
 ### 3.3 Opt-out
 
-- SMS: responder **SAIR**.
-- E-mail: link "Não quero mais receber" (one-click, sem login).
+- SMS: responder **SAIR** (ou PARAR/STOP/CANCELAR). Tratado pelo webhook
+  `POST /api/v1/webhooks/sms/inbound`, com assinatura do provedor validada.
+- E-mail: link "Não quero mais receber" (one-click, sem login) —
+  `GET /api/v1/opt-out?c=<contactId>&t=<token>`. O token é um HMAC derivado do
+  segredo do servidor: sem ele, o `contactId` que trafega no e-mail não revoga nada.
 - Efeito: `revoked` imediato e **bloqueio permanente** daquele destino, mesmo em novo cadastro
   por outro usuário. O usuário é avisado de que o contato saiu, sem detalhes do motivo.
 - Registro em auditoria: `CONTACT_REVOKED` com origem (`sms_reply` | `email_link` | `user`).
@@ -201,6 +204,13 @@ Identificador do evento: {{eventId}}
 - **Corpo:** `Avisamos {{count}} pessoa(s). Respire com a gente enquanto isso.`
 
 ### 5.6 WhatsApp — apenas deep link (sem envio automático)
+
+> **Consequência de consentimento.** Como o servidor não envia nada por este canal,
+> ele **não passa por verificação** e **não entra no fan-out**: fica com status
+> `manual_only`. Emitir um código que voltasse para o próprio usuário permitiria
+> que ele "consentisse" no lugar do contato, esvaziando o double opt-in. Na
+> resposta do `/panic`, esses contatos aparecem em `manualContacts` — separados de
+> `recipients` — justamente para o app nunca dizer "avisado" quando ninguém foi.
 
 A API devolve, para contatos do tipo `whatsapp_deeplink`, uma URL pronta:
 
