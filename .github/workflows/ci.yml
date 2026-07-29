@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
+
+# Cancela execuções antigas do mesmo branch — economiza minutos de runner.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  api:
+    name: services/api — lint, typecheck, testes e build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint --workspace services/api
+
+      - name: Typecheck
+        run: npm run typecheck --workspace services/api
+
+      - name: Testes com cobertura
+        run: npm run test:coverage --workspace services/api
+        env:
+          # Segredo fictício, exclusivo do runner. Nenhuma credencial real no CI:
+          # sem TWILIO_*/SENDGRID_*, a API usa os adaptadores de console.
+          JWT_SECRET: ci-secret-com-mais-de-32-caracteres-para-o-runner
+          NODE_ENV: test
+
+      - name: Build
+        run: npm run build --workspace services/api
+
+      - name: Publicar relatório de cobertura
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-api
+          path: services/api/coverage/
+          retention-days: 7
+
+  formatacao:
+    name: Formatação (Prettier)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+
+  seguranca:
+    name: Segurança — dependências e varredura de segredos
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # Falha em vulnerabilidade alta ou crítica (SLA em SECURITY_AND_COMPLIANCE.md §6).
+      - name: npm audit
+        run: npm audit --audit-level=high
+
+      # Nenhum segredo pode entrar no repositório — só .env.example é versionado.
+      - name: Varredura de segredos (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  docker:
+    name: Build da imagem da API
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (sem push)
+        run: docker build -f services/api/Dockerfile -t escape-api:ci .
