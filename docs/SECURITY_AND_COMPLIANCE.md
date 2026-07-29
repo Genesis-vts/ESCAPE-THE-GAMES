@@ -201,6 +201,28 @@ exceção nova de desenvolvimento entra sem registro nesta seção com data e ju
 | ----------------------- | ------ | -------------------------------- | --------------------------------------------------- | -------------------- |
 | `brace-expansion` (DoS) | dev    | `minimatch` via `jest`/`ts-jest` | aguardar release que aceite `brace-expansion@5.0.8` | a cada release maior |
 
+### 6.2 Varredura de segredos
+
+Roda a cada push, com o **binário oficial do gitleaks** em versão fixada
+(a `gitleaks-action` exige licença paga para repositórios de organização; o gitleaks
+em si é livre). A varredura cobre **todo o histórico**, não apenas o diff: um segredo
+commitado e depois removido continua comprometido e exige rotação.
+
+- `--redact` é obrigatório: nenhum valor encontrado pode ser impresso no log do CI.
+- Configuração em `.gitleaks.toml`, com o conjunto de regras padrão estendido.
+
+**Registro de exceções (allowlist).** Toda entrada é pontual — por fingerprint de commit
+ou caminho exato — e precisa constar aqui:
+
+| Exceção                                                          | Motivo                                                                                                                           | Rotação necessária          |
+| ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| Achados históricos em `README.md` e `services/api/jest.setup.js` | Valores fictícios: token de exemplo de servidor local efêmero (TTL 15 min) e segredo JWT de teste. Já removidos do código atual. | Não — não dão acesso a nada |
+| `.env.example`                                                   | Arquivo de referência: contém **nomes** de variáveis, nunca valores                                                              | Não                         |
+
+**Proibido:** allowlist por caminho amplo (`src/`, `services/`) ou desativação de regra
+inteira. Se um segredo **real** for encontrado, o procedimento é o da §7: rotacionar a
+credencial primeiro, remover do histórico depois.
+
 ---
 
 ## 7. Resposta a incidentes

@@ -57,7 +57,7 @@ curl -s -X POST "http://localhost:3000/api/v1/contacts" \
     "priority": 1
   },
   "verification": {
-    "verificationToken": "bv7uYCHnu06Twr78aGf2Vi6rPgfjP-8e",
+    "verificationToken": "<token-opaco-de-verificacao>",
     "expiresAt": "2026-07-29T18:31:34.279Z",
     "channel": "sms",
     "devCode": "117391"

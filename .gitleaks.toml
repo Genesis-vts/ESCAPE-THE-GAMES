@@ -1,0 +1,35 @@
+# Configuração da varredura de segredos (gitleaks).
+#
+# Regra do projeto: nenhum segredo real entra no repositório — apenas `.env.example`
+# com placeholders. A varredura roda no CI a cada push e cobre TODO o histórico,
+# porque um segredo commitado e depois removido continua comprometido.
+
+[extend]
+# Herda o conjunto completo de regras padrão do gitleaks.
+useDefault = true
+
+[allowlist]
+description = "Exceções auditadas — cada entrada exige justificativa e revisão"
+
+# Fingerprints de achados HISTÓRICOS já corrigidos no código atual.
+# Ambos são valores fictícios, nunca usados fora do ciclo local de desenvolvimento.
+# Foram removidos dos arquivos (README passou a usar placeholder; o segredo de teste
+# passou a ser montado em tempo de execução), mas permanecem nos commits originais.
+#
+#   1. README.md — token de verificação de exemplo, gerado por um servidor local
+#      efêmero, com validade de 15 minutos e descartado ao encerrar o processo.
+#   2. jest.setup.js — segredo JWT do ambiente de teste, sem qualquer valor real.
+#
+# Não há rotação a fazer: nenhum dos dois dá acesso a nada.
+commits = [
+  "1f8285fd50762c0539f532efac48111e483096b5",
+  "f162a7a8fcc7f480758d15fa6b588965faf181c5",
+]
+
+# Arquivos que descrevem variáveis de ambiente por definição contêm nomes de
+# credenciais — mas nunca valores. O `.env` real é ignorado pelo git.
+paths = ['''^\.env\.example$''']
+
+# NÃO adicione caminhos amplos (ex.: `src/`) nem regras inteiras a esta allowlist.
+# Toda exceção nova precisa ser pontual, comentada e registrada em
+# docs/SECURITY_AND_COMPLIANCE.md §6.1.
