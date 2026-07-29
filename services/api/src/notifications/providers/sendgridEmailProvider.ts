@@ -27,7 +27,6 @@ export class SendgridEmailProvider implements EmailProvider {
   private async getClient(): Promise<SendgridLikeClient> {
     let sdk: SendgridLikeClient;
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
       sdk = require('@sendgrid/mail');
     } catch {
       throw new ProviderSendError(

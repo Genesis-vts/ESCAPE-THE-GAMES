@@ -2,7 +2,6 @@ import type { Logger } from '../utils/logger';
 
 /** Campos injetados pelos middlewares `requestContext` e `auth`. */
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
     interface Request {
       requestId: string;

@@ -29,7 +29,6 @@ export class TwilioSmsProvider implements SmsProvider {
     let factory: (sid: string, token: string) => TwilioLikeClient;
     try {
       // Import dinâmico: o SDK só é exigido quando há credenciais configuradas.
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
       factory = require('twilio');
     } catch {
       throw new ProviderSendError(

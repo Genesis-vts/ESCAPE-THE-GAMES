@@ -28,7 +28,6 @@ export class FcmPushProvider implements PushProvider {
   private async getMessaging(): Promise<FirebaseLikeMessaging> {
     let admin: FirebaseLikeAdmin;
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
       admin = require('firebase-admin');
     } catch {
       throw new ProviderSendError(

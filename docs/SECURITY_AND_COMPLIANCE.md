@@ -175,6 +175,32 @@ Cada registro guarda: `occurredAt`, `actorId` (pseudonimizado), `action`, `entit
 | Vulnerabilidades       | SLA: crítica 24 h, alta 7 dias, média 30 dias                                                 |
 | Divulgação responsável | `SECURITY.md` com canal `security@` e política de safe harbor                                 |
 
+### 6.1 Política de `npm audit` no CI
+
+O gate de dependências é dividido por superfície de risco:
+
+| Escopo                      | Comando                                   | Comportamento                                                                                                              |
+| --------------------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Produção** (`--omit=dev`) | `npm audit --omit=dev --audit-level=high` | **Bloqueia o merge.** É o código que roda em runtime e é alcançável por um atacante. Estado atual: **0 vulnerabilidades**. |
+| **Desenvolvimento**         | `npm audit --audit-level=high`            | Informativo (`continue-on-error`). Falha visível no log, revisada a cada release.                                          |
+
+**Por que o escopo de desenvolvimento não bloqueia:** há advisories transitivas sem correção
+disponível fora de major. Caso atual: `brace-expansion <= 5.0.7` (DoS por expansão ilimitada),
+puxado por `minimatch` dentro de `jest`/`ts-jest`. A única versão corrigida é a `5.0.8`, fora
+da faixa aceita por qualquer consumidor instalado (`minimatch` 3.x/9.x/10.x) — forçar por
+`overrides` quebraria a API. O risco concreto é negar serviço ao próprio runner de CI, não ao
+produto.
+
+Mitigações já aplicadas: ESLint migrado para a v10 (flat config), `typescript-eslint` v8 e
+Jest v30, o que eliminou parte das cadeias vulneráveis.
+
+**Regra:** um advisory que atinja `dependencies` (produção) é sempre bloqueante. Nenhuma
+exceção nova de desenvolvimento entra sem registro nesta seção com data e justificativa.
+
+| Advisory                | Escopo | Origem                           | Correção                                            | Revisar em           |
+| ----------------------- | ------ | -------------------------------- | --------------------------------------------------- | -------------------- |
+| `brace-expansion` (DoS) | dev    | `minimatch` via `jest`/`ts-jest` | aguardar release que aceite `brace-expansion@5.0.8` | a cada release maior |
+
 ---
 
 ## 7. Resposta a incidentes
