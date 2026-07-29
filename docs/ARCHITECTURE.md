@@ -23,14 +23,14 @@ em torno de sua confiabilidade.
 
 ### 1.1 Princípios arquiteturais
 
-| # | Princípio | Consequência prática |
-|---|-----------|----------------------|
-| P1 | **O acionamento nunca pode falhar silenciosamente** | Persistência do evento antes do envio; fila com retry e DLQ; status por destinatário. |
-| P2 | **Consentimento é dado de primeira classe** | Contato só recebe notificação após verificação por código (double opt-in) e mantém opt-out permanente. |
-| P3 | **Minimização de dados** | Geolocalização é opcional e por evento; conteúdo clínico não trafega para provedores de notificação. |
-| P4 | **Auditabilidade WORM** | Log de auditoria append-only, sem UPDATE/DELETE, com hash encadeado. |
-| P5 | **Sem promessa de emergência** | O produto **não** substitui serviços de emergência; todo canal exibe disclaimer. `TODO [LEGAL]` |
-| P6 | **Provider-agnóstico** | Twilio/SendGrid/FCM atrás de interfaces (`SmsProvider`, `EmailProvider`, `PushProvider`). |
+| #   | Princípio                                           | Consequência prática                                                                                   |
+| --- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| P1  | **O acionamento nunca pode falhar silenciosamente** | Persistência do evento antes do envio; fila com retry e DLQ; status por destinatário.                  |
+| P2  | **Consentimento é dado de primeira classe**         | Contato só recebe notificação após verificação por código (double opt-in) e mantém opt-out permanente. |
+| P3  | **Minimização de dados**                            | Geolocalização é opcional e por evento; conteúdo clínico não trafega para provedores de notificação.   |
+| P4  | **Auditabilidade WORM**                             | Log de auditoria append-only, sem UPDATE/DELETE, com hash encadeado.                                   |
+| P5  | **Sem promessa de emergência**                      | O produto **não** substitui serviços de emergência; todo canal exibe disclaimer. `TODO [LEGAL]`        |
+| P6  | **Provider-agnóstico**                              | Twilio/SendGrid/FCM atrás de interfaces (`SmsProvider`, `EmailProvider`, `PushProvider`).              |
 
 ---
 
@@ -83,21 +83,21 @@ em torno de sua confiabilidade.
 
 ### 2.1 Descrição por componente
 
-| Componente | Tecnologia | Responsabilidade | Estado no MVP |
-|------------|-----------|------------------|---------------|
-| `apps/mobile` | React Native 0.74+, TypeScript | Onboarding, diário, metas, **botão de pânico**, push token | Scaffold + README |
-| `apps/web` | Next.js 14 (App Router) | Landing, painel clínico, aceite de convite de contato | Scaffold + README |
-| `services/api` | Node 20 + TypeScript + Express | Regras de negócio, autenticação, fan-out de notificações, auditoria | **Funcional (mock providers)** |
-| Banco | PostgreSQL 16 | Dados relacionais + tabela WORM de auditoria | docker-compose |
-| Cache/Fila | Redis 7 | Rate limit distribuído, fila de notificações (BullMQ na v1) | docker-compose; MVP usa fila in-process |
-| SMS | Twilio Programmable Messaging | Envio de SMS aos contatos | Adaptador com stub |
-| E-mail | SendGrid | Envio de e-mail transacional | Adaptador com stub |
-| Push | FCM (Android/iOS) + APNs | Push ao próprio usuário e a contatos com o app | Adaptador stub |
-| WhatsApp | **Somente deep link** `https://wa.me/...` | Fallback manual — sem envio automático no MVP | Deep link gerado pela API |
-| Observabilidade | Sentry + OpenTelemetry | Erros, traces, métricas de latência do `/panic` | DSN via ENV |
+| Componente      | Tecnologia                                | Responsabilidade                                                    | Estado no MVP                           |
+| --------------- | ----------------------------------------- | ------------------------------------------------------------------- | --------------------------------------- |
+| `apps/mobile`   | React Native 0.74+, TypeScript            | Onboarding, diário, metas, **botão de pânico**, push token          | Scaffold + README                       |
+| `apps/web`      | Next.js 14 (App Router)                   | Landing, painel clínico, aceite de convite de contato               | Scaffold + README                       |
+| `services/api`  | Node 20 + TypeScript + Express            | Regras de negócio, autenticação, fan-out de notificações, auditoria | **Funcional (mock providers)**          |
+| Banco           | PostgreSQL 16                             | Dados relacionais + tabela WORM de auditoria                        | docker-compose                          |
+| Cache/Fila      | Redis 7                                   | Rate limit distribuído, fila de notificações (BullMQ na v1)         | docker-compose; MVP usa fila in-process |
+| SMS             | Twilio Programmable Messaging             | Envio de SMS aos contatos                                           | Adaptador com stub                      |
+| E-mail          | SendGrid                                  | Envio de e-mail transacional                                        | Adaptador com stub                      |
+| Push            | FCM (Android/iOS) + APNs                  | Push ao próprio usuário e a contatos com o app                      | Adaptador stub                          |
+| WhatsApp        | **Somente deep link** `https://wa.me/...` | Fallback manual — sem envio automático no MVP                       | Deep link gerado pela API               |
+| Observabilidade | Sentry + OpenTelemetry                    | Erros, traces, métricas de latência do `/panic`                     | DSN via ENV                             |
 
 > **Restrição de produto:** o envio automático por WhatsApp exige WhatsApp Business API com
-> templates aprovados (HSM) e opt-in registrado. No MVP entregamos apenas *deep link*
+> templates aprovados (HSM) e opt-in registrado. No MVP entregamos apenas _deep link_
 > gerado no cliente/no painel, acionado manualmente pelo usuário. `TODO [LEGAL]`
 
 ---
@@ -132,6 +132,7 @@ Usuário                Mobile                 API                    Fila      
 ```
 
 **Garantias:**
+
 - A resposta HTTP **não** espera os provedores (p95 alvo < 400 ms). O envio é assíncrono.
 - O evento é persistido **antes** do enfileiramento (write-ahead): nenhum acionamento se perde.
 - Retentativas: 3 tentativas com backoff exponencial (2s, 8s, 30s) por destinatário; após isso
@@ -243,12 +244,12 @@ falsos (ver `src/__tests__`).
 
 ### 6.1 Ambientes
 
-| Ambiente | Uso | Dados |
-|----------|-----|-------|
-| `local` | docker-compose (API + Postgres + Redis + Mailpit) | sintéticos |
-| `dev` | integração contínua, deploy a cada merge | sintéticos |
-| `staging` | homologação clínica e testes de carga | sintéticos/anonimizados |
-| `prod` | produção | reais — acesso mínimo e auditado |
+| Ambiente  | Uso                                               | Dados                            |
+| --------- | ------------------------------------------------- | -------------------------------- |
+| `local`   | docker-compose (API + Postgres + Redis + Mailpit) | sintéticos                       |
+| `dev`     | integração contínua, deploy a cada merge          | sintéticos                       |
+| `staging` | homologação clínica e testes de carga             | sintéticos/anonimizados          |
+| `prod`    | produção                                          | reais — acesso mínimo e auditado |
 
 > **Proibido** copiar dados de produção para ambientes inferiores. `TODO [LEGAL]`
 
@@ -265,26 +266,26 @@ falsos (ver `src/__tests__`).
 
 ### 6.3 Escalabilidade
 
-| Dimensão | Estratégia |
-|----------|-----------|
-| API stateless | escala horizontal; nenhuma sessão em memória |
-| Picos de acionamento | fila absorve rajadas; a API só grava e enfileira |
-| Rate limit | Redis (token bucket) compartilhado entre instâncias |
-| Banco | réplicas de leitura para o painel clínico; particionamento de `audit_log` por mês |
-| Provedores | limites de taxa por provedor + circuit breaker + fallback de canal |
+| Dimensão             | Estratégia                                                                        |
+| -------------------- | --------------------------------------------------------------------------------- |
+| API stateless        | escala horizontal; nenhuma sessão em memória                                      |
+| Picos de acionamento | fila absorve rajadas; a API só grava e enfileira                                  |
+| Rate limit           | Redis (token bucket) compartilhado entre instâncias                               |
+| Banco                | réplicas de leitura para o painel clínico; particionamento de `audit_log` por mês |
+| Provedores           | limites de taxa por provedor + circuit breaker + fallback de canal                |
 
 **Alvos de desempenho (MVP):** `POST /panic` p95 < 400 ms; primeira notificação despachada em
 < 5 s p95; disponibilidade mensal alvo 99,5%.
 
 ### 6.4 Backup e DR
 
-| Item | RPO | RTO | Método |
-|------|-----|-----|--------|
-| PostgreSQL | 5 min | 1 h | Backup automático + PITR (WAL); snapshot diário retido 35 dias |
-| `audit_log` | 5 min | 4 h | Export diário para bucket com Object Lock (WORM), retenção 5 anos `TODO [LEGAL]` |
-| Redis | 1 h | 15 min | Dados efêmeros; recriável — fila re-hidratada a partir de `panic_notifications` |
-| Segredos | — | 1 h | Versionamento no Secrets Manager |
-| IaC | — | 2 h | Terraform versionado; ambiente reconstruível do zero |
+| Item        | RPO   | RTO    | Método                                                                           |
+| ----------- | ----- | ------ | -------------------------------------------------------------------------------- |
+| PostgreSQL  | 5 min | 1 h    | Backup automático + PITR (WAL); snapshot diário retido 35 dias                   |
+| `audit_log` | 5 min | 4 h    | Export diário para bucket com Object Lock (WORM), retenção 5 anos `TODO [LEGAL]` |
+| Redis       | 1 h   | 15 min | Dados efêmeros; recriável — fila re-hidratada a partir de `panic_notifications`  |
+| Segredos    | —     | 1 h    | Versionamento no Secrets Manager                                                 |
+| IaC         | —     | 2 h    | Terraform versionado; ambiente reconstruível do zero                             |
 
 Teste de restauração: trimestral, com registro em ata. Simulação de falha de provedor
 (Twilio fora) exercitada em staging a cada release maior.
@@ -308,29 +309,29 @@ Teste de restauração: trimestral, com registro em ata. Simulação de falha de
 
 ## 8. Decisões arquiteturais (ADR resumido)
 
-| ID | Decisão | Alternativas | Justificativa |
-|----|---------|--------------|---------------|
-| ADR-001 | Monorepo único (npm workspaces) | polirepo | Time pequeno; contratos compartilhados; PRs atômicos |
-| ADR-002 | Express + TypeScript no MVP | NestJS, Fastify | Menor tempo até o primeiro endpoint; migração a NestJS prevista na v1 quando houver ≥3 módulos |
-| ADR-003 | Fila in-process no MVP, BullMQ/Redis na v1 | SQS desde o início | Evita infra externa para rodar local; interface `NotificationQueue` isola a troca |
-| ADR-004 | PostgreSQL como banco único | Mongo, DynamoDB | Relacionamentos fortes (usuário↔contatos↔eventos) e necessidade de auditoria transacional |
-| ADR-005 | Double opt-in obrigatório para contatos | opt-in simples | Base legal e antiabuso: impede uso do app para spam/assédio |
-| ADR-006 | WhatsApp apenas por deep link | Business API no MVP | Aprovação de template e opt-in demandam prazo; risco de bloqueio |
-| ADR-007 | Providers atrás de interface | SDK direto no controller | Testabilidade, troca de fornecedor, custo |
-| ADR-008 | Auditoria WORM com hash encadeado | log comum | Prova de integridade em investigação/incidente |
+| ID      | Decisão                                    | Alternativas             | Justificativa                                                                                  |
+| ------- | ------------------------------------------ | ------------------------ | ---------------------------------------------------------------------------------------------- |
+| ADR-001 | Monorepo único (npm workspaces)            | polirepo                 | Time pequeno; contratos compartilhados; PRs atômicos                                           |
+| ADR-002 | Express + TypeScript no MVP                | NestJS, Fastify          | Menor tempo até o primeiro endpoint; migração a NestJS prevista na v1 quando houver ≥3 módulos |
+| ADR-003 | Fila in-process no MVP, BullMQ/Redis na v1 | SQS desde o início       | Evita infra externa para rodar local; interface `NotificationQueue` isola a troca              |
+| ADR-004 | PostgreSQL como banco único                | Mongo, DynamoDB          | Relacionamentos fortes (usuário↔contatos↔eventos) e necessidade de auditoria transacional      |
+| ADR-005 | Double opt-in obrigatório para contatos    | opt-in simples           | Base legal e antiabuso: impede uso do app para spam/assédio                                    |
+| ADR-006 | WhatsApp apenas por deep link              | Business API no MVP      | Aprovação de template e opt-in demandam prazo; risco de bloqueio                               |
+| ADR-007 | Providers atrás de interface               | SDK direto no controller | Testabilidade, troca de fornecedor, custo                                                      |
+| ADR-008 | Auditoria WORM com hash encadeado          | log comum                | Prova de integridade em investigação/incidente                                                 |
 
 ---
 
 ## 9. Riscos técnicos abertos
 
-| Risco | Impacto | Mitigação |
-|-------|---------|-----------|
-| Entregabilidade de SMS no Brasil (filtro de operadora) | Alto | Remetente registrado, template estável, fallback e-mail/push, monitorar taxa de entrega |
-| Falso positivo do botão (acionamento acidental) | Médio | `hold` de 1,5 s como padrão; janela de cancelamento de 5 s antes do despacho |
-| Latência de push em Android com bateria otimizada | Médio | SMS/e-mail como canais primários; push é complementar |
-| Custo de SMS em escala | Médio | Priorizar push para contatos com app; limite diário por usuário |
-| Mensagem com risco de autoagressão | **Crítico** | Fluxo de triagem + disclaimer + orientação para CVV 188 / SAMU 192 `TODO [CLINICAL]` `TODO [LEGAL]` |
-| Vazamento de PII em logs | Alto | Scrubbing central, revisão de PR obrigatória, teste automatizado de redaction |
+| Risco                                                  | Impacto     | Mitigação                                                                                           |
+| ------------------------------------------------------ | ----------- | --------------------------------------------------------------------------------------------------- |
+| Entregabilidade de SMS no Brasil (filtro de operadora) | Alto        | Remetente registrado, template estável, fallback e-mail/push, monitorar taxa de entrega             |
+| Falso positivo do botão (acionamento acidental)        | Médio       | `hold` de 1,5 s como padrão; janela de cancelamento de 5 s antes do despacho                        |
+| Latência de push em Android com bateria otimizada      | Médio       | SMS/e-mail como canais primários; push é complementar                                               |
+| Custo de SMS em escala                                 | Médio       | Priorizar push para contatos com app; limite diário por usuário                                     |
+| Mensagem com risco de autoagressão                     | **Crítico** | Fluxo de triagem + disclaimer + orientação para CVV 188 / SAMU 192 `TODO [CLINICAL]` `TODO [LEGAL]` |
+| Vazamento de PII em logs                               | Alto        | Scrubbing central, revisão de PR obrigatória, teste automatizado de redaction                       |
 
 ---
 

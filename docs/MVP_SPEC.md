@@ -9,15 +9,15 @@
 
 ### 1.1 Dentro do MVP (Must)
 
-| # | Épico | Descrição |
-|---|-------|-----------|
-| E1 | Conta e onboarding | Cadastro, login, consentimento, perfil de jogo |
-| E2 | Triagem inicial | Questionário de autoavaliação e devolutiva |
-| E3 | Rede de apoio | Cadastro e **verificação** de contatos |
-| E4 | Botão de pânico | Acionamento, fan-out SMS/e-mail/push, acompanhamento |
-| E5 | Monitoramento básico | Registro diário de tempo, humor e gatilhos |
-| E6 | Painel clínico | Visão do profissional sobre paciente vinculado |
-| E7 | Privacidade e dados | Exportação, exclusão de conta, revogação de consentimento |
+| #   | Épico                | Descrição                                                 |
+| --- | -------------------- | --------------------------------------------------------- |
+| E1  | Conta e onboarding   | Cadastro, login, consentimento, perfil de jogo            |
+| E2  | Triagem inicial      | Questionário de autoavaliação e devolutiva                |
+| E3  | Rede de apoio        | Cadastro e **verificação** de contatos                    |
+| E4  | Botão de pânico      | Acionamento, fan-out SMS/e-mail/push, acompanhamento      |
+| E5  | Monitoramento básico | Registro diário de tempo, humor e gatilhos                |
+| E6  | Painel clínico       | Visão do profissional sobre paciente vinculado            |
+| E7  | Privacidade e dados  | Exportação, exclusão de conta, revogação de consentimento |
 
 ### 1.2 Fora do MVP (Won't — nesta janela)
 
@@ -48,6 +48,7 @@ Critérios em Gherkin (Dado/Quando/Então).
 ### E1 — Conta e onboarding
 
 #### US-01 — Criar conta (Must)
+
 **Como** pessoa que quer reduzir o tempo de jogo **quero** criar uma conta **para** salvar meu
 progresso com segurança.
 
@@ -59,10 +60,12 @@ Então minha conta é criada
 E recebo um e-mail de verificação
 E o consentimento é gravado com timestamp, versão do texto e IP
 ```
+
 - Senha: mínimo 10 caracteres, verificada contra lista de senhas vazadas (k-anonymity).
 - Consentimento **não** pode vir pré-marcado. `TODO [LEGAL]`
 
 #### US-02 — Login (Must)
+
 ```gherkin
 Dado que possuo conta verificada
 Quando faço login com credenciais corretas
@@ -71,6 +74,7 @@ E após 5 tentativas erradas em 15 minutos a conta é bloqueada por 15 minutos
 ```
 
 #### US-03 — Onboarding de contexto (Should)
+
 ```gherkin
 Dado que acabei de criar a conta
 Quando respondo jogos principais, horas/dia estimadas e objetivo
@@ -83,6 +87,7 @@ E a meta inicial de tempo é sugerida (redução de 20% sobre o relatado)
 ### E2 — Triagem inicial
 
 #### US-04 — Responder autoavaliação (Must)
+
 ```gherkin
 Dado que concluí o onboarding
 Quando respondo o questionário de triagem (9 itens)
@@ -90,16 +95,18 @@ Então recebo uma devolutiva em faixas: "sinais leves", "sinais moderados", "sin
 E vejo o aviso de que isso NÃO é diagnóstico
 E, na faixa intensa, vejo a recomendação de buscar profissional e os canais de apoio
 ```
+
 - Instrumento e pontos de corte definidos pela consultoria clínica antes do lançamento.
   `TODO [CLINICAL]`
-- Texto obrigatório: *"Esta autoavaliação não é diagnóstico e não substitui atendimento
-  profissional."* `TODO [LEGAL]`
+- Texto obrigatório: _"Esta autoavaliação não é diagnóstico e não substitui atendimento
+  profissional."_ `TODO [LEGAL]`
 
 ---
 
 ### E3 — Rede de apoio
 
 #### US-05 — Adicionar contato de apoio (Must)
+
 ```gherkin
 Dado que estou autenticado
 Quando cadastro nome, relação e canal (sms | email | push | whatsapp_deeplink) com destino válido
@@ -107,10 +114,12 @@ Então o contato é criado com status "pending"
 E um código de verificação de 6 dígitos (validade 15 min) é enviado ao contato
 E o contato NÃO recebe notificações de pânico enquanto estiver "pending"
 ```
-- Telefone normalizado para E.164 (`+55...`); e-mail validado por formato + MX. 
+
+- Telefone normalizado para E.164 (`+55...`); e-mail validado por formato + MX.
 - Limite: 10 contatos por usuário no MVP.
 
 #### US-06 — Verificar contato (Must)
+
 ```gherkin
 Dado um contato com status "pending"
 Quando o código correto é informado dentro da validade
@@ -123,6 +132,7 @@ Então a verificação é bloqueada e é preciso reenviar um novo código
 ```
 
 #### US-07 — Contato pode se descadastrar (Must)
+
 ```gherkin
 Dado que sou contato de apoio de alguém
 Quando respondo "SAIR" ao SMS ou clico no link de descadastro do e-mail
@@ -136,6 +146,7 @@ E o usuário é informado de que aquele contato saiu (sem detalhes do motivo)
 ### E4 — Botão de pânico (núcleo)
 
 #### US-08 — Acionar o botão (Must)
+
 **Como** pessoa em fissura **quero** acionar meu apoio com um toque **para** não recair sozinho.
 
 ```gherkin
@@ -166,6 +177,7 @@ E o app exibe acolhimento, não erro técnico ("Já avisamos seu apoio há pouco
 - Localização é **opcional** e exige permissão explícita a cada evento (padrão: desligada).
 
 #### US-09 — Acompanhar o acionamento (Must)
+
 ```gherkin
 Dado que acionei o botão
 Quando abro a tela de acompanhamento
@@ -175,6 +187,7 @@ E posso marcar "já estou bem" (resolve o evento)
 ```
 
 #### US-10 — Contato recebe e sabe o que fazer (Must)
+
 ```gherkin
 Dado que sou contato verificado
 Quando a pessoa aciona o botão
@@ -183,6 +196,7 @@ E a mensagem traz: quem acionou, horário, mensagem opcional, telefone de contat
 E o e-mail traz orientação breve do que fazer e do que evitar
 E toda mensagem traz o aviso de que o app não é serviço de emergência
 ```
+
 Textos exatos em [PANIC_BUTTON_DESIGN.md](./PANIC_BUTTON_DESIGN.md). `TODO [CLINICAL]`
 
 ---
@@ -190,6 +204,7 @@ Textos exatos em [PANIC_BUTTON_DESIGN.md](./PANIC_BUTTON_DESIGN.md). `TODO [CLIN
 ### E5 — Monitoramento básico
 
 #### US-11 — Registro diário (Must)
+
 ```gherkin
 Dado que estou autenticado
 Quando registro horas jogadas, humor (1–5) e gatilho do dia
@@ -198,6 +213,7 @@ E vejo minha série dos últimos 14 dias
 ```
 
 #### US-12 — Meta de tempo (Should)
+
 ```gherkin
 Dado que defini meta diária de horas
 Quando meu registro ultrapassa a meta
@@ -210,6 +226,7 @@ E a semana mostra dias dentro/fora da meta
 ### E6 — Painel clínico
 
 #### US-13 — Vincular profissional (Must)
+
 ```gherkin
 Dado que meu psicólogo me passou um código de vínculo
 Quando informo o código e confirmo o compartilhamento
@@ -218,6 +235,7 @@ E posso revogar o vínculo a qualquer momento, com efeito imediato
 ```
 
 #### US-14 — Ver paciente (Must)
+
 ```gherkin
 Dado que sou profissional com vínculo ativo
 Quando abro o paciente no painel
@@ -225,6 +243,7 @@ Então vejo triagem, série de tempo/humor e histórico de acionamentos
 E NÃO vejo dados de pacientes sem vínculo ativo
 E cada acesso é registrado no log de auditoria
 ```
+
 > O painel **não** é canal de plantão. Aviso permanente na interface. `TODO [CLINICAL]`
 
 ---
@@ -232,6 +251,7 @@ E cada acesso é registrado no log de auditoria
 ### E7 — Privacidade e dados
 
 #### US-15 — Exportar meus dados (Must)
+
 ```gherkin
 Quando solicito a exportação
 Então recebo, em até 15 dias, um arquivo JSON+CSV com meus dados pessoais
@@ -239,12 +259,14 @@ E a solicitação fica registrada na auditoria
 ```
 
 #### US-16 — Excluir minha conta (Must)
+
 ```gherkin
 Quando solicito a exclusão e confirmo
 Então minha conta é anonimizada em até 30 dias
 E os contatos deixam de receber qualquer notificação imediatamente
 E os registros de auditoria são mantidos pseudonimizados pelo prazo legal
 ```
+
 `TODO [LEGAL]` — prazos e base legal de retenção a confirmar com o DPO.
 
 ---
@@ -344,24 +366,25 @@ E os registros de auditoria são mantidos pseudonimizados pelo prazo legal
 Base: `/api/v1` · Autenticação: `Authorization: Bearer <jwt>` (exceto `/health` e `/auth/*`)
 · `Content-Type: application/json` · Erros no formato `{ error: { code, message, details? } }`.
 
-| Método | Rota | Descrição | Rate limit |
-|--------|------|-----------|-----------|
-| GET | `/health` | Liveness/readiness | 60/min por IP |
-| POST | `/auth/login` | Emite access + refresh token | 10/min por IP |
-| POST | `/auth/refresh` | Rotaciona refresh token | 30/h por usuário |
-| **POST** | **`/panic`** | **Aciona botão de pânico** | **5/h e 10/dia por usuário** |
-| GET | `/panic/:eventId` | Status do acionamento por contato | 60/min por usuário |
-| POST | `/panic/:eventId/resolve` | Marca "já estou bem" | 30/h por usuário |
-| **POST** | **`/contacts`** | **Cria contato (status pending)** | **10/h por usuário** |
-| GET | `/contacts` | Lista contatos do usuário | 60/min por usuário |
-| POST | `/contacts/:id/verify` | Verifica com código de 6 dígitos | 5/15min por contato |
-| POST | `/contacts/:id/resend` | Reenvia código | 3/h por contato |
-| DELETE | `/contacts/:id` | Revoga contato | 20/h por usuário |
-| GET | `/me` | Perfil do usuário autenticado | 60/min |
+| Método   | Rota                      | Descrição                         | Rate limit                   |
+| -------- | ------------------------- | --------------------------------- | ---------------------------- |
+| GET      | `/health`                 | Liveness/readiness                | 60/min por IP                |
+| POST     | `/auth/login`             | Emite access + refresh token      | 10/min por IP                |
+| POST     | `/auth/refresh`           | Rotaciona refresh token           | 30/h por usuário             |
+| **POST** | **`/panic`**              | **Aciona botão de pânico**        | **5/h e 10/dia por usuário** |
+| GET      | `/panic/:eventId`         | Status do acionamento por contato | 60/min por usuário           |
+| POST     | `/panic/:eventId/resolve` | Marca "já estou bem"              | 30/h por usuário             |
+| **POST** | **`/contacts`**           | **Cria contato (status pending)** | **10/h por usuário**         |
+| GET      | `/contacts`               | Lista contatos do usuário         | 60/min por usuário           |
+| POST     | `/contacts/:id/verify`    | Verifica com código de 6 dígitos  | 5/15min por contato          |
+| POST     | `/contacts/:id/resend`    | Reenvia código                    | 3/h por contato              |
+| DELETE   | `/contacts/:id`           | Revoga contato                    | 20/h por usuário             |
+| GET      | `/me`                     | Perfil do usuário autenticado     | 60/min                       |
 
 ### 5.1 `POST /api/v1/panic`
 
 **Request**
+
 ```json
 {
   "message": "Preciso de ajuda agora",
@@ -369,23 +392,25 @@ Base: `/api/v1` · Autenticação: `Authorization: Bearer <jwt>` (exceto `/healt
   "triggerType": "hold"
 }
 ```
-| Campo | Tipo | Obrigatório | Regras |
-|-------|------|-------------|--------|
-| `message` | string | não | ≤ 280 caracteres; nunca vai para logs |
-| `location` | objeto | não | `lat` −90..90, `lon` −180..180; só com consentimento do evento |
-| `triggerType` | enum | **sim** | `tap` \| `hold` |
+
+| Campo         | Tipo   | Obrigatório | Regras                                                         |
+| ------------- | ------ | ----------- | -------------------------------------------------------------- |
+| `message`     | string | não         | ≤ 280 caracteres; nunca vai para logs                          |
+| `location`    | objeto | não         | `lat` −90..90, `lon` −180..180; só com consentimento do evento |
+| `triggerType` | enum   | **sim**     | `tap` \| `hold`                                                |
 
 Headers opcionais: `Idempotency-Key` (uuid; janela de 60 s).
 
 **200 OK**
+
 ```json
 {
   "eventId": "3f1c1d4e-9a0b-4c2a-8f77-2b6f0c9d5a11",
   "status": "queued",
   "createdAt": "2026-03-21T23:41:07.412Z",
   "recipients": [
-    { "contactId": "c1", "displayName": "Cláudia", "channel": "sms",   "status": "queued" },
-    { "contactId": "c2", "displayName": "Pedro",   "channel": "email", "status": "queued" }
+    { "contactId": "c1", "displayName": "Cláudia", "channel": "sms", "status": "queued" },
+    { "contactId": "c2", "displayName": "Pedro", "channel": "email", "status": "queued" }
   ],
   "warnings": [],
   "disclaimer": "Este aplicativo não substitui serviços de emergência. Em risco imediato, ligue 192 (SAMU) ou 188 (CVV)."
@@ -397,6 +422,7 @@ Headers opcionais: `Idempotency-Key` (uuid; janela de 60 s).
 ### 5.2 `POST /api/v1/contacts`
 
 **Request**
+
 ```json
 {
   "displayName": "Cláudia",
@@ -408,6 +434,7 @@ Headers opcionais: `Idempotency-Key` (uuid; janela de 60 s).
 ```
 
 **201 Created**
+
 ```json
 {
   "contact": {
@@ -428,6 +455,7 @@ Headers opcionais: `Idempotency-Key` (uuid; janela de 60 s).
   }
 }
 ```
+
 > `devCode` só é retornado quando `NODE_ENV !== 'production'` — em produção o código
 > **jamais** trafega na resposta da API.
 
@@ -436,6 +464,7 @@ Headers opcionais: `Idempotency-Key` (uuid; janela de 60 s).
 ```json
 { "verificationToken": "vt_9f2b…", "code": "123456" }
 ```
+
 **200 OK** → `{ "contact": { "id": "c1", "status": "verified", "consentAt": "…", "consentVersion": "v1" } }`
 
 ---

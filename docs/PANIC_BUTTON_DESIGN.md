@@ -12,6 +12,7 @@ escolheu e que **consentiram** em ser acionadas, no momento de fissura ou sofrim
 relacionado ao uso de jogos.
 
 **O que o botão não é:**
+
 - não é serviço de emergência;
 - não aciona polícia, SAMU, bombeiros ou qualquer serviço público;
 - não garante que alguém vá responder;
@@ -26,23 +27,23 @@ nos Termos de Uso. `TODO [LEGAL]`
 
 ### 2.1 Acionamento
 
-| Etapa | Comportamento | Racional |
-|-------|---------------|----------|
-| 1. Alcance | Botão sempre visível na Home e disponível como atalho rápido do sistema | Em crise, ninguém navega menus |
-| 2. Gesto | **Padrão: manter pressionado 1,5 s** (`hold`). `tap` disponível como opção de acessibilidade | Reduz acionamento acidental |
-| 3. Feedback | Vibração + anel de progresso preenchendo | Confirma que o gesto está sendo lido |
-| 4. Janela de cancelamento | 5 s com botão "Cancelar" grande | Protege contra arrependimento imediato |
-| 5. Mensagem opcional | Campo de texto pré-preenchido com sugestões ("Tô quase recaindo", "Preciso conversar") | Escrever em crise é difícil |
-| 6. Localização | **Desligada por padrão**, toggle explícito por evento | Minimização de dados (LGPD) |
-| 7. Envio | Chamada à API; confirmação em < 1 s | Percepção de que "alguém foi avisado" |
-| 8. Tela de apoio | Respiração guiada + lista de contatos com status ao vivo | O usuário não fica olhando para o vazio |
-| 9. Encerramento | "Já estou bem" resolve o evento e agradece | Fecha o ciclo, gera dado clínico |
+| Etapa                     | Comportamento                                                                                | Racional                                |
+| ------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------- |
+| 1. Alcance                | Botão sempre visível na Home e disponível como atalho rápido do sistema                      | Em crise, ninguém navega menus          |
+| 2. Gesto                  | **Padrão: manter pressionado 1,5 s** (`hold`). `tap` disponível como opção de acessibilidade | Reduz acionamento acidental             |
+| 3. Feedback               | Vibração + anel de progresso preenchendo                                                     | Confirma que o gesto está sendo lido    |
+| 4. Janela de cancelamento | 5 s com botão "Cancelar" grande                                                              | Protege contra arrependimento imediato  |
+| 5. Mensagem opcional      | Campo de texto pré-preenchido com sugestões ("Tô quase recaindo", "Preciso conversar")       | Escrever em crise é difícil             |
+| 6. Localização            | **Desligada por padrão**, toggle explícito por evento                                        | Minimização de dados (LGPD)             |
+| 7. Envio                  | Chamada à API; confirmação em < 1 s                                                          | Percepção de que "alguém foi avisado"   |
+| 8. Tela de apoio          | Respiração guiada + lista de contatos com status ao vivo                                     | O usuário não fica olhando para o vazio |
+| 9. Encerramento           | "Já estou bem" resolve o evento e agradece                                                   | Fecha o ciclo, gera dado clínico        |
 
 ### 2.2 Estados de acessibilidade
 
 - Contraste mínimo AA; alvo de toque ≥ 64 dp.
-- Rótulo de leitor de tela: *"Botão de ajuda. Toque duas vezes e mantenha pressionado para
-  avisar sua rede de apoio."*
+- Rótulo de leitor de tela: _"Botão de ajuda. Toque duas vezes e mantenha pressionado para
+  avisar sua rede de apoio."_
 - Alternativa para quem não consegue manter pressionado: `tap` com confirmação em diálogo.
 - Sem dependência de cor para status (ícones + texto).
 - Funciona com texto ampliado (até 200%) sem corte.
@@ -54,7 +55,7 @@ o app exibe:
 
 > **Ainda não há ninguém na sua rede.**
 > Você pode falar agora com o CVV pelo 188 (24 h, gratuito e sigiloso).
-> [ Ligar 188 ]  [ Adicionar contato de apoio ]
+> [ Ligar 188 ] [ Adicionar contato de apoio ]
 
 O evento é registrado mesmo assim — é dado clínico relevante.
 
@@ -63,12 +64,14 @@ O evento é registrado mesmo assim — é dado clínico relevante.
 ## 3. Consentimento
 
 ### 3.1 Do usuário
+
 - Aceite explícito dos Termos e da Política no cadastro, com versão e timestamp gravados.
 - Consentimento **separado** para: (a) compartilhar dados com profissional vinculado;
   (b) usar localização; (c) receber comunicações de produto. Nenhum pré-marcado.
 - Revogável a qualquer momento nas configurações, com efeito imediato.
 
 ### 3.2 Do contato de apoio (double opt-in obrigatório)
+
 1. Usuário cadastra o contato → status `pending`.
 2. A plataforma envia ao contato uma mensagem de convite explicando o que é, quem cadastrou,
    o que ele vai receber e como sair.
@@ -77,6 +80,7 @@ O evento é registrado mesmo assim — é dado clínico relevante.
 4. Só a partir daí ele entra no fan-out.
 
 ### 3.3 Opt-out
+
 - SMS: responder **SAIR**.
 - E-mail: link "Não quero mais receber" (one-click, sem login).
 - Efeito: `revoked` imediato e **bloqueio permanente** daquele destino, mesmo em novo cadastro
@@ -90,21 +94,21 @@ O evento é registrado mesmo assim — é dado clínico relevante.
 
 ## 4. Limites de taxa (rate limits)
 
-| Escopo | Limite | Resposta ao exceder |
-|--------|--------|--------------------|
-| `POST /panic` por usuário | 5 por hora | 429 + `Retry-After` |
-| `POST /panic` por usuário | 10 por dia | 429 + tela de acolhimento |
-| Notificações por contato | 3 por hora | evento registrado, contato marcado `skipped` |
-| `POST /contacts` por usuário | 10 por hora | 429 |
-| `verify` por contato | 5 tentativas / 15 min | bloqueio até novo código |
-| `resend` por contato | 3 por hora | 429 |
-| Global por IP | 100 req/min | 429 |
+| Escopo                       | Limite                | Resposta ao exceder                          |
+| ---------------------------- | --------------------- | -------------------------------------------- |
+| `POST /panic` por usuário    | 5 por hora            | 429 + `Retry-After`                          |
+| `POST /panic` por usuário    | 10 por dia            | 429 + tela de acolhimento                    |
+| Notificações por contato     | 3 por hora            | evento registrado, contato marcado `skipped` |
+| `POST /contacts` por usuário | 10 por hora           | 429                                          |
+| `verify` por contato         | 5 tentativas / 15 min | bloqueio até novo código                     |
+| `resend` por contato         | 3 por hora            | 429                                          |
+| Global por IP                | 100 req/min           | 429                                          |
 
 **Texto de acolhimento no 429 (não usar linguagem de erro):**
 
 > Você acionou seu apoio há pouco tempo. Suas mensagens já foram enviadas.
 > Se a situação piorou e você está em risco agora, ligue **192** (SAMU) ou **188** (CVV).
-> [ Ligar 188 ]   [ Exercício de respiração ]
+> [ Ligar 188 ] [ Exercício de respiração ]
 
 > **Decisão de produto:** o limite protege os contatos contra sobrecarga e o produto contra
 > uso abusivo — nunca é apresentado como punição. Excedentes ficam registrados e visíveis ao
@@ -150,6 +154,7 @@ Nao quer participar? Responda SAIR.
 **Assunto:** `{{userDisplayName}} pediu apoio agora ({{timestamp}})`
 
 **Corpo (texto):**
+
 ```
 Olá, {{contactDisplayName}}.
 
@@ -235,27 +240,27 @@ protocolo de escalonamento.
 
 ## 7. Regras de despacho
 
-| Regra | Descrição |
-|-------|-----------|
-| Elegibilidade | Somente contatos `verified` e não revogados |
-| Ordem | Por `priority` crescente; todos são notificados em paralelo (não é cascata no MVP) |
-| Canal | Definido no cadastro do contato; `whatsapp_deeplink` não gera envio pelo servidor |
-| Retry | 3 tentativas por destinatário: 2 s, 8 s, 30 s (backoff exponencial + jitter) |
-| Falha definitiva | `failed` com motivo; visível ao usuário na tela de acompanhamento |
-| Circuit breaker | 10 falhas consecutivas de um provedor → abre por 60 s e usa canal alternativo |
-| Deduplicação | `Idempotency-Key` (janela de 60 s) evita fan-out duplicado |
-| Silêncio noturno | **Não aplicável** ao pânico: alertas ignoram qualquer janela de silêncio |
+| Regra            | Descrição                                                                          |
+| ---------------- | ---------------------------------------------------------------------------------- |
+| Elegibilidade    | Somente contatos `verified` e não revogados                                        |
+| Ordem            | Por `priority` crescente; todos são notificados em paralelo (não é cascata no MVP) |
+| Canal            | Definido no cadastro do contato; `whatsapp_deeplink` não gera envio pelo servidor  |
+| Retry            | 3 tentativas por destinatário: 2 s, 8 s, 30 s (backoff exponencial + jitter)       |
+| Falha definitiva | `failed` com motivo; visível ao usuário na tela de acompanhamento                  |
+| Circuit breaker  | 10 falhas consecutivas de um provedor → abre por 60 s e usa canal alternativo      |
+| Deduplicação     | `Idempotency-Key` (janela de 60 s) evita fan-out duplicado                         |
+| Silêncio noturno | **Não aplicável** ao pânico: alertas ignoram qualquer janela de silêncio           |
 
 ---
 
 ## 8. Métricas do botão
 
-| Métrica | Definição | Alvo MVP |
-|---------|-----------|----------|
-| Tempo até confirmação | Toque → resposta 200 | p95 < 1 s |
-| Tempo até 1ª entrega | Evento → primeiro `delivered` | p95 < 60 s |
-| Taxa de entrega | `delivered` / `queued` por canal | ≥ 95% (SMS), ≥ 98% (e-mail) |
-| Taxa de resposta do contato | Contatos que responderam em 30 min | ≥ 60% |
-| Taxa de cancelamento | Acionamentos cancelados na janela de 5 s | monitorar (proxy de falso positivo) |
-| Acionamentos por usuário ativo | média mensal | monitorar; alta súbita = alerta clínico |
-| Resolução "já estou bem" | Eventos resolvidos pelo usuário | ≥ 70% |
+| Métrica                        | Definição                                | Alvo MVP                                |
+| ------------------------------ | ---------------------------------------- | --------------------------------------- |
+| Tempo até confirmação          | Toque → resposta 200                     | p95 < 1 s                               |
+| Tempo até 1ª entrega           | Evento → primeiro `delivered`            | p95 < 60 s                              |
+| Taxa de entrega                | `delivered` / `queued` por canal         | ≥ 95% (SMS), ≥ 98% (e-mail)             |
+| Taxa de resposta do contato    | Contatos que responderam em 30 min       | ≥ 60%                                   |
+| Taxa de cancelamento           | Acionamentos cancelados na janela de 5 s | monitorar (proxy de falso positivo)     |
+| Acionamentos por usuário ativo | média mensal                             | monitorar; alta súbita = alerta clínico |
+| Resolução "já estou bem"       | Eventos resolvidos pelo usuário          | ≥ 70%                                   |
