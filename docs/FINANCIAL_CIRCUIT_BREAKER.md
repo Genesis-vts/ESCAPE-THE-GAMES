@@ -1,7 +1,13 @@
 # DISJUNTOR FINANCEIRO — ESCAPE-THE-GAMES
 
-> Versão 0.1.0 · **ESPECIFICAÇÃO PARA REVISÃO** clínica, jurídica e de parcerias.
+> Versão 0.2.0 · **ESPECIFICAÇÃO PARA REVISÃO** clínica, jurídica e de parcerias.
 > Depende de decisão de escopo pendente em [CRISIS_PROTOCOL.md](./CRISIS_PROTOCOL.md) §2.
+>
+> 🛑 **CORREÇÃO IMPORTANTE (jul/2026).** Boa parte deste documento reinventava algo
+> que o Estado brasileiro **já construiu e opera**: a Plataforma Centralizada de
+> Autoexclusão (Ministério da Fazenda/SPA), que bloqueia o CPF em **todas** as casas
+> autorizadas do país. Ver §1.1. A recomendação mudou de "construir" para
+> **"integrar e complementar"**.
 
 ---
 
@@ -24,6 +30,43 @@ e por isso tem a maior relação impacto/esforço do produto.
 **Consequência de desenho:** ele é armado no **estado frio** — quando a pessoa tem
 capacidade de decidir — e opera sozinho no estado quente, quando ela não tem.
 É o contrato de Ulisses aplicado a dinheiro.
+
+### 1.1 O Estado já fez a parte mais forte disso
+
+A **Plataforma Centralizada de Autoexclusão** (`autoexclusaoapostas.fazenda.gov.br`,
+acesso por conta gov.br) bloqueia o CPF do cidadão em **todas** as casas de apostas
+autorizadas pela SPA/MF de uma só vez. Em maio de 2026 já somava centenas de
+milhares de cadastros.
+
+O desenho dela **já implementa o princípio de assimetria** da §2 deste documento:
+
+| Recurso oficial                                           | Equivale a                              |
+| --------------------------------------------------------- | --------------------------------------- |
+| Bloqueio por 1 a 12 meses, **sem revogação antes do fim** | "Apertar é imediato, afrouxar é lento"  |
+| Prazo indeterminado com mínimo de 12 meses para reverter  | Janela de resfriamento longa            |
+| Impede novo cadastro com o mesmo CPF                      | Lista de bloqueio permanente            |
+| Corta SMS, e-mail de marketing e publicidade dirigida     | Redução de pista (controle de estímulo) |
+| Efeito em até 72 h                                        | —                                       |
+| Traz pontos de atendimento do SUS                         | Encaminhamento clínico                  |
+
+**Nenhum aplicativo privado consegue chegar perto disso.** Bloqueio por CPF válido
+para todo o setor regulado é poder de Estado, não de produto.
+
+**Reorientação:** este módulo deixa de ser "construir um disjuntor" e passa a ser
+**a camada que falta em volta do disjuntor do Estado**:
+
+1. **Apontar e conduzir** o usuário à autoexclusão oficial no momento certo (estado
+   frio, ou logo após a janela crítica). Não recriar.
+2. **Sustentar o dia seguinte.** A autoexclusão resolve o acesso; não resolve o
+   dia 3 nem o dia 30. É aí que a rede de apoio, o botão de pânico e o plano frio
+   deste repositório atuam — e é aí que o Estado não chega.
+3. **Cobrir o que a autoexclusão não alcança:** compra dentro de jogo, caixa de
+   recompensa, e casas **não** autorizadas. O teto declarado e o cossignatário
+   continuam válidos exatamente aqui.
+4. **Verificar adesão**, se e quando houver via oficial de consulta `TODO [LEGAL]`.
+
+> Fontes: [SPA/MF — Autoexclusão](https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/autoexclusao) ·
+> [Serviço no gov.br](https://www.gov.br/pt-br/servicos/plataforma-centralizada-de-autoexclusao-apostas)
 
 ---
 
@@ -54,15 +97,15 @@ não é proteção — é cárcere, e não construímos isso.
 
 Honestidade sobre o que dá para fazer hoje sem parceria e o que depende de terceiros:
 
-| Mecanismo                                          | Viabilidade | Depende de                                       |
-| -------------------------------------------------- | ----------- | ------------------------------------------------ |
-| **Registro e teto declarado** com alerta ao romper | **Hoje**    | Nada — entrada manual + telemetria               |
-| **Cartão pré-pago dedicado** com saldo teto        | **Hoje**    | Parceria com emissor / conta separada do usuário |
-| **Auto-exclusão em plataforma de aposta regulada** | Depende     | Canal da plataforma / regulador `TODO [LEGAL]`   |
-| **Limite de compra dentro do jogo**                | Parcial     | Controle parental de loja (iOS/Android/console)  |
-| **Limite e bloqueio de Pix por janela**            | Depende     | Parceria bancária ou Open Finance `TODO [LEGAL]` |
-| **Leitura de gasto via Open Finance**              | Depende     | Consentimento Open Finance + instituição         |
-| **Cossignatário para valor acima de X**            | **Hoje**    | Rede de apoio já implementada                    |
+| Mecanismo                                           | Viabilidade   | Depende de                                              |
+| --------------------------------------------------- | ------------- | ------------------------------------------------------- |
+| **Registro e teto declarado** com alerta ao romper  | **Hoje**      | Nada — entrada manual + telemetria                      |
+| **Cartão pré-pago dedicado** com saldo teto         | **Hoje**      | Parceria com emissor / conta separada do usuário        |
+| **Autoexclusão centralizada (CPF, todas as casas)** | **JÁ EXISTE** | Plataforma oficial SPA/MF — **integrar, não construir** |
+| **Limite de compra dentro do jogo**                 | Parcial       | Controle parental de loja (iOS/Android/console)         |
+| **Limite e bloqueio de Pix por janela**             | Depende       | Parceria bancária ou Open Finance `TODO [LEGAL]`        |
+| **Leitura de gasto via Open Finance**               | Depende       | Consentimento Open Finance + instituição                |
+| **Cossignatário para valor acima de X**             | **Hoje**      | Rede de apoio já implementada                           |
 
 **Recomendação de sequência:** comece pelo que não depende de ninguém — teto
 declarado + cossignatário + alerta. Isso já testa a tese com custo quase zero. As
