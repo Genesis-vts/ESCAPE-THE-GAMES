@@ -190,6 +190,22 @@ sintomas depressivos e má qualidade do sono — sobe a prioridade do membro
 
 ---
 
+## E13 — Integração com o que o Estado já oferece · P0 · 13 pts
+
+**Por quê:** três integrações custam quase nada e melhoram o produto imediatamente,
+porque reaproveitam serviço público existente em vez de reconstruí-lo.
+Detalhe: [PUBLIC_SECTOR_STRATEGY.md](./PUBLIC_SECTOR_STRATEGY.md) §4.
+
+- [ ] `feat`: conduzir o usuário à **autoexclusão oficial** no momento certo — 3 pts — _sem integração técnica_
+- [ ] `feat(api)`: degrau **N4 da escada de crise aponta para o teleatendimento do SUS** — 3 pts — _resolve a dependência de "profissional vinculado"_
+- [ ] `clinical`: ler o **Guia de Cuidado do MS** e alinhar critérios — 3 pts `TODO [CLINICAL]`
+- [ ] `feat`: login **gov.br** — 5 pts — depende de credenciamento
+- [ ] `research`: existe via oficial para verificar adesão à autoexclusão? `TODO [LEGAL]`
+
+**Aceite:** nenhum módulo do produto reconstrói serviço público já existente.
+
+---
+
 ## Distribuição por sprint (12 semanas)
 
 | Sprint | Semanas | Épicos                             | Pontos |

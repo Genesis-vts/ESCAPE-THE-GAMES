@@ -1,203 +1,224 @@
 # PLANO DE NEGÓCIOS — ESCAPE-THE-GAMES
 
-> Versão 0.1.0 · MVP · Mercado inicial: **Brasil**. Valores em BRL, estimativas de referência
-> para planejamento — **não** são cotações fechadas. `TODO [LEGAL]` para claims de saúde.
+> Versão **0.2.0** · julho de 2026 · Mercado: **Brasil**.
 >
-> ⚠️ **AVISO DE PROCEDÊNCIA.** Os números deste documento são estimativas de
-> planejamento por analogia, **não** pesquisa primária. Não use em apresentação a
-> investidor, parceiro clínico ou órgão público antes da substituição.
-> [DATA_SOURCES.md](./DATA_SOURCES.md) mapeia a fonte real que substitui cada um
-> deles e o esforço necessário — cerca de duas semanas de trabalho no total.
+> Esta versão foi **reescrita** depois de descobrir que o Estado brasileiro já ocupa
+> a camada base do problema (ver [PUBLIC_SECTOR_STRATEGY.md](./PUBLIC_SECTOR_STRATEGY.md)).
+> A v0.1.0 supunha um mercado desassistido e estimava números por analogia — as duas
+> premissas estavam erradas.
+>
+> **Procedência dos números:** cada valor abaixo é marcado como
+> ✅ dado público verificável · ⚠️ indício a confirmar · 🔶 hipótese a medir.
+> Fontes em [DATA_SOURCES.md](./DATA_SOURCES.md). **Nenhum 🔶 vai a investidor ou
+> parceiro apresentado como fato.**
 
 ---
 
-## 1. Problema
+## 1. O problema, e o que já foi resolvido
 
-O uso problemático de jogos eletrônicos foi reconhecido pela OMS na CID-11 (6C51, _gaming
-disorder_). No Brasil, o cenário combina três fatores que agravam o quadro:
+Uso problemático de jogos e de apostas causa dano financeiro, sofrimento psíquico e,
+na janela aguda pós-perda, risco à vida. No Brasil, entre o fim de 2025 e julho de
+2026, o poder público passou a atuar de forma direta:
 
-1. **Alta exposição** — o país é um dos maiores mercados de games do mundo, com forte
-   penetração em mobile e em faixas etárias jovens.
-2. **Baixa oferta de cuidado especializado** — poucos ambulatórios públicos com foco em
-   dependências comportamentais; longas filas; concentração em capitais.
-3. **Isolamento na crise** — o momento de recaída acontece de madrugada, sozinho, sem
-   nenhum canal de contato imediato com a rede de apoio.
+- Plataforma Centralizada de Autoexclusão — **~925 mil cadastros** em jul/2026 ⚠️
+- Guia de Cuidado do Ministério da Saúde para a rede pública ✅
+- Triagem e teleatendimento dentro do Meu SUS Digital ✅
+- 2,8 milhões de beneficiários do Bolsa Família e BPC bloqueados de apostar ⚠️
 
-O paciente típico não precisa apenas de "menos tempo de tela": precisa de **um caminho de
-saída no momento exato da fissura**, com alguém do outro lado.
+**O que continua sem solução:** o intervalo entre a decisão de parar e a vida
+seguinte. Quem se autoexclui por tempo indeterminado — 69% dos cadastrados ⚠️ —
+enfrenta sozinho o dia 3, a madrugada do dia 12 e a recaída do dia 30, com uma
+consulta marcada para dali a semanas.
+
+> **É esse intervalo que o produto ocupa.** Não a conscientização, não o bloqueio de
+> acesso, não a consulta. O meio.
 
 ---
 
 ## 2. Proposta de valor
 
-> **"Um botão. Alguém do outro lado. Antes da recaída."**
+> **"O bloqueio foi o primeiro passo. A gente segura os outros trezentos."**
 
-| Para quem                   | Dor                                                  | Nossa entrega                                                                                 |
-| --------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Pessoa com uso problemático | "Quando dá vontade, não tenho a quem recorrer"       | Botão de pânico que avisa contatos autorizados em segundos, + exercícios de manejo de fissura |
-| Familiar / parceiro(a)      | "Descubro tarde demais"                              | Notificação verificada e consentida, com orientação do que fazer e do que **não** fazer       |
-| Psicólogo(a) / psiquiatra   | "Só vejo o paciente 1x por semana, e ele não lembra" | Painel com histórico de acionamentos, tempo de uso e adesão às tarefas de TCC                 |
-| Clínica / operadora         | "Não consigo medir desfecho"                         | Coorte, KPIs de adesão e redução de uso, relatórios agregados                                 |
+| Para quem                  | Dor                                    | Entrega                                               |
+| -------------------------- | -------------------------------------- | ----------------------------------------------------- |
+| Quem já se autoexcluiu     | "Bloqueei. E agora?"                   | Rede de apoio verificada, plano frio, botão de pânico |
+| Quem ainda não decidiu     | "Não consigo parar sozinho"            | Conduz à autoexclusão oficial e sustenta a decisão    |
+| Familiar                   | "Descubro tarde e falo a coisa errada" | Alerta consentido + preparo de como responder         |
+| Profissional do SUS        | "Só vejo o paciente de vez em quando"  | Visão longitudinal entre consultas                    |
+| Operadora sob conformidade | "Preciso comprovar jogo responsável"   | Camada independente com desfecho auditável            |
 
-**Diferenciais defensáveis:** (a) rede de apoio verificada com double opt-in — barreira de
-confiança e antiabuso; (b) integração clínica desde o MVP, não como extensão futura;
-(c) design de produto em PT-BR com vocabulário da comunidade gamer, não "linguagem de bula".
-
----
-
-## 3. Mercado-alvo
-
-### 3.1 Segmentação
-
-- **B2C primário:** 16–34 anos, joga ≥ 4 h/dia, já teve prejuízo em sono, trabalho/estudo ou
-  relacionamento. Perfil que busca ativamente ajuda ("como parar de jogar").
-- **B2C secundário (comprador):** mães/pais e parceiros(as) que instalam e pagam pelo plano
-  — historicamente a maior disposição a pagar em dependências.
-- **B2B:** clínicas de dependência química/comportamental, consultórios de psicologia,
-  operadoras de saúde e programas de bem-estar corporativo.
-- **B2B2C (v2):** universidades e escolas técnicas com programa de saúde mental estudantil.
-
-### 3.2 Dimensionamento (metodologia top-down + bottom-up)
-
-| Nível          | Definição                                                                                                                   | Estimativa                                             |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| TAM            | Jogadores brasileiros com sinais de uso problemático (faixa de prevalência de 1,5%–3% da população de jogadores frequentes) | ~1,5–3 milhões de pessoas                              |
-| SAM            | Faixa 16–34 anos, smartphone, capitais e regiões metropolitanas, com disposição a buscar ajuda digital                      | ~400–700 mil pessoas                                   |
-| SOM (36 meses) | Captura realista com investimento de aquisição moderado + 30 parcerias clínicas                                             | 25–40 mil usuários ativos; 4–6 mil assinantes pagantes |
-
-> Faixas propostas para planejamento. **Antes do go-to-market**, validar com pesquisa primária
-> (n≥300) e com dados de prevalência publicados. `TODO` — anexar fontes revisadas ao dossiê.
+**Diferencial defensável:** somos a única camada **contínua**. O Estado faz massa e
+episódio; nós fazemos o dia a dia e a madrugada. Complementares, não concorrentes.
 
 ---
 
-## 4. Modelo de receita
+## 3. Mercado — o que dá para afirmar
 
-| Linha             | Descrição                                                              | Preço-alvo                     | Margem bruta                    |
-| ----------------- | ---------------------------------------------------------------------- | ------------------------------ | ------------------------------- |
-| **Free**          | Diário, metas de tempo, 1 contato de apoio, conteúdo educativo         | R$ 0                           | — (custo de aquisição/retenção) |
-| **Pro (B2C)**     | Contatos ilimitados, histórico completo, exercícios de TCC, relatórios | **R$ 29,90/mês** ou R$ 249/ano | ~78%                            |
-| **Família**       | Até 4 perfis + painel do responsável                                   | R$ 49,90/mês                   | ~75%                            |
-| **Clínico (B2B)** | Licença por profissional, painel multi-paciente, exportação            | R$ 149/prof./mês               | ~85%                            |
-| **Enterprise**    | Operadora/empresa, contrato anual, SSO, relatórios agregados           | R$ 15–25 por vida/ano          | ~70%                            |
+### 3.1 A cabeça de ponte ✅⚠️
 
-**Racional de preço:** ancorado abaixo de uma sessão de terapia (R$ 120–250) e na faixa de
-apps de saúde mental já aceita no Brasil. O plano Família captura o comprador real (familiar).
+| Indicador                                              | Valor        | Tipo |
+| ------------------------------------------------------ | ------------ | ---- |
+| Cadastros na autoexclusão (jul/2026)                   | ~925 mil     | ⚠️   |
+| Ritmo de crescimento recente                           | ~200 mil/mês | ⚠️   |
+| Optaram por bloqueio indeterminado                     | 69%          | ⚠️   |
+| Declararam perda de controle e impacto na saúde mental | 41%          | ⚠️   |
 
-**Não monetizamos:** venda de dados, publicidade comportamental, ou qualquer forma de
-monetização de dados de saúde. Compromisso público na política de privacidade. `TODO [LEGAL]`
+**41% de ~700 mil ≈ 287 mil pessoas** que declararam, em registro do governo
+federal, ter perdido o controle. Isso não é prevalência estimada — é
+**autodeclaração individual registrada**, e é o melhor insumo de dimensionamento
+disponível no país.
+
+Ressalvas obrigatórias: o motivo é campo opcional; autoexclusão é intenção, não
+demanda por produto; cobre só casas autorizadas; não cobre jogo eletrônico sem
+aposta.
+
+### 3.2 O que ainda falta medir
+
+| Pergunta                                        | Como responder                       | Prazo       |
+| ----------------------------------------------- | ------------------------------------ | ----------- |
+| Prevalência real de transtorno de jogo          | Literatura brasileira revisada (E12) | 3 dias      |
+| Perfil demográfico dos autoexcluídos            | **Pedido via LAI à SPA/MF**          | Prazo legal |
+| Tamanho do público não-aposta (jogo eletrônico) | PGB + literatura                     | 1 semana    |
+| Disposição a pagar                              | Só experimento                       | 90 dias     |
+
+**Removi o TAM/SAM/SOM da versão anterior.** Eram estimativas por analogia
+apresentadas como dimensionamento. Voltam quando o E12 estiver concluído.
 
 ---
 
-## 5. Estrutura de custos
+## 4. Modelo de receita — reformulado
 
-### 5.1 Custo variável por usuário ativo/mês (estimativa)
+A v0.1.0 apostava em assinatura B2C como linha principal. **Isso está errado por
+dois motivos:**
 
-| Item                     | Premissa                                   | Custo         |
-| ------------------------ | ------------------------------------------ | ------------- |
-| SMS (Twilio, BR)         | 6 SMS/mês/usuário ativo × ~R$ 0,45         | R$ 2,70       |
-| E-mail (SendGrid)        | 40 e-mails/mês, plano Essentials           | ~R$ 0,08      |
-| Push (FCM/APNs)          | ilimitado                                  | R$ 0,00       |
-| Infra (compute+db+redis) | rateio                                     | R$ 0,90       |
-| Suporte                  | 4% dos usuários abrem ticket, 8 min/ticket | R$ 1,10       |
-| **Total variável**       |                                            | **≈ R$ 4,80** |
+1. Competir com SUS gratuito na camada clínica é perder.
+2. 2,8 milhões dos afetados são beneficiários de Bolsa Família e BPC ⚠️ — cobrar
+   assinatura **exclui exatamente quem mais precisa**.
 
-> Sensibilidade: SMS é o maior custo variável e escala com o **número de contatos por
-> acionamento**. Mitigação: priorizar push para contatos que têm o app; teto diário de
-> acionamentos por usuário (ver rate limits em PANIC_BUTTON_DESIGN.md).
+### Linhas, em ordem de probabilidade
 
-### 5.2 Custo fixo mensal — fase MVP (6 meses)
+| #   | Linha                                 | Comprador                                 | Racional                                                                    | Confiança               |
+| --- | ------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------- | ----------------------- |
+| 1   | **Conformidade B2B**                  | Operadora autorizada                      | Dever regulatório de jogo responsável; orçamento existente; risco de sanção | 🔶 alta                 |
+| 2   | **Plano Família**                     | Familiar (mãe, parceiro)                  | Historicamente o comprador real em dependências                             | 🔶 média-alta           |
+| 3   | **Institucional**                     | Universidade, empresa, operadora de saúde | Desfecho mensurável (evasão, absenteísmo)                                   | 🔶 média                |
+| 4   | **Fundo setorial / convênio público** | Fundo da Lei 14.790, emenda, chamada      | Dinheiro sai do setor que causa o dano                                      | 🔶 baixa no curto prazo |
+| 5   | **Gratuito para o usuário final**     | —                                         | **Decisão de missão, não falha de monetização**                             | —                       |
 
-| Item                                                            | Mensal              |
-| --------------------------------------------------------------- | ------------------- |
-| Time: 1 tech lead, 2 devs full-stack, 1 designer (PJ/CLT médio) | R$ 78.000           |
-| Consultoria clínica (psicólogo especialista, 20 h/mês)          | R$ 6.000            |
-| Assessoria jurídica (LGPD, DPO fracionado)                      | R$ 5.000            |
-| Infra (dev+staging+prod baixa escala)                           | R$ 2.500            |
-| Ferramentas (Sentry, CI, design, gestão)                        | R$ 1.800            |
-| **Total fixo**                                                  | **≈ R$ 93.300/mês** |
+> **Princípio inegociável:** a pessoa em sofrimento **nunca paga pela proteção**.
+> Quem paga é quem tem obrigação (operadora), quem tem capacidade (família,
+> instituição) ou o fundo público. Isso não é caridade — é a única configuração em
+> que o produto alcança quem mais precisa.
 
-**Investimento MVP (6 meses):** ≈ R$ 560 mil + R$ 90 mil de marketing de validação ≈ **R$ 650 mil**.
+**Preços:** removidos desta versão. Os valores da v0.1.0 eram ancoragem sem
+pesquisa. Voltam após entrevistas de disposição a pagar com os três compradores
+acima.
 
-### 5.3 Unit economics alvo (mês 12)
+---
 
-| Métrica                | Alvo                         |
-| ---------------------- | ---------------------------- |
-| CAC (blended)          | ≤ R$ 90                      |
-| ARPU pagante           | R$ 27                        |
-| Margem de contribuição | R$ 22/mês                    |
-| Payback                | ≤ 4,5 meses                  |
-| Churn mensal           | ≤ 7%                         |
-| LTV                    | ≈ R$ 310 · **LTV/CAC ≈ 3,4** |
+## 5. Custos
+
+### 5.1 Variável por usuário ativo/mês 🔶
+
+| Item           | Estimativa | Status                                                   |
+| -------------- | ---------- | -------------------------------------------------------- |
+| SMS            | —          | **Cotar com Twilio, Zenvia e Infobip** (2 h de trabalho) |
+| E-mail         | baixo      | Cotar                                                    |
+| Push           | ~zero      | ✅                                                       |
+| Infra          | rateio     | Medir em piloto                                          |
+| Suporte humano | —          | Depende do modelo de plantão do E9                       |
+
+A v0.1.0 trazia R$ 4,80/usuário/mês com componentes inventados. **Removido.** SMS é
+o maior custo variável e uma cotação real leva duas horas — não há desculpa para
+estimar.
+
+### 5.2 Fixo — fase de validação
+
+O plano anterior previa R$ 650 mil e 6 meses **antes** de qualquer validação. A
+estratégia atual inverte: **três experimentos de ~R$ 30 mil em 90 dias** respondem
+as perguntas que determinam se o produto funciona.
+
+| Experimento                                         | Custo      | O que mata a tese                                              |
+| --------------------------------------------------- | ---------- | -------------------------------------------------------------- |
+| Concierge manual com 30 pessoas recém-autoexcluídas | ~R$ 15 mil | Se ninguém quer acompanhamento após o bloqueio, não há produto |
+| Sono como meta primária vs. meta de horas           | ~R$ 5 mil  | Se sono resolve igual, o produto simplifica muito              |
+| Preparo do familiar isolado                         | ~R$ 5 mil  | Se só isso já melhora retenção, a rede **é** o produto         |
+
+Só depois disso faz sentido falar em time e em captação.
 
 ---
 
 ## 6. Go-to-market
 
-### Fase 0 — Validação (mês 0–3, pré-lançamento)
+### Canal 1 — O "e agora?" da autoexclusão 🟢 prioritário
 
-- 30 entrevistas em profundidade (15 usuários, 10 familiares, 5 clínicos).
-- Landing com lista de espera; meta 1.500 e-mails.
-- Beta fechado com 100 usuários recrutados em comunidades (Discord, subreddits BR, grupos de
-  apoio). Consentimento de pesquisa explícito. `TODO [LEGAL]`
+Quase um milhão de pessoas já agiram. A plataforma oficial resolve o acesso e
+aponta para o SUS — mas ninguém acompanha o depois.
 
-### Fase 1 — Lançamento assistido (mês 4–6)
+Onde estar: conteúdo de busca para "me autoexcluí das bets e agora", comunidades de
+recuperação, e — idealmente — como recurso citado pelo próprio ecossistema público.
 
-- **Canal 1 — Conteúdo/SEO:** artigos para intenção de busca ("como parar de jogar",
-  "vício em jogos tratamento"). Custo baixo, intenção altíssima.
-- **Canal 2 — Creators:** parceria com 5–8 streamers/criadores que já falam abertamente sobre
-  burnout e uso excessivo. Autenticidade > alcance.
-- **Canal 3 — Clínico:** 10 clínicas parceiras piloto; profissional indica o app ao paciente
-  (canal de maior conversão e menor churn).
-- **Canal 4 — Familiares:** campanhas segmentadas para o comprador (plano Família).
+### Canal 2 — Clínico
 
-### Fase 2 — Escala (mês 7–12)
+PRO-AMITI/IPq-USP, CAPS, profissionais do teleatendimento do SUS. Indicação
+profissional tem a maior conversão e o menor churn em dependências.
 
-- Paid social com criativos testados na fase 1; meta CAC ≤ R$ 90.
-- Programa de indicação (usuário → contato de apoio vira usuário).
-- Primeiros contratos B2B (2 operadoras/programas corporativos).
+### Canal 3 — Familiar
 
-### Parceiros clínicos e institucionais (lista-alvo)
+O comprador real. Campanhas dirigidas a quem convive, não a quem sofre.
 
-- Ambulatórios universitários de dependências comportamentais (parceria de pesquisa).
-- Conselhos e associações de psicologia — validação de conteúdo de TCC. `TODO [CLINICAL]`
-- CVV (Centro de Valorização da Vida) — **encaminhamento**, sem integração automatizada.
-- Clínicas privadas de dependência química com braço comportamental.
+### Canal 4 — Conformidade
 
-> Toda parceria clínica exige protocolo de encaminhamento assinado antes do go-live.
-> O produto **não** presta atendimento de emergência. `TODO [LEGAL]` `TODO [CLINICAL]`
+Aproximação com a SPA/MF e com operadoras, via consulta pública e contribuição
+técnica. Ciclo longo, receita maior.
 
 ---
 
-## 7. Concorrência
+## 7. Concorrência — reposicionada
 
-| Concorrente                                             | Foco                     | Nossa diferença                                                            |
-| ------------------------------------------------------- | ------------------------ | -------------------------------------------------------------------------- |
-| Apps de tempo de tela (Digital Wellbeing, Opal, Forest) | bloqueio/limite genérico | Rede de apoio verificada + acompanhamento clínico                          |
-| Apps de meditação (Calm, Zen)                           | bem-estar amplo          | Especialização em gaming disorder e no momento da fissura                  |
-| Terapia digital (Zenklub, Vittude)                      | sessões com profissional | Complementar, não substituto: integramos o profissional em vez de competir |
-| Grupos de apoio (fóruns, Discord)                       | comunidade               | Estruturado, privado, com consentimento e histórico clínico                |
+| Ator                                     | Camada             | Relação                                                                 |
+| ---------------------------------------- | ------------------ | ----------------------------------------------------------------------- |
+| **Plataforma de Autoexclusão (Fazenda)** | Acesso             | **Complementar** — conduzimos a ela                                     |
+| **Meu SUS Digital / teleatendimento**    | Triagem e consulta | **Complementar** — encaminhamos para lá                                 |
+| Apps de tempo de tela                    | Limite genérico    | Substituível: sem rede e sem clínica                                    |
+| Terapia digital privada                  | Consulta           | Complementar                                                            |
+| Ferramentas próprias das operadoras      | Conformidade       | **Concorrente direto** no canal 4 — nosso diferencial é a independência |
 
-**Risco competitivo:** plataformas de jogos lançarem ferramentas próprias de bem-estar.
-Mitigação: posicionamento independente e clínico — não temos conflito de interesse com o
-tempo de jogo do usuário.
-
----
-
-## 8. Métricas de negócio acompanhadas
-
-Ativação (contato de apoio verificado em 48 h), D7/D30, acionamentos por usuário ativo,
-taxa de resposta do contato, conversão free→pago, churn, NPS, CAC e LTV.
-Definições e alvos em [ROADMAP.md](./ROADMAP.md).
+**Risco competitivo real:** o Estado ampliar o escopo e ocupar também a camada
+contínua. Mitigação: ser o parceiro que entrega essa camada, não o concorrente que
+disputa com ela.
 
 ---
 
-## 9. Riscos de negócio
+## 8. Métrica-mãe
 
-| Risco                                                           | Prob. | Impacto     | Mitigação                                                                                                        |
-| --------------------------------------------------------------- | ----- | ----------- | ---------------------------------------------------------------------------------------------------------------- |
-| Enquadramento regulatório como dispositivo médico (SaMD/ANVISA) | Média | Alto        | Posicionar como ferramenta de bem-estar e apoio; parecer regulatório antes de claims terapêuticos `TODO [LEGAL]` |
-| Incidente de privacidade                                        | Baixa | **Crítico** | Programa de segurança (ver SECURITY_AND_COMPLIANCE.md), pentest anual, seguro cibernético                        |
-| Uso indevido do botão (assédio a terceiros)                     | Média | Alto        | Double opt-in, opt-out permanente, rate limit, canal de denúncia                                                 |
-| Evento adverso grave associado ao app                           | Baixa | **Crítico** | Disclaimers, protocolo de escalonamento clínico, comitê de revisão `TODO [CLINICAL]`                             |
-| Baixa disposição a pagar B2C                                    | Alta  | Médio       | Peso maior em B2B/clínico e no plano Família                                                                     |
-| Custo de SMS acima do previsto                                  | Média | Médio       | Priorização de push, teto por usuário, renegociação de volume                                                    |
+> **Horas de jogo ou aposta evitadas, verificadas, sustentadas em 90 dias — por
+> minuto de uso do nosso app.**
+
+Sucesso é o usuário precisar menos de nós. Isso é hostil ao growth clássico e
+afasta um tipo de investidor — o que funciona como filtro de quem embarca.
+
+---
+
+## 9. Riscos
+
+| Risco                                 | Impacto     | Mitigação                                                                                                    |
+| ------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------ |
+| **Estado ocupar a camada contínua**   | Alto        | Ser parceiro, não concorrente; buscar integração cedo                                                        |
+| **Captura pelas operadoras**          | **Crítico** | Nenhuma fonte acima de 50% da receita; auditoria clínica externa; metodologia pública                        |
+| Incidente de privacidade              | **Crítico** | Programa de segurança já especificado; pentest; seguro                                                       |
+| Uso indevido do botão (assédio)       | Alto        | Double opt-in e opt-out permanente já implementados                                                          |
+| Evento adverso grave                  | **Crítico** | `CRISIS_PROTOCOL.md` e seus sete portões de governança                                                       |
+| Enquadramento como dispositivo médico | Alto        | Parecer regulatório antes de qualquer claim terapêutico `TODO [LEGAL]`                                       |
+| Modelo sem defensabilidade comercial  | Médio       | Reconhecido: pode ser caso de **infraestrutura pública**, não de startup — decisão consciente dos fundadores |
+
+---
+
+## 10. O que decidir antes de escrever a v0.3.0
+
+1. **Escopo:** jogo eletrônico, apostas, ou os dois? Muda regulação, clínica e público.
+2. **Natureza:** empresa com investidor, negócio de impacto, ou bem público digital?
+3. **Fonte de receita primária:** conformidade, família ou fundo público?
+
+As três são decisões dos fundadores, não de análise. Enquanto estiverem abertas,
+qualquer projeção financeira é ficção — e este documento evita fazê-las de propósito.
