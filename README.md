@@ -158,15 +158,18 @@ ESCAPE-THE-GAMES/
 
 ## Documentação
 
-| Documento                                                          | Conteúdo                                                       |
-| ------------------------------------------------------------------ | -------------------------------------------------------------- |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)                       | Componentes, fluxos, infraestrutura, backup/DR, ADRs           |
-| [docs/BUSINESS_PLAN.md](docs/BUSINESS_PLAN.md)                     | Proposta de valor, mercado, receita, custos, go-to-market      |
-| [docs/MVP_SPEC.md](docs/MVP_SPEC.md)                               | Histórias de usuário, critérios de aceitação, wireframes, APIs |
-| [docs/PANIC_BUTTON_DESIGN.md](docs/PANIC_BUTTON_DESIGN.md)         | UX do botão, templates PT-BR, consentimento, limites           |
-| [docs/SECURITY_AND_COMPLIANCE.md](docs/SECURITY_AND_COMPLIANCE.md) | **LGPD/GDPR/HIPAA**, chaves, retenção, incidentes              |
-| [docs/ROADMAP.md](docs/ROADMAP.md)                                 | Marcos 3/6/12 meses e KPIs                                     |
-| [docs/ISSUES_BACKLOG.md](docs/ISSUES_BACKLOG.md)                   | Épicos e sprints acionáveis                                    |
+| Documento                                                              | Conteúdo                                                                  |
+| ---------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)                           | Componentes, fluxos, infraestrutura, backup/DR, ADRs                      |
+| [docs/BUSINESS_PLAN.md](docs/BUSINESS_PLAN.md)                         | Proposta de valor, mercado, receita, custos, go-to-market                 |
+| [docs/MVP_SPEC.md](docs/MVP_SPEC.md)                                   | Histórias de usuário, critérios de aceitação, wireframes, APIs            |
+| [docs/PANIC_BUTTON_DESIGN.md](docs/PANIC_BUTTON_DESIGN.md)             | UX do botão, templates PT-BR, consentimento, limites                      |
+| [docs/SECURITY_AND_COMPLIANCE.md](docs/SECURITY_AND_COMPLIANCE.md)     | **LGPD/GDPR/HIPAA**, chaves, retenção, incidentes                         |
+| [docs/ROADMAP.md](docs/ROADMAP.md)                                     | Marcos 3/6/12 meses e KPIs                                                |
+| [docs/ISSUES_BACKLOG.md](docs/ISSUES_BACKLOG.md)                       | Épicos e sprints acionáveis                                               |
+| [docs/CRISIS_PROTOCOL.md](docs/CRISIS_PROTOCOL.md)                     | **Protocolo de crise** — escalonamento, limites duros, governança clínica |
+| [docs/FINANCIAL_CIRCUIT_BREAKER.md](docs/FINANCIAL_CIRCUIT_BREAKER.md) | Disjuntor financeiro — restrição de meios como proteção                   |
+| [docs/AI_COACHING_TEAM.md](docs/AI_COACHING_TEAM.md)                   | Equipe técnica de IA — papéis, limites e anti-engajamento                 |
 
 **Documentos legais e de conformidade** ficam em `docs/SECURITY_AND_COMPLIANCE.md`
 (checklists LGPD/GDPR/HIPAA, retenção, resposta a incidentes). Termos de Uso e Política

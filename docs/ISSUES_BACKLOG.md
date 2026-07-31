@@ -109,6 +109,63 @@ dispara em teste de caos.
 
 ---
 
+## E9 — Protocolo de crise e segurança do usuário · P0 · **bloqueado por governança**
+
+**Por quê:** o produto já detecta sinal de risco (`riskFlag`) mas não tem protocolo,
+dono clínico nem escada de escalonamento. Detectar risco sem responder é a pior
+combinação possível. Especificação: [CRISIS_PROTOCOL.md](./CRISIS_PROTOCOL.md).
+
+- [ ] `gov`: nomear diretor clínico responsável e obter assinatura do protocolo — **bloqueante**
+- [ ] `gov`: definir plantão humano e tempo de resposta — **bloqueante**
+- [ ] `docs`: decidir escopo (tempo vs. dinheiro) e refletir nos demais documentos `TODO [LEGAL]`
+- [ ] `feat(api)`: plano de segurança — escrito no estado frio, recuperado no pico — 8 pts
+- [ ] `feat(api)`: escada de escalonamento N1–N5 com auditoria de cada degrau — 8 pts
+- [ ] `feat(api)`: acompanhamento em 24 h após evento de risco — 3 pts
+- [ ] `feat(api)`: apoio ao contato que socorreu — 3 pts
+- [ ] `clinical`: critérios de detecção, calibragem e revisão dos textos `TODO [CLINICAL]`
+- [ ] `clinical`: painel adversarial do conteúdo de crise
+
+**Aceite:** checklist §11 do protocolo integralmente fechado.
+**Nada deste épico sobe com qualquer item de governança em aberto.**
+
+---
+
+## E10 — Disjuntor financeiro · P0 (se o escopo incluir dinheiro) · 21 pts
+
+**Por quê:** atua ao mesmo tempo na recaída e na segurança — a maior relação
+impacto/esforço do roadmap. Especificação:
+[FINANCIAL_CIRCUIT_BREAKER.md](./FINANCIAL_CIRCUIT_BREAKER.md).
+
+- [ ] `research`: experimento manual com 30 pessoas antes de codar — **primeiro** — 3 pts
+- [ ] `feat(api)`: limites com assimetria (apertar imediato, afrouxar com resfriamento) — 8 pts
+- [ ] `feat(api)`: cossignatário reaproveitando a rede de apoio verificada — 5 pts
+- [ ] `feat(api)`: `LIMIT_BREACHED` alimentando a detecção de risco do E9 — 2 pts
+- [ ] `feat(api)`: eventos de auditoria financeiros — 3 pts
+- [ ] `legal`: parecer sobre atividade financeira regulada e controle coercitivo `TODO [LEGAL]`
+
+**Aceite:** checklist §10 da especificação fechado; nenhum anti-padrão da §5 presente.
+
+---
+
+## E11 — Equipe técnica de IA · P1 · 26 pts
+
+**Por quê:** multiplica a capacidade humana no estado frio e na rede de apoio.
+Especificação: [AI_COACHING_TEAM.md](./AI_COACHING_TEAM.md).
+
+- [ ] `feat`: **Tradutor da torcida** — ensaia com o familiar o que dizer — 5 pts — _primeiro_
+- [ ] `feat`: **Preparador** — plano semanal em "se-então" — 8 pts
+- [ ] `feat`: **Analista de desempenho** — depende de telemetria (E3/E5) — 5 pts
+- [ ] `feat`: **Fisiologista** — sono e respiração — 3 pts
+- [ ] `feat`: **Psicólogo da equipe** — roteiros com revisão clínica pesada — 5 pts `TODO [CLINICAL]`
+- [ ] `feat`: **Chefe de equipe** — **bloqueado pelo E9** — 0 pts até desbloqueio
+- [ ] `test`: conjunto de casos difíceis versionado e rodando no CI
+- [ ] `feat`: métrica anti-engajamento instrumentada antes do lançamento
+
+**Aceite:** núcleo (pânico, plano de segurança, 188) comprovadamente funcional com o
+provedor de IA fora do ar; painel adversarial fechado.
+
+---
+
 ## Distribuição por sprint (12 semanas)
 
 | Sprint | Semanas | Épicos                             | Pontos |
@@ -134,3 +191,9 @@ dispara em teste de caos.
 | DPIA/RIPD e nomeação do DPO `TODO [LEGAL]`                                    | DPO                 | Lançamento     |
 | DPAs (Twilio, SendGrid, cloud, Sentry) `TODO [LEGAL]`                         | Jurídico            | Produção       |
 | Aprovação de template WhatsApp Business                                       | Produto             | M3             |
+| **Diretor clínico nomeado para o protocolo de crise** `TODO [CLINICAL]`       | Empresa             | **E9 inteiro** |
+| **Plantão humano de crise definido**                                          | Operação            | **E9 inteiro** |
+| Escopo tempo vs. dinheiro `TODO [LEGAL]`                                      | Produto/Jurídico    | E9, E10        |
+| Parecer sobre dever de cuidado ao detectar risco `TODO [LEGAL]`               | Jurídico            | E9             |
+| Parecer sobre atividade financeira regulada `TODO [LEGAL]`                    | Jurídico            | E10            |
+| DPA do provedor de modelo de IA `TODO [LEGAL]`                                | Jurídico            | E11            |
