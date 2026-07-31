@@ -128,6 +128,91 @@ SPA/Sigap e no BCB.
 
 ---
 
+## 3.2 Plataforma Centralizada de Autoexclusão — o primeiro dado de mercado real ⚠️✅
+
+Balanços divulgados pelo Ministério da Fazenda e noticiados por veículos de imprensa
+e pela Rádio Senado. **A fonte primária (páginas do gov.br) devolveu 403 ao fetcher
+desta sessão** — os números abaixo vêm de cobertura secundária e precisam ser
+confirmados em navegador antes de virar dado oficial nosso.
+
+### Série de adesão
+
+| Data                  | Cadastros   | Fonte                                                                                                                                                                                                                                                                                                      |
+| --------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| (início, fim de 2025) | 217 mil     | [Gazeta do Povo](https://www.gazetadopovo.com.br/economia/plataforma-autoexclusao-contas-bets-217-mil-brasileiros-cadastros/)                                                                                                                                                                              |
+| Maio/2026             | 570 mil     | [Rádio Senado](https://www12.senado.leg.br/radio/1/noticia/2026/05/28/plataforma-de-autoexclusao-de-bets-ja-soma-570-mil-cadastros-de-brasileiros)                                                                                                                                                         |
+| Junho/2026            | ~700 mil    | Balanço MF, via imprensa                                                                                                                                                                                                                                                                                   |
+| **Julho/2026**        | **925 mil** | [Metrópoles](https://www.metropoles.com/brasil/bets-925-mil-de-pessoas-usaram-ferramenta-de-autoexclusao) · [BNLData](https://bnldata.com.br/autoexclusao-de-apostas-alcanca-925-mil-usuarios-no-brasil/) · [FocusGN](https://focusgn.com/brasil/autoexclusao-nas-bets-alcanca-925-mil-usuarios-no-brasil) |
+
+Ritmo recente da ordem de **+200 mil cadastros por mês**. A plataforma existe desde
+o fim de 2025 — ou seja, quase um milhão de pessoas em cerca de sete meses.
+
+### O dado que vale mais que o total
+
+Do balanço de junho (~700 mil cadastros):
+
+| Indicador                                                               | Valor   | Leitura                                               |
+| ----------------------------------------------------------------------- | ------- | ----------------------------------------------------- |
+| Optaram por bloqueio **por tempo indeterminado**                        | **69%** | Não é curiosidade nem teste: é decisão de longo prazo |
+| Declararam **perda de controle sobre o jogo e impacto na saúde mental** | **41%** | Autoidentificação explícita de sofrimento             |
+
+**41% de ~700 mil ≈ 287 mil pessoas** que, num registro do governo federal,
+declararam por conta própria ter perdido o controle e sofrer impacto na saúde
+mental. Não é estimativa de prevalência derivada de amostra — é **declaração
+espontânea, individual e registrada**.
+
+Para dimensionamento de mercado isto vale mais do que qualquer número de prevalência
+que possamos estimar: é a população que **já se identificou**, já agiu, e cujo
+tamanho o próprio Estado publica e atualiza mensalmente.
+
+**Ressalvas honestas, que precisam acompanhar o número em qualquer uso:**
+
+1. O motivo declarado é **pergunta opcional** — os 41% são sobre quem respondeu, não
+   necessariamente sobre o total. A base do percentual precisa ser confirmada.
+2. Autoexcluir-se **não** significa querer ou precisar de um app. É intenção, não
+   demanda por produto.
+3. Cobre apenas casas **autorizadas**. Quem joga em site irregular não aparece.
+4. Não cobre jogo eletrônico sem aposta — o escopo original do produto.
+
+### ⚠️ Contradição encontrada nas fontes — resolver antes de citar
+
+Sobre a reversão do bloqueio por prazo indeterminado, as fontes divergem:
+
+- Uma cobertura afirma **mínimo de 12 meses** para pedir reversão.
+- Outra afirma que o pedido **pode ser cancelado em até 30 dias**.
+
+São coisas muito diferentes, e a diferença importa para o argumento de desenho do
+[FINANCIAL_CIRCUIT_BREAKER.md](./FINANCIAL_CIRCUIT_BREAKER.md) §1.1. **Confirmar na
+página oficial da SPA/MF antes de usar em qualquer material.**
+
+### Dado adjacente de altíssimo valor social
+
+O Ministério da Fazenda impediu **2,8 milhões de beneficiários do Bolsa Família e do
+BPC** de apostar em casas regulamentadas
+([O Tempo](https://www.otempo.com.br/economia/2026/7/11/fazenda-impediu-2-8-milhoes-de-beneficiarios-do-bolsa-familia-e-do-bpc-de-apostarem-em-bets) ·
+[CNN Brasil](https://www.cnnbrasil.com.br/politica/governo-bloqueia-acesso-a-bets-de-28-mi-que-recebem-bolsa-familia-ou-bpc/)).
+
+Isso diz algo duro sobre o perfil socioeconômico do dano — e reforça um
+anti-padrão já registrado: **nunca cobrar do usuário pela proteção, nunca oferecer
+crédito.** Uma parcela relevante da população afetada é beneficiária de programa de
+transferência de renda. Qualquer modelo B2C de assinatura exclui exatamente quem
+mais precisa.
+
+### Onde acessar a fonte primária 🔒
+
+- Serviço: https://www.gov.br/pt-br/servicos/plataforma-centralizada-de-autoexclusao-apostas
+- Página da SPA/MF: https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/autoexclusao
+- Nota de julho/2026: https://www.gov.br/fazenda/pt-br/assuntos/noticias/2026/julho/plataforma-centralizada-de-autoexclusao-permite-bloquear-sites-de-apostas-autorizados-de-uma-so-vez
+- Plataforma: `autoexclusaoapostas.fazenda.gov.br` (requer conta gov.br)
+
+**Ação recomendada:** pedido via **Lei de Acesso à Informação (LAI)** à SPA/MF
+solicitando a série histórica de cadastros, a distribuição por prazo escolhido, os
+motivos declarados com a base de cada percentual, e o perfil demográfico agregado.
+É gratuito, tem prazo legal de resposta e transforma cobertura de imprensa em dado
+oficial citável. **É a ação de maior retorno por esforço de todo este documento.**
+
+---
+
 ## 4. Prevalência de transtorno de jogo — literatura brasileira
 
 Existem estudos brasileiros publicados e revisados por pares. É de longe a lacuna

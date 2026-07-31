@@ -176,6 +176,8 @@ Mapa completo: [DATA_SOURCES.md](./DATA_SOURCES.md).
 - [ ] `research`: ler fontes primárias de prevalência e fechar os números marcados ⚠️ — 3 dias
 - [ ] `research`: extrair SINAN/TabNet (violência autoprovocada) por faixa etária e tendência — 2 dias
 - [ ] `research`: consultar PNS via Base dos Dados (SQL) para SAM/SOM — 2 dias
+- [ ] `research`: **pedido via LAI à SPA/MF** — série histórica de autoexclusão, prazos, motivos declarados e perfil demográfico — **maior retorno por esforço**
+- [ ] `research`: confirmar na página oficial a regra de reversão do bloqueio indeterminado (fontes divergem: 30 dias vs. 12 meses)
 - [ ] `research`: cotar SMS com três provedores (Twilio, Zenvia, Infobip) — 2 h
 - [ ] `research`: mapear obrigações de jogo responsável da SPA/MF — 1 semana
 - [ ] `research`: obter relatório PGB completo — corrige TAM e persona
