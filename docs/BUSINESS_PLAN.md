@@ -2,6 +2,12 @@
 
 > Versão 0.1.0 · MVP · Mercado inicial: **Brasil**. Valores em BRL, estimativas de referência
 > para planejamento — **não** são cotações fechadas. `TODO [LEGAL]` para claims de saúde.
+>
+> ⚠️ **AVISO DE PROCEDÊNCIA.** Os números deste documento são estimativas de
+> planejamento por analogia, **não** pesquisa primária. Não use em apresentação a
+> investidor, parceiro clínico ou órgão público antes da substituição.
+> [DATA_SOURCES.md](./DATA_SOURCES.md) mapeia a fonte real que substitui cada um
+> deles e o esforço necessário — cerca de duas semanas de trabalho no total.
 
 ---
 

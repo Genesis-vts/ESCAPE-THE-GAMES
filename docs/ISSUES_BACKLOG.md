@@ -166,6 +166,28 @@ provedor de IA fora do ar; painel adversarial fechado.
 
 ---
 
+## E12 — Substituir estimativa por evidência · P0 · ~2 semanas de 1 pessoa
+
+**Por quê:** o plano de negócios inteiro roda sobre números inventados por analogia.
+Fontes públicas brasileiras cobrem quase todos, de graça.
+Mapa completo: [DATA_SOURCES.md](./DATA_SOURCES.md).
+
+- [ ] `partnership`: contato com **PRO-AMITI / IPq HC-FMUSP** — destrava o E9 inteiro — **primeiro**
+- [ ] `research`: ler fontes primárias de prevalência e fechar os números marcados ⚠️ — 3 dias
+- [ ] `research`: extrair SINAN/TabNet (violência autoprovocada) por faixa etária e tendência — 2 dias
+- [ ] `research`: consultar PNS via Base dos Dados (SQL) para SAM/SOM — 2 dias
+- [ ] `research`: cotar SMS com três provedores (Twilio, Zenvia, Infobip) — 2 h
+- [ ] `research`: mapear obrigações de jogo responsável da SPA/MF — 1 semana
+- [ ] `research`: obter relatório PGB completo — corrige TAM e persona
+- [ ] `docs`: reescrever `BUSINESS_PLAN.md` com fonte ao lado de cada número
+
+**Aceite:** nenhum número sem fonte citada no plano de negócios.
+**Achado que já reordena o roadmap:** literatura brasileira associa o transtorno a
+sintomas depressivos e má qualidade do sono — sobe a prioridade do membro
+"Fisiologista" (E11) e do rastreio de sintomas depressivos.
+
+---
+
 ## Distribuição por sprint (12 semanas)
 
 | Sprint | Semanas | Épicos                             | Pontos |
@@ -197,3 +219,4 @@ provedor de IA fora do ar; painel adversarial fechado.
 | Parecer sobre dever de cuidado ao detectar risco `TODO [LEGAL]`               | Jurídico            | E9             |
 | Parecer sobre atividade financeira regulada `TODO [LEGAL]`                    | Jurídico            | E10            |
 | DPA do provedor de modelo de IA `TODO [LEGAL]`                                | Jurídico            | E11            |
+| Parceria com serviço clínico universitário (PRO-AMITI/IPq-USP)                | Fundadores          | E9, E12        |
