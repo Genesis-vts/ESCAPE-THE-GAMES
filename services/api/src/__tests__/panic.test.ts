@@ -288,3 +288,51 @@ describe('POST /api/v1/panic', () => {
     expect(JSON.stringify(h.deps.audit.list())).not.toContain('segredo clínico');
   });
 });
+
+describe('Sinal de risco à vida', () => {
+  let harness: TestHarness;
+
+  beforeEach(() => {
+    harness = createTestHarness();
+  });
+
+  it('devolve o aviso literal com os canais 188 e 192', async () => {
+    await criarContatoVerificado(harness);
+    const resposta = await request(harness.app)
+      .post('/api/v1/panic')
+      .set('Authorization', `Bearer ${harness.token}`)
+      .send({ message: 'nao aguento mais viver assim', triggerType: 'hold' })
+      .expect(200);
+
+    expect(resposta.body.warnings).toContain('RISK_SIGNAL_DETECTED');
+    expect(resposta.body.criticalRiskNotice).toContain('188');
+    expect(resposta.body.criticalRiskNotice).toContain('192');
+    expect(resposta.body.criticalRiskNotice).toContain('não somos um serviço de emergência');
+  });
+
+  it('não devolve o aviso quando não há sinal de risco', async () => {
+    await criarContatoVerificado(harness);
+    const resposta = await request(harness.app)
+      .post('/api/v1/panic')
+      .set('Authorization', `Bearer ${harness.token}`)
+      .send({ message: 'to com vontade de apostar', triggerType: 'hold' })
+      .expect(200);
+
+    expect(resposta.body.warnings).not.toContain('RISK_SIGNAL_DETECTED');
+    expect(resposta.body.criticalRiskNotice).toBeUndefined();
+  });
+
+  it('marca a notificação como crítica e continua suprimindo o corpo da mensagem', async () => {
+    await criarContatoVerificado(harness);
+    await request(harness.app)
+      .post('/api/v1/panic')
+      .set('Authorization', `Bearer ${harness.token}`)
+      .send({ message: 'quero me machucar', triggerType: 'hold' })
+      .expect(200);
+    await harness.drain();
+
+    const sms = smsDePanico(harness)[0];
+    // A prioridade não muda o conteúdo: o corpo sensível permanece fora do SMS.
+    expect(sms?.body).not.toContain('me machucar');
+  });
+});

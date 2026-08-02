@@ -118,23 +118,28 @@ Responda SAIR para nao receber mais.
 
 ## Endpoints do MVP
 
-| Método   | Rota                             | Descrição                                                     | Limite                   |
-| -------- | -------------------------------- | ------------------------------------------------------------- | ------------------------ |
-| GET      | `/health`                        | Liveness/readiness                                            | 100/min por IP           |
-| POST     | `/api/v1/panic`                  | Aciona o botão de pânico                                      | 5/h e 10/dia por usuário |
-| GET      | `/api/v1/panic/:eventId`         | Status por destinatário                                       | —                        |
-| POST     | `/api/v1/panic/:eventId/resolve` | Marca "já estou bem"                                          | —                        |
-| POST     | `/api/v1/contacts`               | Cadastra contato (fica `pending`)                             | 10/h por usuário         |
-| GET      | `/api/v1/contacts`               | Lista contatos                                                | —                        |
-| POST     | `/api/v1/contacts/:id/verify`    | Verifica com código de 6 dígitos                              | 5/15 min                 |
-| POST     | `/api/v1/contacts/:id/resend`    | Reenvia o código                                              | 3/h                      |
-| DELETE   | `/api/v1/contacts/:id`           | Revoga contato                                                | —                        |
-| GET      | `/api/v1/screening/nods3`        | Itens do rastreio breve de transtorno do jogo                 | —                        |
-| POST     | `/api/v1/screening/nods3`        | Aplica o rastreio (NODS-3-BR) e devolve caminhos de apoio     | 20/h por usuário         |
-| GET      | `/api/v1/screening/ogdq`         | Itens do OGD-Q BR — rastreio de **aposta online**             | —                        |
-| POST     | `/api/v1/screening/ogdq`         | Aplica o OGD-Q BR (11 itens) e classifica a intensidade       | 20/h por usuário         |
-| GET/POST | `/api/v1/opt-out`                | **Público.** Descadastro do contato pelo link assinado        | 30/min por IP            |
-| POST     | `/api/v1/webhooks/sms/inbound`   | **Público.** Resposta "SAIR" do contato (assinatura validada) | 30/min por IP            |
+| Método   | Rota                             | Descrição                                                         | Limite                   |
+| -------- | -------------------------------- | ----------------------------------------------------------------- | ------------------------ |
+| GET      | `/health`                        | Liveness/readiness                                                | 100/min por IP           |
+| POST     | `/api/v1/panic`                  | Aciona o botão de pânico                                          | 5/h e 10/dia por usuário |
+| GET      | `/api/v1/panic/:eventId`         | Status por destinatário                                           | —                        |
+| POST     | `/api/v1/panic/:eventId/resolve` | Marca "já estou bem"                                              | —                        |
+| POST     | `/api/v1/contacts`               | Cadastra contato (fica `pending`)                                 | 10/h por usuário         |
+| GET      | `/api/v1/contacts`               | Lista contatos                                                    | —                        |
+| POST     | `/api/v1/contacts/:id/verify`    | Verifica com código de 6 dígitos                                  | 5/15 min                 |
+| POST     | `/api/v1/contacts/:id/resend`    | Reenvia o código                                                  | 3/h                      |
+| DELETE   | `/api/v1/contacts/:id`           | Revoga contato                                                    | —                        |
+| GET      | `/api/v1/screening/nods3`        | Itens do rastreio breve de transtorno do jogo                     | —                        |
+| POST     | `/api/v1/screening/nods3`        | Aplica o rastreio (NODS-3-BR) e devolve caminhos de apoio         | 20/h por usuário         |
+| GET      | `/api/v1/screening/ogdq`         | Itens do OGD-Q BR — rastreio de **aposta online**                 | —                        |
+| POST     | `/api/v1/screening/ogdq`         | Aplica o OGD-Q BR (11 itens) e classifica a intensidade           | 20/h por usuário         |
+| POST     | `/api/v1/journal`                | Registra gatilho (loot box, anúncio, pressão, ansiedade, fissura) | 60/h por usuário         |
+| GET      | `/api/v1/journal`                | Lista o diário, com paginação                                     | —                        |
+| POST     | `/api/v1/goals`                  | Define meta de dias livres                                        | —                        |
+| GET      | `/api/v1/goals/progress`         | Progresso linear — sem pontos, níveis ou conquistas               | —                        |
+| POST     | `/api/v1/goals/lapse`            | Registra recaída **declarada pelo usuário**                       | —                        |
+| GET/POST | `/api/v1/opt-out`                | **Público.** Descadastro do contato pelo link assinado            | 30/min por IP            |
+| POST     | `/api/v1/webhooks/sms/inbound`   | **Público.** Resposta "SAIR" do contato (assinatura validada)     | 30/min por IP            |
 
 Todas as rotas `/api/v1/**` exigem `Authorization: Bearer <jwt>`, exceto as marcadas como
 públicas — quem quer parar de receber mensagens que nunca pediu não deve precisar de conta.
@@ -149,7 +154,7 @@ ESCAPE-THE-GAMES/
 ├── docs/                  # documentação de produto, arquitetura e conformidade
 ├── services/api/          # API Node.js + TypeScript (funcional)
 │   └── src/
-│       ├── modules/       # panic, contacts, screening, opt-out, health
+│       ├── modules/       # panic, contacts, screening, journal, goals, opt-out, health
 │       ├── notifications/ # templates PT-BR, fila com retry, adaptadores de provedor
 │       ├── middleware/    # auth (JWT), rate limit, erros, contexto de requisição
 │       ├── audit/         # log WORM com hash encadeado
@@ -186,7 +191,7 @@ de Privacidade voltados ao usuário final serão publicados em `apps/web/src/app
 
 ```bash
 npm run dev                                  # API em watch mode
-npm test                                     # 97 testes (Jest + Supertest)
+npm test                                     # 113 testes (Jest + Supertest)
 npm run test:coverage --workspace services/api
 npm run lint                                 # ESLint
 npm run typecheck --workspace services/api   # tsc --noEmit

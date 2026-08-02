@@ -9,9 +9,13 @@ import {
 } from './notifications/queue';
 import {
   InMemoryContactRepository,
+  InMemoryGoalRepository,
+  InMemoryJournalRepository,
   InMemoryPanicRepository,
   InMemoryUserRepository,
   type ContactRepository,
+  type GoalRepository,
+  type JournalRepository,
   type PanicRepository,
   type UserRepository,
 } from './repositories/inMemory';
@@ -27,6 +31,8 @@ export interface Container {
   users: UserRepository;
   contacts: ContactRepository;
   panic: PanicRepository;
+  journal: JournalRepository;
+  goals: GoalRepository;
   audit: AuditLog;
   providers: Providers;
   queue: NotificationQueue;
@@ -53,6 +59,8 @@ export function createContainer(overrides: ContainerOverrides = {}): Container {
   const users = overrides.users ?? new InMemoryUserRepository();
   const contacts = overrides.contacts ?? new InMemoryContactRepository();
   const panic = overrides.panic ?? new InMemoryPanicRepository();
+  const journal = overrides.journal ?? new InMemoryJournalRepository();
+  const goals = overrides.goals ?? new InMemoryGoalRepository();
   const audit = overrides.audit ?? new AuditLog();
   const providers = overrides.providers ?? createProviders();
   const queue =
@@ -65,5 +73,5 @@ export function createContainer(overrides: ContainerOverrides = {}): Container {
     void users.save({ ...DEMO_USER });
   }
 
-  return { users, contacts, panic, audit, providers, queue };
+  return { users, contacts, panic, journal, goals, audit, providers, queue };
 }

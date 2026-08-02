@@ -1,4 +1,11 @@
-import type { Contact, PanicEvent, PanicNotification, User } from '../domain/types';
+import type {
+  Contact,
+  JournalEntry,
+  PanicEvent,
+  PanicNotification,
+  UsageGoal,
+  User,
+} from '../domain/types';
 
 /**
  * Repositórios em memória do MVP.
@@ -156,5 +163,49 @@ export class InMemoryPanicRepository implements PanicRepository {
 
   async listNotificationsByEvent(eventId: string): Promise<PanicNotification[]> {
     return [...this.notifications.values()].filter((n) => n.panicEventId === eventId);
+  }
+}
+
+export interface JournalRepository {
+  create(entry: JournalEntry): Promise<JournalEntry>;
+  listByUser(userId: string, limit: number, offset: number): Promise<JournalEntry[]>;
+  countByUser(userId: string): Promise<number>;
+}
+
+export class InMemoryJournalRepository implements JournalRepository {
+  private readonly entries: JournalEntry[] = [];
+
+  async create(entry: JournalEntry): Promise<JournalEntry> {
+    this.entries.push(entry);
+    return entry;
+  }
+
+  async listByUser(userId: string, limit: number, offset: number): Promise<JournalEntry[]> {
+    return this.entries
+      .filter((e) => e.userId === userId)
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+      .slice(offset, offset + limit);
+  }
+
+  async countByUser(userId: string): Promise<number> {
+    return this.entries.filter((e) => e.userId === userId).length;
+  }
+}
+
+export interface GoalRepository {
+  findByUser(userId: string): Promise<UsageGoal | null>;
+  save(goal: UsageGoal): Promise<UsageGoal>;
+}
+
+export class InMemoryGoalRepository implements GoalRepository {
+  private readonly goals = new Map<string, UsageGoal>();
+
+  async findByUser(userId: string): Promise<UsageGoal | null> {
+    return this.goals.get(userId) ?? null;
+  }
+
+  async save(goal: UsageGoal): Promise<UsageGoal> {
+    this.goals.set(goal.userId, goal);
+    return goal;
   }
 }

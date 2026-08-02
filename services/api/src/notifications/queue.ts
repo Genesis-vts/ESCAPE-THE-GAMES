@@ -22,6 +22,15 @@ export interface NotificationJob {
   contactId: string;
   channel: ContactChannel;
   destination: string;
+  /**
+   * `true` quando o acionamento carrega sinal de risco à vida.
+   *
+   * Hoje a fila é FIFA in-process e a flag é apenas propagada — ela existe para
+   * que a implementação com Redis/BullMQ (E3) possa usar fila separada ou
+   * prioridade. NÃO altera o conteúdo enviado: o corpo já é suprimido pelo
+   * template quando há risco (PANIC_BUTTON_DESIGN.md §5.6).
+   */
+  priority?: 'critical';
   payload:
     | { kind: 'sms'; body: string }
     | { kind: 'email'; subject: string; text: string; html: string }

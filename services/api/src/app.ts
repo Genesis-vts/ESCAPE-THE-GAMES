@@ -7,7 +7,9 @@ import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 import { requestContext } from './middleware/requestContext';
 import { createRateLimiter } from './middleware/rateLimit';
 import { createContactsRouter } from './modules/contacts/contacts.routes';
+import { createGoalsRouter } from './modules/goals/goals.routes';
 import { createHealthRouter } from './modules/health/health.routes';
+import { createJournalRouter } from './modules/journal/journal.routes';
 import { createOptOutRouter } from './modules/optout/optout.routes';
 import { createPanicRouter } from './modules/panic/panic.routes';
 import { createScreeningRouter } from './modules/screening/screening.routes';
@@ -55,6 +57,8 @@ export function createApp(deps: Container = createContainer()): Express {
   app.use('/api/v1', createPanicRouter(deps));
   app.use('/api/v1', createContactsRouter(deps));
   app.use('/api/v1', createScreeningRouter(deps));
+  app.use('/api/v1', createJournalRouter(deps));
+  app.use('/api/v1', createGoalsRouter(deps));
 
   app.use(notFoundHandler());
   app.use(errorHandler());

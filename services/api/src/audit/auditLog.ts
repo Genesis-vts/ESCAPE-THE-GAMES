@@ -22,6 +22,8 @@ export type AuditAction =
   | 'PANIC_NOTIFICATION_FAILED'
   | 'PANIC_RESOLVED'
   | 'SCREENING_COMPLETED'
+  | 'JOURNAL_ENTRY_CREATED'
+  | 'GOAL_LAPSE_REGISTERED'
   | 'RATE_LIMIT_EXCEEDED';
 
 export interface AuditEntry {

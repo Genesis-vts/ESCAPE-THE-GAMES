@@ -772,6 +772,70 @@ planejamento.
 
 ---
 
+## 4.4 Convergência jogo eletrônico → aposta (gamblification) ⚠️
+
+A pergunta: existe literatura sobre a trajetória **videogame → jogo online → aposta**
+como progressão? Existe, é grande, e tem um nome — **hipótese da passarela**
+(_gateway hypothesis_), dentro do campo da **convergência jogo-aposta**
+(_gaming-gambling convergence_ / _gamblification_).
+
+### O que a evidência sustenta ✅
+
+| Achado                                                                                                                                                          | Força                                           |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| **Correlação robusta e replicada** entre gasto com loot box e jogo problemático, em vários países e amostras                                                    | Forte — reproduzida em dezenas de estudos       |
+| **Estudos longitudinais** encontram migração: entre não-apostadores no início, gasto com loot box previu **iniciação** em aposta e gasto posterior              | Moderada — poucos estudos, amostras específicas |
+| Em adolescentes (coorte flamenga, 2 ondas, n=561): interagir com mecânicas de azar na onda 1 previu apostar na onda 2, **indiretamente** via atitude e intenção | Moderada                                        |
+| **Skin gambling** contribui para dano mesmo controlando por outras formas de aposta                                                                             | Moderada                                        |
+| Adolescentes envolvidos com loot box têm maior risco de jogo problemático; meninos mais expostos                                                                | Forte                                           |
+
+### 🛑 O que a evidência NÃO sustenta
+
+**A direção causal é contestada.** A explicação concorrente é a **responsabilidade
+comum** (_common liability_): as duas atividades atraem os mesmos perfis
+(impulsividade, distorções cognitivas, idade), e a correlação viria do perfil
+compartilhado, não de uma porta que leva de uma à outra.
+
+E o número que mais importa para não exagerar a leitura: entre compradores de loot
+box que também apostam, **cerca de 80% NÃO relatam efeito passarela**. Uma minoria
+relevante relata (~20%) — mas a maioria dos jogadores não faz esse percurso.
+
+A revisão de escopo mais recente (JMIR Serious Games, 2025, Siste, King et al.)
+conclui que há **evidência inicial** de ligação por características estruturais e
+biopsicossociais compartilhadas, e que o campo **ainda precisa de dados
+longitudinais** para determinar direcionalidade.
+
+### O que isso significa para este produto
+
+**Sustenta:** tratar loot box como do lado da aposta (é o que o OGD-Q BR já faz);
+registrar exposição a loot box e a publicidade como gatilhos; e priorizar menores.
+
+**Não sustenta:** a leitura de que "uma geração inteira" virou presa. A maioria dos
+jogadores não desenvolve problema com aposta. Desenhar o produto como se todo jogador
+fosse caso seria errado clinicamente e ofensivo para o usuário — além de gerar falso
+positivo em massa.
+
+**A leitura honesta:** existe um subgrupo real, identificável e mensurável, para quem
+a trajetória acontece. O produto deve encontrá-lo, não presumir que é todo mundo.
+
+### Fontes
+
+- [Loot boxes and problem gambling: Investigating the "gateway hypothesis"](https://www.sciencedirect.com/science/article/pii/S0306460322000934) — Addictive Behaviors, 2022
+- [The gamblers of the future? Migration from loot boxes to gambling in a longitudinal study of young adults](https://www.sciencedirect.com/science/article/pii/S0747563222004253) — Computers in Human Behavior, 2023
+- [Scrutinizing the Gateway Relationship Between Gaming and Gambling Disorder](https://games.jmir.org/2025/1/e59740) — JMIR Serious Games, 2025
+- [Adolescents and loot boxes](https://royalsocietypublishing.org/doi/abs/10.1098/rsos.190049) — Royal Society Open Science, 2019
+- [Skin Gambling Contributes to Gambling Problems and Harm](https://link.springer.com/article/10.1007/s10899-022-10111-z) — J Gambling Studies, 2022
+- **Gainsbury SM.** "Gaming-gambling convergence: Research, regulation, and reactions." _Gaming Law Review_, 2019 — lido na íntegra
+- **Macey J, Hamari J.** "The gamblification of digital games" — lido na íntegra
+
+⚠️ O **Dossiê Científico** recebido (síntese compilada, sem autoria acadêmica
+identificada) organiza bem o campo e propõe o modelo de **Duplo Impacto**
+(_Dual-Hit_: fatores biopsicossociais → exposição a mecânica de azar → exposição a
+publicidade de aposta). Útil como moldura; **não é fonte citável** — usar os artigos
+acima.
+
+---
+
 ## 5. Mercado e dimensionamento
 
 ### 5.1 Pesquisa Game Brasil (PGB) ✅

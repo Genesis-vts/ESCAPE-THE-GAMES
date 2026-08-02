@@ -252,3 +252,19 @@ Detalhe: [PUBLIC_SECTOR_STRATEGY.md](./PUBLIC_SECTOR_STRATEGY.md) §4.
 | Parecer sobre atividade financeira regulada `TODO [LEGAL]`                    | Jurídico            | E10            |
 | DPA do provedor de modelo de IA `TODO [LEGAL]`                                | Jurídico            | E11            |
 | Parceria com serviço clínico universitário (PRO-AMITI/IPq-USP)                | Fundadores          | E9, E12        |
+
+---
+
+## Divergências deliberadas da especificação recebida
+
+Registradas para que a escolha seja auditável e reversível.
+
+| Onde                  | O que a spec pedia                                                             | O que foi feito                                                                                                                                                             |
+| --------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Onboarding OGD-Q**  | Pontos de corte por **soma**: ≥44 transtorno · 33–43 problema · <33 "em risco" | **Não implementado.** Não é a regra publicada, e classificaria como "em risco" quem respondeu "Nunca" a tudo (soma 11). Mantida a regra do artigo: ≥4 em ≥4 itens + duração |
+| **Recaída (metas)**   | Deduzir recaída do `createdAt` do último `panic_event` resolvido               | **Rota própria** `POST /goals/lapse`, declarada pelo usuário. Acionar o botão é pedir ajuda — se zerasse o progresso, o produto puniria o que quer ensinar                  |
+| **Sequência (metas)** | `longestStreakDays` implícito no cálculo                                       | `longestStreakDays` **nunca diminui**. Quebra de sequência ativa aversão à perda e é fator conhecido de abandono                                                            |
+| **Termos de risco**   | Incluir 'não aguento mais' e 'desisto' isolados                                | Usadas apenas formas completas ('não aguento mais viver', 'desistir de tudo'). Isoladas, geram falso positivo alto num app onde "não aguento mais" costuma ser sobre aposta |
+
+- [ ] `clinical`: validar os termos de `TERMOS_DE_RISCO` com o serviço parceiro — continua sendo lista de palavras, não instrumento `TODO [CLINICAL]`
+- [ ] `product`: medir se exibir contagem de dias ajuda ou atrapalha em recaída — hoje é suposição

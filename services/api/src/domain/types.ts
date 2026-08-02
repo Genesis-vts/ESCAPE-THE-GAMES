@@ -71,3 +71,31 @@ export interface PanicNotification {
   sentAt: string | null;
   deliveredAt: string | null;
 }
+
+/**
+ * Registro do diário de gatilhos.
+ *
+ * `notes` é conteúdo sensível de saúde: criptografado em repouso (E5) e nunca
+ * escrito em log nem em auditoria.
+ */
+export interface JournalEntry {
+  id: string;
+  userId: string;
+  triggerType: string;
+  intensity: number | null;
+  notes: string | null;
+  createdAt: string;
+}
+
+/** Meta de dias livres e histórico de recaídas declaradas pelo usuário. */
+export interface UsageGoal {
+  id: string;
+  userId: string;
+  targetDaysFree: number;
+  /** Início da contagem atual. Avança a cada recaída registrada. */
+  currentStreakStartedAt: string;
+  /** Melhor sequência já alcançada, em dias. Nunca diminui. */
+  longestStreakDays: number;
+  createdAt: string;
+  updatedAt: string;
+}

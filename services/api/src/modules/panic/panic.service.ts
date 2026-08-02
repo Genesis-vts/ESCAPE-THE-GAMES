@@ -44,6 +44,12 @@ export interface PanicTriggerResult {
   disclaimer: string;
   /** Canais públicos de apoio, sempre devolvidos ao cliente. */
   supportChannels: { label: string; phone: string }[];
+  /**
+   * Presente **apenas** quando um sinal de risco à vida foi detectado na
+   * mensagem. Ausente no caso normal — o cliente não deve exibir alarme quando
+   * não há sinal.
+   */
+  criticalRiskNotice?: string;
 }
 
 /**
@@ -74,9 +80,27 @@ const TERMOS_DE_RISCO = [
   'nao aguento mais viver',
   'não aguento mais viver',
   'acabar com tudo',
+  'acabar com isso tudo',
   'me machucar',
+  'me ferir',
   'tirar minha vida',
+  'nao quero mais viver',
+  'não quero mais viver',
+  'sumir de vez',
+  'desistir de tudo',
 ];
+
+/**
+ * Aviso devolvido ao usuário quando um sinal de risco é detectado.
+ *
+ * Texto obrigatório e literal: nomeia o limite do produto e entrega dois canais
+ * públicos e gratuitos. Coberto por teste — não editar sem revisão clínica.
+ */
+export const AVISO_DE_RISCO_CRITICO =
+  'ATENÇÃO: identificamos na sua mensagem sinais que podem indicar risco à sua ' +
+  'vida. Nós não somos um serviço de emergência e não acionamos socorro. ' +
+  'Por favor, ligue agora para o CVV (188), gratuito e sigiloso 24 horas, ou ' +
+  'para o SAMU (192).';
 
 export function detectarSinalDeRisco(mensagem: string | null | undefined): boolean {
   if (!mensagem) return false;
@@ -181,6 +205,9 @@ export class PanicService {
     if (riskFlag) {
       // O app usa este aviso para exibir imediatamente os canais de apoio.
       resultado.warnings.push('RISK_SIGNAL_DETECTED');
+      // Texto pronto para exibição, para o cliente não ter que compor a
+      // mensagem mais delicada do produto a partir de um código de aviso.
+      resultado.criticalRiskNotice = AVISO_DE_RISCO_CRITICO;
     }
 
     return resultado;
@@ -237,6 +264,8 @@ export class PanicService {
     };
 
     const base = {
+      // Propaga a criticidade do evento para a fila (ver NotificationJob).
+      ...(evento.riskFlag ? { priority: 'critical' as const } : {}),
       notificationId: notificacao.id,
       panicEventId: evento.id,
       contactId: contato.id,
