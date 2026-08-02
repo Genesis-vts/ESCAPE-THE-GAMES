@@ -515,6 +515,63 @@ capacidade clínica para atender essa população por consulta, e não vai exist
 | Exposição **antes dos 18 anos** é fator de vulnerabilidade relevante; adolescentes expostos aumentaram muito pós-legalização | BBC/Radis | Reforça o bloqueio de lançamento sobre menores |
 | Não há medicação comprovada para IGD; antagonistas opioides ajudam no transtorno do jogo                                     | cap./BBC  | Fora do nosso escopo — não sugerir nada        |
 
+### 4.1.2 Gênero — o efeito telescópio ⚠️ **muda um parâmetro do produto**
+
+> **Martins, Silvia Saboia.** _Jogo patológico no gênero feminino: características
+> clínicas e de personalidade._ Faculdade de Medicina da USP.
+> https://teses.usp.br/teses/disponiveis/5/5142/tde-05042007-110036/
+> Revisão relacionada: [Pathological gambling in women: a review](https://www.scielo.br/j/rhc/a/GMc5BwRSnRVfvF3ZJmZMJfG/?lang=en) (SciELO)
+
+🔒 **Não foi possível ler a fonte primária** — `teses.usp.br` e o espelho
+`jogoremoto.pt` estão fora da allowlist de egresso desta sessão. O que segue vem de
+resumo de busca e é **⚠️, não ✅**.
+
+**Desenho:** 78 mulheres e 78 homens com jogo patológico. Instrumentos: SOGS e
+critérios DSM-IV (diagnóstico), SCAN (comorbidade), Inventário de Temperamento e
+Caráter e Escala de Impulsividade de Barratt (personalidade).
+
+| Achado                                                                                              | Implicação                                     |
+| --------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| **Efeito telescópio:** ~**14 anos** de envolvimento até o quadro em homens, ~**4 anos** em mulheres | A janela de intervenção é ~3,5× mais curta     |
+| Maior comorbidade com **depressão** em mulheres                                                     | O módulo de crise pesa mais para elas          |
+| Jogo como **válvula de escape** para tensões e crises depressivas                                   | É o "C" de **Confronto** (item #8) em destaque |
+| Preferência por **jogos eletrônicos** — possível explicação da progressão rápida                    | Ver a ressalva de leitura abaixo               |
+
+#### Por que isto não é ajuste de persona
+
+O `MVP_SPEC.md` foi desenhado sobre "Rafael, 22, homem". Se a progressão de jogo
+social a patológico leva ~4 anos em mulheres contra ~14 em homens, então **o tempo
+disponível para toda a estratégia de pré-compromisso em estado frio é
+substancialmente menor para metade da população**. Isso não é um detalhe de
+representatividade — é um **parâmetro temporal** do produto, e ele está calibrado
+hoje para o caso mais lento.
+
+Some-se: mulheres teriam mais comorbidade depressiva, e o `CRISIS_PROTOCOL.md` existe
+justamente para a janela depressiva. O produto tem persona masculina e um módulo de
+crise cuja população mais exposta pode ser feminina.
+
+#### ⚠️ Ressalva de leitura que pode inverter a conclusão
+
+Na literatura de jogo de azar, **"jogos eletrônicos" costuma significar máquinas
+eletrônicas de jogo** (caça-níqueis, bingo eletrônico) — **não** videogame. Se for
+esse o sentido aqui, o achado **não** diz nada sobre a decisão de escopo
+"apostas × jogo eletrônico" do [BUSINESS_PLAN.md](./BUSINESS_PLAN.md) §10. Ler a
+fonte antes de usar em qualquer argumento sobre videogames.
+
+#### Ressalva de época — a mais importante
+
+A tese é **anterior à aposta online**. Retrata a era do bingo e do caça-níquel, com
+amostra **clínica** (quem procurou tratamento), não populacional. Duas consequências:
+
+1. O efeito telescópio pode estar **subestimado** hoje: se o cassino cabe no bolso,
+   a progressão tende a encurtar para todos os gêneros.
+2. Amostra de quem busca tratamento tem viés próprio — homens e mulheres não
+   procuram ajuda no mesmo momento da doença.
+
+**Ação:** ler a fonte primária e checar se há replicação pós-2020. É a pergunta de
+pesquisa mais atraente para levar ao PRO-AMITI, porque une o dado deles com o
+fenômeno novo.
+
 ### 4.2 O achado que valida a estratégia ⚠️
 
 A literatura brasileira associa transtorno de jogo pela internet a **sexo
