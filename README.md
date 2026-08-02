@@ -129,6 +129,8 @@ Responda SAIR para nao receber mais.
 | POST     | `/api/v1/contacts/:id/verify`    | Verifica com código de 6 dígitos                              | 5/15 min                 |
 | POST     | `/api/v1/contacts/:id/resend`    | Reenvia o código                                              | 3/h                      |
 | DELETE   | `/api/v1/contacts/:id`           | Revoga contato                                                | —                        |
+| GET      | `/api/v1/screening/nods3`        | Itens do rastreio breve de transtorno do jogo                 | —                        |
+| POST     | `/api/v1/screening/nods3`        | Aplica o rastreio (NODS-3-BR) e devolve caminhos de apoio     | 20/h por usuário         |
 | GET/POST | `/api/v1/opt-out`                | **Público.** Descadastro do contato pelo link assinado        | 30/min por IP            |
 | POST     | `/api/v1/webhooks/sms/inbound`   | **Público.** Resposta "SAIR" do contato (assinatura validada) | 30/min por IP            |
 
@@ -145,7 +147,7 @@ ESCAPE-THE-GAMES/
 ├── docs/                  # documentação de produto, arquitetura e conformidade
 ├── services/api/          # API Node.js + TypeScript (funcional)
 │   └── src/
-│       ├── modules/       # panic, contacts, health
+│       ├── modules/       # panic, contacts, screening, opt-out, health
 │       ├── notifications/ # templates PT-BR, fila com retry, adaptadores de provedor
 │       ├── middleware/    # auth (JWT), rate limit, erros, contexto de requisição
 │       ├── audit/         # log WORM com hash encadeado
@@ -182,7 +184,7 @@ de Privacidade voltados ao usuário final serão publicados em `apps/web/src/app
 
 ```bash
 npm run dev                                  # API em watch mode
-npm test                                     # 64 testes (Jest + Supertest)
+npm test                                     # 76 testes (Jest + Supertest)
 npm run test:coverage --workspace services/api
 npm run lint                                 # ESLint
 npm run typecheck --workspace services/api   # tsc --noEmit

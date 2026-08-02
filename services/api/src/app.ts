@@ -10,6 +10,7 @@ import { createContactsRouter } from './modules/contacts/contacts.routes';
 import { createHealthRouter } from './modules/health/health.routes';
 import { createOptOutRouter } from './modules/optout/optout.routes';
 import { createPanicRouter } from './modules/panic/panic.routes';
+import { createScreeningRouter } from './modules/screening/screening.routes';
 
 /**
  * Composição da aplicação Express.
@@ -53,6 +54,7 @@ export function createApp(deps: Container = createContainer()): Express {
   app.use('/api/v1', createOptOutRouter(deps));
   app.use('/api/v1', createPanicRouter(deps));
   app.use('/api/v1', createContactsRouter(deps));
+  app.use('/api/v1', createScreeningRouter(deps));
 
   app.use(notFoundHandler());
   app.use(errorHandler());

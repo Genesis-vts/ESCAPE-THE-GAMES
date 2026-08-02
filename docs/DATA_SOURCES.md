@@ -323,40 +323,88 @@ resumo de busca — **nenhum foi lido na fonte primária** (ver §7).
   [Revista Metropolitana](https://revistametropolitana.com.br/noticia/54034/1-4-milhao-de-brasileiros-tem-transtorno-de-jogo-aponta-estudo-inedito)
 - Reportagem de fundo: [Pesquisa FAPESP nº 351, "Como joga o brasileiro"](https://revistapesquisa.fapesp.br/wp-content/uploads/2025/04/044-047_jogo_351.pdf)
 
-### 4.0.1 O instrumento de triagem — encontrado ⚠️
-
-O rastreio de 3 perguntas que Hermano Tavares citou no Roda Viva ([§3.3](#33-roda-viva-com-hermano-tavares--27072026-))
-tem origem localizada:
+### 4.0.1 O instrumento de triagem — ✅ LIDO NA ÍNTEGRA E IMPLEMENTADO
 
 > **Tovar Velásquez, Juan David.** _Transtorno do jogo e jogo problemático nas
 > loterias brasileiras: construindo uma amostra nacional representativa dos
 > apostadores de loteria e validação de um instrumento de triagem._
-> Mestrado, Faculdade de Medicina da USP, 2021. **Orientador: Hermano Tavares.**
+> Dissertação de Mestrado, Faculdade de Medicina da USP, 2021.
+> **Orientador: Prof. Dr. Hermano Tavares.**
 >
 > - Registro: https://repositorio.usp.br/item/003071791
-> - **PDF integral, acesso público:** https://teses.usp.br/teses/disponiveis/5/5142/tde-29032022-125916/publico/JuanDavidTovarVelasquez.pdf
+> - PDF integral: https://teses.usp.br/teses/disponiveis/5/5142/tde-29032022-125916/
 
-**Desenho:** amostra nacional de apostadores da Caixa — da ordem de **5 mil
-entrevistados em 500 unidades lotéricas** pelo país. O instrumento foi construído
-**pela metodologia do NODS-CLiP**, que é justamente um rastreio de **3 itens**
-(mentir sobre o jogo, preocupação/planejamento, e tentativa de esconder de
-família e amigos) — o que bate com a descrição dada na entrevista.
+**Status:** dissertação lida por completo. Implementada em
+`services/api/src/modules/screening/nods3.ts`, com testes que travam os enunciados e
+o ponto de corte.
 
-**Por que é o achado clínico mais valioso deste documento:** o `MVP_SPEC.md` trata o
-instrumento de triagem como pendência aberta e o **E9 está bloqueado** por "critérios
-clínicos revisados". Existe um instrumento de 3 itens, validado em amostra nacional
-brasileira, orientado pelo pesquisador que já é nosso interlocutor prioritário, com
-**tese pública em PDF**. Adotá-lo troca a lista de palavras-chave do
-`panic.service.ts` (`TODO [CLINICAL]`) por instrumento com propriedades psicométricas
-publicadas.
+#### Desenho e amostra ✅
 
-**O que ainda falta, e é obrigatório antes de usar:** o **nome** do instrumento, os
-**itens exatos**, o **ponto de corte** e a **sensibilidade/especificidade**. Nada
-disso foi lido — só o título, a autoria e o desenho. Ler a tese é trabalho de uma
-tarde e desbloqueia o E9.
+23.123 abordados · 7.226 elegíveis · **5.407 entrevistas completas** · **494
+unidades lotéricas** (de 500 planejadas) em todo o país · recusa 25,2%. Padrão-ouro:
+NODS completa com critérios DSM-5.
 
-⚠️ **Inferência declarada:** que o instrumento desta tese é o mesmo citado no Roda
-Viva é altamente plausível (mesmo orientador, mesma parceria com a Caixa, mesmo
+Apostador médio: **homem (83,9%), 50,2 anos**, casado, ensino médio completo,
+empregado ou autônomo.
+
+#### Os três itens (NODS #4, #8, #10) ✅
+
+| # NODS | Construto            | Enunciado                                                                                                                              |
+| ------ | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **4**  | Perda de controle    | "Você já tentou parar, reduzir, ou controlar as suas apostas?"                                                                         |
+| **8**  | Escapismo            | "Você já apostou como uma forma de escapar dos seus problemas pessoais?"                                                               |
+| **10** | Jogar para recuperar | "Já houve um período em que quando você perdia dinheiro numa aposta você voltava um outro dia para tentar recuperar (e ficar quites)?" |
+
+**Ponto de corte: uma resposta positiva basta** (regra da metodologia NODS-CLiP,
+seguida pela dissertação).
+
+#### Acurácia na amostra de validação ✅ (Tabela 3)
+
+| Período          | Desfecho           | Sensibilidade | Especificidade | Youden |
+| ---------------- | ------------------ | ------------- | -------------- | ------ |
+| Últimos 12 meses | Transtorno do jogo | **100%**      | 72,9%          | 0,73   |
+| Últimos 12 meses | Jogo problema      | 96,5%         | 73,9%          | 0,70   |
+| Ao longo da vida | Transtorno do jogo | **100%**      | 66,1%          | 0,66   |
+| Ao longo da vida | Jogo problema      | 95,2%         | 70,5%          | 0,66   |
+
+Supera a NODS-CLiP original (itens #1, #4, #11), que ficou em 97,3% / 70,6% para TJ
+no último ano.
+
+⚠️ **Nuance que a dissertação não esconde e nós também não devemos:** a combinação de
+**4 itens** (#5, #7, #9, #10) tem Youden bem melhor para TJ (0,89, com
+especificidade 88,9%). O autor recomenda a de 3 itens porque ela tem a maior
+sensibilidade para **jogo problema** — o estrato mais amplo. Para triagem que
+encaminha a apoio, priorizar sensibilidade é a escolha certa; mas a especificidade
+de ~73% significa que **cerca de 1 em cada 4 rastreios positivos não é caso**. Isso
+proíbe usar o resultado para qualquer coisa intrusiva.
+
+#### 🛑 O limite de generalização — declarado pelos autores (§6.1)
+
+> "os itens foram derivados de jogadores de loteria legais, a sensibilidade e
+> especificidade desses itens para classificar TJ **não podem ser generalizados para
+> jogadores não lotéricos no Brasil**."
+
+**O público deste produto não é a população de validação.** Apostas online e jogo
+eletrônico não são loteria, e o apostador do estudo tem 50 anos. O instrumento é o
+**melhor ponto de partida com validação brasileira** — não é um rastreio validado
+para os nossos usuários. `TODO [CLINICAL]`: validar nesta população antes de usar o
+resultado em qualquer decisão automatizada de maior consequência. É exatamente o tipo
+de estudo que a parceria com o PRO-AMITI ([§1](#1-o-achado-que-muda-o-projeto)) torna
+possível.
+
+#### Prevalência entre apostadores de loteria ✅ (Tabela 1, últimos 12 meses)
+
+| Categoria          | Últimos 12 meses | Ao longo da vida |
+| ------------------ | ---------------- | ---------------- |
+| Jogador em risco   | 17,7%            | 19,4%            |
+| Jogo problema      | 10,7%            | 13,1%            |
+| Transtorno do jogo | **4,1%**         | 6,8%             |
+
+Muito acima da prevalência populacional (a dissertação cita ~1% no Brasil) — o que
+sustenta a conclusão do autor de que a lotérica é ponto estratégico de rastreio.
+
+⚠️ **Inferência ainda em aberto:** que este seja exatamente o instrumento citado no
+Roda Viva é altamente plausível (mesmo orientador, mesma parceria com a Caixa, mesmo
 número de itens), mas **não foi confirmado**.
 
 ---
