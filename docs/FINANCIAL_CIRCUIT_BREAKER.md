@@ -91,6 +91,25 @@ A janela de resfriamento é o mecanismo inteiro. Sem ela, existe um botão de
 hora. O que é lento é afrouxar a proteção **continuando dentro**. Prender usuário
 não é proteção — é cárcere, e não construímos isso.
 
+### 2.1 Base empírica da assimetria ✅
+
+Este princípio era raciocínio mecanicista meu. Agora tem medida por trás. Em estudo
+naturalístico de jogo em smartphone (James, O'Malley & Tunney, _Eur Addiction Res_
+2019 — [DATA_SOURCES.md §4.3](./DATA_SOURCES.md)):
+
+- Participantes **pararam mais depois de ganhar do que depois de perder**, ainda que
+  perdas fossem muito mais frequentes.
+- A latência até a aposta seguinte foi **menor após perder** (5,78 s) do que após
+  ganhar (5,89 s), crescendo com a magnitude do ganho.
+
+Ou seja: **a vitória é o ponto natural de parada; a perda é o sinal de continuar.**
+A probabilidade de a pessoa se proteger cai exatamente no momento em que ela mais
+precisaria — o que é a definição operacional do estado quente, e a razão de a decisão
+ter de estar tomada antes.
+
+⚠️ Estudo com app de **simulação**, apostas de 10–30 pence, amostra pequena, Reino
+Unido. Sustenta o mecanismo; não quantifica a nossa população.
+
 ---
 
 ## 3. Mecanismos, por viabilidade real

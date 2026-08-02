@@ -591,6 +591,110 @@ Isso reordena o roadmap: o **Fisiologista** (sono) sobe de prioridade no
 
 ---
 
+## 4.3 Fontes internacionais ✅ lidas na íntegra
+
+Quatro documentos internacionais. Servem para **mecanismo, lacuna de tratamento e
+enquadramento** — **não** para dimensionar o mercado brasileiro. Nenhum número daqui
+substitui o LENAD III ou a resposta da LAI.
+
+| Fonte                                                                                                                                                                                                            | Tipo                               |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| **James JE, O'Malley C, Tunney RJ.** "Gambling on Smartphones: A Study of a Potentially Addictive Behaviour in a Naturalistic Setting." _Eur Addiction Res_ 2019;25(1):30–40. doi 10.1159/000495663 · PMC6482978 | Estudo empírico revisado por pares |
+| **Volkow ND (Diretora do NIDA).** "Gambling disorder in the era of online sports betting." Nov/2025 (também em ASAM Weekly, out/2025)                                                                            | Blog institucional NIH/NIDA        |
+| **Lancet Public Health Commission on gambling** — via _Harvard Magazine_, "Is Gambling Becoming a Public Health Crisis?"                                                                                         | Comissão internacional             |
+| _Harvard Gazette_, "Sports betting concerns rise as wagers soar" (06/01/2026)                                                                                                                                    | Reportagem com fontes citáveis     |
+
+### 🛑 O achado que muda o desenho do botão de pânico
+
+O estudo de smartphone acompanhou jogo real em app instalado no telefone dos
+participantes, em fase de aquisição e de **extinção** (quando ganhar deixa de ser
+possível). Três resultados:
+
+| Resultado                                                                                                                    | Número                                           |
+| ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Participantes **param mais depois de uma vitória do que depois de uma perda** — apesar de perdas serem muito mais frequentes | efeito confirmado em modelo de efeitos mistos    |
+| Latência até a próxima aposta é **menor depois de perder**, e cresce com a magnitude do ganho                                | 5,78 s após perda · 5,89 s após ganho            |
+| Engajamento prévio prediz linearmente a **perseverança na extinção**                                                         | média de 58 apostas quando ganhar era impossível |
+
+**A implicação desconfortável:** o produto pede que a pessoa acione o botão de pânico
+**no momento da perda** — e é exatamente aí que o esquema de reforço do próprio
+comportamento empurra na direção oposta. A vitória é o ponto natural de parada; a
+perda é o sinal de continuar. Não é falta de força de vontade: é a estrutura do
+reforço.
+
+Isso **não invalida o botão** — reforça que ele não pode ser a peça principal. Dá base
+empírica ao que o [FINANCIAL_CIRCUIT_BREAKER.md](./FINANCIAL_CIRCUIT_BREAKER.md)
+argumentava por raciocínio mecanicista: **a decisão precisa estar pré-comprometida em
+estado frio**, porque no estado quente a probabilidade de parar cai justamente quando
+mais precisaria subir.
+
+**Também sugere sinal de telemetria sem conteúdo:** latência entre apostas e
+comportamento de parada pós-resultado são mensuráveis **sem saber valores nem
+conteúdo** — o que casa com o princípio P3 de minimização de dados da
+[ARCHITECTURE.md](./ARCHITECTURE.md).
+
+⚠️ **Limite sério:** app de **simulação**, apostas de 10 a 30 pence, amostra pequena,
+Reino Unido, 2019. Sustenta o **mecanismo**; não quantifica nada sobre a nossa
+população nem sobre aposta esportiva com dinheiro real.
+
+### A lacuna de tratamento — o número mais útil dos quatro
+
+> "Just **7–12%** of people with GD seek help from treatment or even support groups."
+> — Nora Volkow, Diretora do NIDA
+
+Junte com o dado brasileiro de [§4.1.1](#411-quatro-fontes-clínicas-lidas-na-íntegra):
+o serviço público de referência do país atende **80 casos novos por ano** contra
+**1,4 milhão** de pessoas com transtorno do jogo. A lacuna não é brasileira — é
+estrutural, e está medida nos dois lados do hemisfério.
+
+Volkow também nomeia o mecanismo que sustenta a nossa tese, e vale citar literal:
+
+> "Mobile access has transformed the temporal, spatial, and psychological dynamics of
+> gambling, **compressing the cycle of urge, opportunity, and action into seconds**."
+
+E — importante para calibrar o que podemos afirmar — o NIDA lista **algoritmos de IA
+que identifiquem jogo problemático e intervenham** entre as estratégias que
+**precisam ser estudadas**. É validação institucional da direção e, ao mesmo tempo, a
+moldura epistêmica correta: _a estudar_, não _comprovado_. Nenhum material nosso deve
+afirmar mais do que isso.
+
+### Comissão do Lancet — três coisas que mudam argumento
+
+| Achado                                                                                                                   | Onde muda algo                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| Cada pessoa com jogo problemático afeta **6 a 8 outras**                                                                 | A rede de apoio **é** o produto, não um acessório                                                  |
+| **10% dos adolescentes** jogaram online no último ano; **26% desses em risco** — proporção muito maior que entre adultos | Reforça o bloqueio de lançamento sobre menores                                                     |
+| Recomenda **"barreira de proteção" entre a pesquisa sobre jogo e a indústria**                                           | Endosso externo ao aviso de captura do [PUBLIC_SECTOR_STRATEGY.md](./PUBLIC_SECTOR_STRATEGY.md) §3 |
+
+Enquadramento adotado pela Comissão: tratar jogo como **questão de saúde pública, não
+como problema médico individual** — e Rachel Volberg registra que a indústria retrata o
+dano como falha individual em vez de **questão de proteção ao consumidor**.
+
+Prevalência global (para referência, **não** para dimensionar o Brasil): 46% dos
+adultos (~2,3 bi) e ~18% dos adolescentes jogaram no último ano; ~1,4% dos jogadores
+(80 mi de adultos) com transtorno; em risco, 5,5% das mulheres e 11,9% dos homens.
+
+### Dano financeiro e a janela temporal
+
+| Achado                                                                                            | Fonte                                 |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| Aumento de **10%** no gasto com jogo elevou em **97,5%** a chance de inadimplência na hipoteca    | Análise de transações bancárias, 2021 |
+| **37%** das pessoas com problemas de jogo já cometeram violência doméstica                        | citado no relatório Lancet            |
+| Buscas na internet por ajuda para vício em jogo subiram **23%** nos EUA (2018 → jun/2024)         | JAMA Internal Medicine                |
+| Aposta esportiva nos EUA: **US$ 4,9 bi (2017) → US$ 121,1 bi (2023)**, com **94% online** em 2023 | JAMA Internal Medicine                |
+
+E a observação de Malcolm Sparrow (Harvard Kennedy School) que vale como planejamento:
+
+> "Leva entre cinco e sete anos para que os países se conscientizem, de forma mais
+> dolorosa, de todo o sofrimento que o aumento do acesso causa."
+
+**O Brasil regulamentou em 2023–2024.** Se o padrão se repetir, o pico do dano
+percebido cai entre **2028 e 2031**. Isso é argumento de urgência para política
+pública — e é a janela em que a camada contínua precisa existir, não estar em
+planejamento.
+
+---
+
 ## 5. Mercado e dimensionamento
 
 ### 5.1 Pesquisa Game Brasil (PGB) ✅
