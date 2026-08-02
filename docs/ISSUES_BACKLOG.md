@@ -180,6 +180,9 @@ Mapa completo: [DATA_SOURCES.md](./DATA_SOURCES.md).
 - [ ] `research`: confirmar na página oficial a regra de reversão do bloqueio indeterminado (fontes divergem: 30 dias vs. 12 meses)
 - [x] `clinical`: ler a tese de Tovar Velásquez (FMUSP, 2021, orient. Hermano Tavares) e extrair itens, ponto de corte e acurácia — **feito**; instrumento implementado em `modules/screening/` — ver [DATA_SOURCES.md §4.0.1](./DATA_SOURCES.md)
 - [ ] `clinical`: **validar o NODS-3-BR na nossa população** (apostas online / jogo eletrônico) — os autores declaram que a acurácia **não** generaliza para não-lotéricos — só é possível via parceria de pesquisa `TODO [CLINICAL]`
+- [ ] `product`: **decidir escopo apostas × jogo eletrônico** — a literatura clínica dá metas terapêuticas opostas (abstinência × moderação); enquanto estiver aberto, a métrica-mãe não pode ser fechada — [DATA_SOURCES.md §4.1.1](./DATA_SOURCES.md) — **decisão dos fundadores, bloqueia o §8 do plano**
+- [ ] `product`: reformular a métrica-mãe para **prejuízo** (funcionamento acadêmico, social, familiar) em vez de tempo, caso jogo eletrônico permaneça no escopo — tempo de jogo é marcador indireto
+- [ ] `clinical`: adotar os **3 Cs** (Controle, Confronto, Caça) como linguagem de interface do rastreio — é a formulação pública da própria referência clínica — **feito no back-end**, falta a UI
 - [ ] `research`: confirmar **LENAD III** (10,9 mi jogadores de risco · 1,4 mi com transtorno do jogo) na fonte primária — OBID/MJ e Unifesp/UNIAD — 1 dia — _fecha a maior lacuna do plano de negócios_
 - [ ] `research`: resolver 800 mil (Tavares, 27/07) vs. 925 mil (imprensa, julho) — assistir ao Roda Viva e checar se "usaram a ferramenta" ≠ "cadastro concluído"
 - [ ] `research`: cotar SMS com três provedores (Twilio, Zenvia, Infobip) — 2 h

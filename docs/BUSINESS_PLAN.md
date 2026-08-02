@@ -218,6 +218,25 @@ disputa com ela.
 Sucesso é o usuário precisar menos de nós. Isso é hostil ao growth clássico e
 afasta um tipo de investidor — o que funciona como filtro de quem embarca.
 
+### 🛑 Esta métrica está errada para jogo eletrônico
+
+A literatura clínica lida em [DATA_SOURCES.md §4.1.1](./DATA_SOURCES.md) diz duas
+coisas que a métrica acima ignora:
+
+1. Tempo de jogo é **marcador indireto** — há jogadores de uso intenso **sem
+   prejuízo algum**.
+2. Para dependência de jogos eletrônicos, o objetivo de tratamento na maioria das
+   vezes **não é abstinência, é moderação**.
+
+Ou seja: "horas evitadas" se sustenta para **apostas** (onde abstinência é meta de
+primeira fase) e penaliza indevidamente quem joga muito sem sofrer dano. Para jogo
+eletrônico a métrica precisa ser de **prejuízo** — funcionamento acadêmico, social e
+familiar retomado — não de tempo.
+
+**Não vou reescrever a métrica aqui**, porque a formulação certa depende da decisão
+de escopo do §10. Registro que ela está aberta, e que fingir o contrário seria medir
+a coisa errada com precisão.
+
 ---
 
 ## 9. Riscos
@@ -237,6 +256,10 @@ afasta um tipo de investidor — o que funciona como filtro de quem embarca.
 ## 10. O que decidir antes de escrever a v0.3.0
 
 1. **Escopo:** jogo eletrônico, apostas, ou os dois? Muda regulação, clínica e público.
+   **Deixou de ser questão de foco e virou questão clínica:** apostas tratam-se com
+   abstinência na primeira fase, jogo eletrônico com **moderação**. São metas
+   terapêuticas opostas — um único produto serve mal aos dois
+   ([DATA_SOURCES.md §4.1.1](./DATA_SOURCES.md)).
 2. **Natureza:** empresa com investidor, negócio de impacto, ou bem público digital?
 3. **Fonte de receita primária:** conformidade, família ou fundo público?
 

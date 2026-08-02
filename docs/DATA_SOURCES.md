@@ -403,9 +403,31 @@ possível.
 Muito acima da prevalência populacional (a dissertação cita ~1% no Brasil) — o que
 sustenta a conclusão do autor de que a lotérica é ponto estratégico de rastreio.
 
-⚠️ **Inferência ainda em aberto:** que este seja exatamente o instrumento citado no
-Roda Viva é altamente plausível (mesmo orientador, mesma parceria com a Caixa, mesmo
-número de itens), mas **não foi confirmado**.
+#### ✅ Inferência resolvida: os "3 Cs" são este instrumento
+
+A inferência que estava aberta aqui — se o rastreio de 3 perguntas citado
+publicamente por Hermano Tavares era este — **está confirmada**. Em entrevista à
+revista **Radis (Fiocruz), 20/08/2025**, ele enuncia os sinais de alerta assim:
+
+> "São o que chamamos de **3 Cs**: **controle** ou perda de controle (a pessoa gasta
+> mais dinheiro ou mais tempo do que pretendia); **confronto** (a pessoa usa o jogo
+> para 'confrontar' ou lidar com suas emoções negativas, isto é, aposta mais quando
+> está triste, angustiado ou entediado); e **caça** (a pessoa persegue, 'caça' um
+> resultado) […] **Qualquer um desses três sinais, mesmo que isoladamente**, é um
+> sinal preocupante."
+
+Mapeamento exato, na ordem, incluindo o ponto de corte:
+
+| "C" de Tavares | Item NODS | Construto na dissertação |
+| -------------- | --------- | ------------------------ |
+| **Controle**   | #4        | Perda de controle        |
+| **Confronto**  | #8        | Escapismo                |
+| **Caça**       | #10       | Jogar para recuperar     |
+
+**Consequência prática:** "os 3 Cs" é a formulação pública da mesma triagem, dita
+pela maior referência clínica do país em linguagem que qualquer pessoa entende. É a
+linguagem que deve aparecer na interface — não o jargão. Já refletido em
+`modules/screening/nods3.ts`.
 
 ---
 
@@ -425,6 +447,73 @@ adultos, e a afirmação de que o uso problemático no Brasil supera a média
 internacional. São **pistas fortes**, não dados confirmados. As amostras variam
 muito (estudantes de uma instituição vs. população geral) e isso muda tudo no
 dimensionamento.
+
+### 4.1.1 Quatro fontes clínicas lidas na íntegra ✅
+
+| Fonte                                                                                                                                                 | O que é                                     |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| **Radis nº ... (Fiocruz), 20/08/2025** — "As bets colocaram um cassino em cada bolso". Entrevista com Hermano Tavares, por Jesuan Xavier              | Entrevista, formulação dos **3 Cs**         |
+| **BBC News Brasil** — "Bets e transtorno do jogo: o que acontece no cérebro de pessoas viciadas em apostas"                                           | Reportagem com Tavares, Spanemberg, Andrade |
+| **Psicologia USP, 2022, v.33, e210007** — doi 10.1590/0103-6564e210007                                                                                | Artigo revisado por pares sobre o PRO-AMJO  |
+| **Spritzer DT, Picon FA, Breda VCT** — "Dependência de jogos eletrônicos em crianças e adolescentes", cap. em _Clínica da Impulsividade_ (GEAT/UFRGS) | Capítulo de livro sobre **IGD em menores**  |
+
+#### 🛑 O achado que contraria o desenho atual do produto
+
+O capítulo do GEAT afirma, sobre **jogo eletrônico** (não apostas):
+
+> "Ao contrário do tratamento de dependências de álcool e outras substâncias, o
+> tratamento da dependência de jogos eletrônicos na maioria das vezes **não tem como
+> objetivo a abstinência completa** […] busca-se a **moderação** do comportamento."
+
+E, sobre tempo de jogo:
+
+> "Apesar de o tempo de jogo estar associado com o desenvolvimento de problemas, ele
+> acaba sendo um **marcador indireto** deste transtorno, pois existe uma significativa
+> parcela de jogadores com uso bastante intenso que **não apresenta necessariamente
+> prejuízo**."
+
+Duas consequências desconfortáveis para este repositório:
+
+1. **A métrica-mãe está mal formulada para jogo eletrônico.** "Horas de jogo evitadas"
+   mede o marcador indireto, não o prejuízo. Para apostas ela se sustenta (abstinência
+   é meta de primeira fase); para games, penaliza quem joga muito sem sofrer dano.
+2. **O produto inteiro é abstinência-forma.** Autoexclusão, disjuntor, botão de pânico
+   — tudo desenhado para _parar_. É o modelo certo para apostas e o modelo errado, por
+   padrão, para jogo eletrônico.
+
+Isso não é ajuste de texto: é a **decisão de escopo do [BUSINESS_PLAN.md](./BUSINESS_PLAN.md) §10
+item 1** ganhando evidência clínica. Apostas e jogo eletrônico pedem produtos com meta
+terapêutica diferente. Tentar servir aos dois com um só desenho serve mal aos dois.
+
+#### O gargalo, em números ✅
+
+Tavares à BBC, sobre o serviço público de referência do país:
+
+> "Com a nossa estrutura atual, conseguimos atender **80 casos novos por ano**, além de
+> acompanhar outros **160 pacientes** […] Mas diante de um fenômeno como esse que
+> vivemos agora, ficamos com o **triplo de pacientes na fila de espera**."
+
+**80 casos novos por ano contra 1,4 milhão de pessoas com transtorno do jogo**
+([§4.0](#40-lenad-iii--a-fonte-que-fecha-a-maior-lacuna-do-plano-️-prioridade-máxima-de-leitura)).
+É o argumento mais forte que este projeto tem para a camada contínua: não existe
+capacidade clínica para atender essa população por consulta, e não vai existir.
+
+#### Demais achados aproveitáveis
+
+| Achado                                                                                                                       | Fonte     | Onde muda algo                                 |
+| ---------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------- |
+| Perfil vulnerável: **mais jovens, desempregados, escolaridade incompleta, solteiros ou solitários**                          | Radis     | Confirma "nunca cobrar de quem sofre"          |
+| Histórico familiar de dependência e transtorno mental prévio elevam o risco                                                  | Radis     | Rastreio de comorbidade no onboarding          |
+| **Comorbidade é a regra**; tratar depressão de base reduz o comportamento de jogo                                            | BBC/cap.  | Sobe prioridade do rastreio de depressão       |
+| **Regularização do ciclo sono-vigília** é objetivo explícito de tratamento                                                   | Capítulo  | Confirma o "Fisiologista" do AI_COACHING       |
+| Terapia **familiar** é indicada quando o paciente não reconhece o problema                                                   | Capítulo  | Confirma a aposta no preparo do familiar       |
+| **84%** dos jovens com IGD mantinham o diagnóstico após 2 anos                                                               | Capítulo  | Não é fase passageira — justifica o contínuo   |
+| Prevalência de IGD em adolescentes varia **0,3% a 38%** conforme o instrumento                                               | Capítulo  | Cuidado com qualquer número de IGD             |
+| Transtorno do jogo atinge **0,4–0,6%** da população (revisão Nature Reviews, 2019)                                           | BBC       | Referência internacional vs. LENAD (0,8%)      |
+| Tavares: **12–15%** dos brasileiros apostam regularmente; **~15% desses** desenvolvem dificuldade                            | BBC       | Ordem de grandeza alternativa                  |
+| Fases de Custer: **vitória → perda → desespero**                                                                             | Psic.USP  | Modelo de estágio para a jornada               |
+| Exposição **antes dos 18 anos** é fator de vulnerabilidade relevante; adolescentes expostos aumentaram muito pós-legalização | BBC/Radis | Reforça o bloqueio de lançamento sobre menores |
+| Não há medicação comprovada para IGD; antagonistas opioides ajudam no transtorno do jogo                                     | cap./BBC  | Fora do nosso escopo — não sugerir nada        |
 
 ### 4.2 O achado que valida a estratégia ⚠️
 

@@ -26,6 +26,8 @@ describe('Rastreio NODS-3-BR', () => {
       // publicada vale para ESTES itens — mudar o enunciado a invalida.
       expect(NODS3_ITENS.map((i) => i.nodsItem)).toEqual([4, 8, 10]);
       expect(NODS3_ITENS.map((i) => i.id)).toEqual(['controle', 'escapismo', 'recuperar']);
+      // Os "3 Cs" de Hermano Tavares mapeiam 1:1 nos três itens, nesta ordem.
+      expect(NODS3_ITENS.map((i) => i.c)).toEqual(['Controle', 'Confronto', 'Caça']);
       expect(NODS3_ITENS[0]?.pergunta).toBe(
         'Você já tentou parar, reduzir, ou controlar as suas apostas?',
       );

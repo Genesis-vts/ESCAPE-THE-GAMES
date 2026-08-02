@@ -15,6 +15,13 @@
  * Tabela 3 da dissertação — NÃO reescrever por estilo: alterar o enunciado
  * invalida as propriedades psicométricas medidas.
  *
+ * CORRESPONDÊNCIA COM OS "3 Cs": em entrevista à revista Radis (Fiocruz,
+ * 20/08/2025), Hermano Tavares resume os sinais de alerta como
+ * **Controle, Confronto e Caça** — os mesmos três construtos, na ordem, com o
+ * mesmo ponto de corte ("qualquer um desses três sinais, mesmo que
+ * isoladamente"). É a formulação pública da mesma triagem, e é a linguagem que
+ * deve aparecer na interface.
+ *
  * AMOSTRA DE VALIDAÇÃO: 5.407 apostadores de loteria entrevistados em 494
  * unidades lotéricas de todo o Brasil (de 500 planejadas); 23.123 abordados,
  * 7.226 elegíveis, taxa de recusa 25,2%.
@@ -37,6 +44,12 @@ export interface Nods3Item {
   /** Número do item na NODS original — preserva a rastreabilidade à fonte. */
   readonly nodsItem: 4 | 8 | 10;
   readonly id: 'controle' | 'escapismo' | 'recuperar';
+  /**
+   * Nome do "C" na formulação pública de Hermano Tavares (entrevista à Radis,
+   * Fiocruz, 20/08/2025). Linguagem que a própria referência clínica usa com o
+   * público — preferir na interface ao jargão do construto.
+   */
+  readonly c: 'Controle' | 'Confronto' | 'Caça';
   /** Construto avaliado, para relatório clínico. */
   readonly construto: string;
   /** Enunciado do instrumento. Não editar. */
@@ -47,19 +60,22 @@ export const NODS3_ITENS: readonly Nods3Item[] = [
   {
     nodsItem: 4,
     id: 'controle',
+    c: 'Controle',
     construto: 'Perda de controle',
     pergunta: 'Você já tentou parar, reduzir, ou controlar as suas apostas?',
   },
   {
     nodsItem: 8,
     id: 'escapismo',
-    construto: 'Escapismo',
+    c: 'Confronto',
+    construto: 'Escapismo — apostar para lidar com emoções negativas',
     pergunta: 'Você já apostou como uma forma de escapar dos seus problemas pessoais?',
   },
   {
     nodsItem: 10,
     id: 'recuperar',
-    construto: 'Jogar para recuperar o prejuízo',
+    c: 'Caça',
+    construto: 'Jogar para recuperar o prejuízo (chasing)',
     pergunta:
       'Já houve um período em que quando você perdia dinheiro numa aposta você voltava um outro dia para tentar recuperar (e ficar quites)?',
   },
@@ -70,9 +86,14 @@ export type Nods3ItemId = Nods3Item['id'];
 /**
  * Ponto de corte: **uma** resposta positiva basta.
  *
- * É a regra da metodologia NODS-CLiP, que a dissertação seguiu: "Uma resposta
- * positiva a qualquer uma das três perguntas a seguir indica que um indivíduo
- * é/já foi provável portador de TJ."
+ * Duas fontes independentes concordam:
+ *  - Metodologia NODS-CLiP, seguida pela dissertação: "Uma resposta positiva a
+ *    qualquer uma das três perguntas a seguir indica que um indivíduo é/já foi
+ *    provável portador de TJ."
+ *  - Hermano Tavares, sobre os 3 Cs (Radis/Fiocruz, 20/08/2025): "Qualquer um
+ *    desses três sinais, mesmo que isoladamente, é um sinal preocupante de que
+ *    a pessoa está na iminência de se complicar com as apostas, ou já está
+ *    complicada."
  */
 export const NODS3_PONTO_DE_CORTE = 1;
 
