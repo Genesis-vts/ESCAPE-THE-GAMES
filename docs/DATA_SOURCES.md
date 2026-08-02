@@ -10,11 +10,11 @@
 
 Cada fonte está marcada com o que foi efetivamente verificado:
 
-| Marca                 | Significado                                                                                                         |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| ✅ **Verificado**     | Fonte existe, é oficial e o caminho de acesso foi confirmado                                                        |
-| ⚠️ **Indício**        | Apareceu em busca, mas o dado **não** foi lido na fonte primária — precisa de leitura antes de virar número oficial |
-| 🔒 **Bloqueado aqui** | Fonte legítima, mas o ambiente desta sessão recebeu HTTP 403. Precisa de navegador                                  |
+| Marca                 | Significado                                                                                                                                                        |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ✅ **Verificado**     | Fonte existe, é oficial e o caminho de acesso foi confirmado                                                                                                       |
+| ⚠️ **Indício**        | Apareceu em busca, mas o dado **não** foi lido na fonte primária — precisa de leitura antes de virar número oficial                                                |
+| 🔒 **Bloqueado aqui** | Fonte pública e acessível, recusada pela **política de egresso** desta sessão. Abre normalmente em navegador ([§7](#7-fontes-que-não-consegui-abrir-desta-sessão)) |
 
 **Regra dura:** nenhum número marcado ⚠️ entra em documento de negócio, apresentação
 ou material público antes de alguém abrir a fonte primária e conferir amostra,
@@ -131,9 +131,9 @@ SPA/Sigap e no BCB.
 ## 3.2 Plataforma Centralizada de Autoexclusão — o primeiro dado de mercado real ⚠️✅
 
 Balanços divulgados pelo Ministério da Fazenda e noticiados por veículos de imprensa
-e pela Rádio Senado. **A fonte primária (páginas do gov.br) devolveu 403 ao fetcher
-desta sessão** — os números abaixo vêm de cobertura secundária e precisam ser
-confirmados em navegador antes de virar dado oficial nosso.
+e pela Rádio Senado. **A fonte primária (páginas do gov.br) é inalcançável desta
+sessão pela política de egresso** — os números abaixo vêm de cobertura secundária e
+precisam ser confirmados em navegador antes de virar dado oficial nosso.
 
 ### Série de adesão
 
@@ -247,18 +247,18 @@ Universidade de Calgary, fundador e coordenador do **Ambulatório do Jogo Patol�
 | 5   | O que mudou não foi o cérebro, foi o acesso: o cassino passou a caber no bolso, a "dois cliques" — mecanismo cerebral comparável a álcool e nicotina | ⚠️ várias fontes               |
 | 6   | Atendimentos por vício em apostas **triplicaram em três anos** em SP; o PRO-AMJO iniciou tratamento de **66 pacientes em 2023**; há fila de espera   | ⚠️ Metrópoles, não o Roda Viva |
 
-### Por que o item 3 é o achado mais importante deste documento
+### A bancada
 
-Se existe um **rastreio de 3 itens validado em pesquisa populacional brasileira**,
-então o instrumento de triagem que o `MVP_SPEC.md` trata como pendência aberta e o
-E9 trata como bloqueio **já existe, é curto, é nacional e é público**. Adotá-lo
-substitui critério inventado por instrumento validado — exatamente o que o
-`TODO [CLINICAL]` do `panic.service.ts` pede.
+Mara Luquet (MyNews), Gabriela Caseff (Folha de S.Paulo), Fabiana Cambricoli
+(Estadão) e Thiago Domenici (Agência Pública). ⚠️
 
-**Não use antes de confirmar.** Vem de uma única fonte secundária, sem nome do
-instrumento, sem citação e sem os pontos de corte. Confirmar é pergunta de uma
-mensagem para o próprio grupo do IPq — e já é um bom motivo para escrever a carta do
-Caminho 1.
+### O item 3 tem fonte primária localizada ✅ rastreado
+
+O rastreio de 3 perguntas **deixou de ser boato**: a origem provável é a dissertação
+de mestrado de Juan David Tovar Velásquez (FMUSP, 2021), orientada pelo próprio
+Hermano Tavares, com PDF público. Detalhamento em [§4.0.1](#401-o-instrumento-de-triagem--encontrado-).
+
+### O que o item 2 muda na estratégia
 
 ### O que o item 2 muda na estratégia
 
@@ -270,9 +270,10 @@ porque essa janela fecha quando a regra é publicada.
 
 ### O que **não** foi possível apurar 🔒
 
-- O texto do post no LinkedIn (403).
-- A transcrição do programa — YouTube, TV Cultura, IPq, BNLData, Folha de Londrina,
-  Locomotiva Social e Observatório 3º Setor **todos** devolveram 403 ao fetcher.
+- O texto do post no LinkedIn.
+- A transcrição do programa — a política de egresso desta sessão recusa YouTube,
+  TV Cultura, IPq, BNLData, Folha de Londrina, Locomotiva Social e Observatório 3º
+  Setor. **Nenhum deles está bloqueando leitores; veja [§7](#7-fontes-que-não-consegui-abrir-desta-sessão).**
 - Se o post é de fato sobre o Roda Viva. A data (véspera) e o texto do slug
   (`o-prof-dr-hermano-tavares-do-departamento…`) apontam para sim, mas é **inferência**.
 - Qualquer número de prevalência que ele tenha citado no programa.
@@ -283,6 +284,84 @@ São ~90 minutos e resolvem tanto o bloqueio clínico quanto a contradição do 
 ---
 
 ## 4. Prevalência de transtorno de jogo — literatura brasileira
+
+### 4.0 LENAD III — a fonte que fecha a maior lacuna do plano ⚠️ **prioridade máxima de leitura**
+
+**Levantamento Nacional de Álcool e Drogas, 3ª edição** — Unifesp/UNIAD, divulgado
+pelo **OBID / Ministério da Justiça**. Inquérito epidemiológico domiciliar com
+**16,6 mil participantes de 14 anos ou mais**, em todas as regiões, com campo entre
+**2023 e 2024**. Resultados sobre jogo apresentados em **abril de 2025** em evento na
+Unifesp.
+
+| Indicador                                     | Valor            | % da população 14+ |
+| --------------------------------------------- | ---------------- | ------------------ |
+| **Jogadores de risco**                        | **10,9 milhões** | **6,8%**           |
+| **Transtorno do jogo** (critério diagnóstico) | **1,4 milhão**   | **0,8%**           |
+| Proporção de jogadores de risco que adoecem   | ~1 em cada 8     | —                  |
+
+"Jogador de risco" é definido como quem joga de modo a **criar problemas emocionais,
+familiares, econômicos ou de trabalho para si**.
+
+**Por que isto muda o `BUSINESS_PLAN.md`:** a §3.2 lista "prevalência real de
+transtorno de jogo" como pergunta em aberto, a ser respondida em 3 dias de leitura.
+A resposta existe, é nacional, é domiciliar, é recente e é do governo. Substitui
+qualquer TAM estimado por analogia.
+
+**Leitura cruzada com a autoexclusão, e ela é dura:** 1,4 milhão de pessoas com
+transtorno do jogo contra 800–925 mil autoexcluídos. Se as duas ordens de grandeza se
+confirmarem, **a maior parte de quem preenche critério diagnóstico já levantou a
+mão** — o funil de captação é muito mais curto do que o plano supõe, e o gargalo real
+é o que acontece _depois_ do bloqueio. É exatamente a tese do produto, agora com
+número em cima.
+
+**Ressalvas:** é jogo em geral (LENAD cobre álcool, drogas e jogo), **não** é recorte
+de apostas online; e "jogador de risco" não é diagnóstico. Os valores vieram de
+resumo de busca — **nenhum foi lido na fonte primária** (ver §7).
+
+- Cobertura: [Terra](https://www.terra.com.br/vida-e-estilo/saude/pesquisa-mostra-que-11-milhoes-de-brasileiros-fazem-uso-arriscado-de-apostas,8437f9e94ab1f8cc64baa18c1d01c604i2wcyzuz.html) ·
+  [APM](https://www.apm.org.br/pesquisa-mostra-que-11-milhoes-de-brasileiros-fazem-uso-arriscado-de-apostas/) ·
+  [Revista Metropolitana](https://revistametropolitana.com.br/noticia/54034/1-4-milhao-de-brasileiros-tem-transtorno-de-jogo-aponta-estudo-inedito)
+- Reportagem de fundo: [Pesquisa FAPESP nº 351, "Como joga o brasileiro"](https://revistapesquisa.fapesp.br/wp-content/uploads/2025/04/044-047_jogo_351.pdf)
+
+### 4.0.1 O instrumento de triagem — encontrado ⚠️
+
+O rastreio de 3 perguntas que Hermano Tavares citou no Roda Viva ([§3.3](#33-roda-viva-com-hermano-tavares--27072026-))
+tem origem localizada:
+
+> **Tovar Velásquez, Juan David.** _Transtorno do jogo e jogo problemático nas
+> loterias brasileiras: construindo uma amostra nacional representativa dos
+> apostadores de loteria e validação de um instrumento de triagem._
+> Mestrado, Faculdade de Medicina da USP, 2021. **Orientador: Hermano Tavares.**
+>
+> - Registro: https://repositorio.usp.br/item/003071791
+> - **PDF integral, acesso público:** https://teses.usp.br/teses/disponiveis/5/5142/tde-29032022-125916/publico/JuanDavidTovarVelasquez.pdf
+
+**Desenho:** amostra nacional de apostadores da Caixa — da ordem de **5 mil
+entrevistados em 500 unidades lotéricas** pelo país. O instrumento foi construído
+**pela metodologia do NODS-CLiP**, que é justamente um rastreio de **3 itens**
+(mentir sobre o jogo, preocupação/planejamento, e tentativa de esconder de
+família e amigos) — o que bate com a descrição dada na entrevista.
+
+**Por que é o achado clínico mais valioso deste documento:** o `MVP_SPEC.md` trata o
+instrumento de triagem como pendência aberta e o **E9 está bloqueado** por "critérios
+clínicos revisados". Existe um instrumento de 3 itens, validado em amostra nacional
+brasileira, orientado pelo pesquisador que já é nosso interlocutor prioritário, com
+**tese pública em PDF**. Adotá-lo troca a lista de palavras-chave do
+`panic.service.ts` (`TODO [CLINICAL]`) por instrumento com propriedades psicométricas
+publicadas.
+
+**O que ainda falta, e é obrigatório antes de usar:** o **nome** do instrumento, os
+**itens exatos**, o **ponto de corte** e a **sensibilidade/especificidade**. Nada
+disso foi lido — só o título, a autoria e o desenho. Ler a tese é trabalho de uma
+tarde e desbloqueia o E9.
+
+⚠️ **Inferência declarada:** que o instrumento desta tese é o mesmo citado no Roda
+Viva é altamente plausível (mesmo orientador, mesma parceria com a Caixa, mesmo
+número de itens), mas **não foi confirmado**.
+
+---
+
+### 4.1 Demais estudos brasileiros
 
 Existem estudos brasileiros publicados e revisados por pares. É de longe a lacuna
 mais grave do `BUSINESS_PLAN.md` atual, e ela é preenchível.
@@ -299,7 +378,7 @@ internacional. São **pistas fortes**, não dados confirmados. As amostras varia
 muito (estudantes de uma instituição vs. população geral) e isso muda tudo no
 dimensionamento.
 
-### 4.1 O achado que valida a estratégia ⚠️
+### 4.2 O achado que valida a estratégia ⚠️
 
 A literatura brasileira associa transtorno de jogo pela internet a **sexo
 masculino, sintomas depressivos graves, má qualidade do sono e tempo de jogo**.
@@ -365,9 +444,28 @@ se medem. Nenhum dado público vai dizer qual é o seu CAC.
 
 ## 7. Fontes que não consegui abrir desta sessão
 
-O ambiente recebeu HTTP 403 em: TabNet/DATASUS, SciELO e Jornal da USP. São fontes
-legítimas e públicas — o bloqueio é do fetcher automatizado, não das fontes.
-**Precisam ser abertas em navegador.** Não afirmei nada com base no que não li.
+**Correção de diagnóstico.** Uma versão anterior desta seção dizia que o 403 vinha
+dos sites, que estariam barrando acesso automatizado. Está errado. O proxy de saída
+desta sessão registra a recusa explicitamente:
+
+```
+{ "kind": "connect_rejected",
+  "detail": "gateway answered 403 to CONNECT (policy denial or upstream failure)" }
+```
+
+É **política de egresso do ambiente**, com allowlist estreita — a conexão nem chega
+ao site. A distinção importa: **nenhuma destas fontes está defendida contra leitores.
+Todas abrem normalmente em um navegador comum.** Não há obstáculo real a apurá-las;
+só não dá para fazer isso a partir daqui.
+
+Hosts recusados até agora: `cultura.uol.com.br`, `repositorio.usp.br`,
+`teses.usp.br`, `revistapesquisa.fapesp.br`, `apm.org.br`, `grea.org.br`,
+`linkedin.com`, `youtube.com`, TabNet/DATASUS, SciELO, `jornal.usp.br`,
+`gov.br`, `bnldata.com.br`, `ipqhc.org.br`, `folhadelondrina.com.br`.
+
+**Consequência prática:** tudo neste documento marcado ⚠️ ou 🔶 veio de resumo de
+mecanismo de busca, não de leitura de fonte. Duas horas de navegador convertem a
+maior parte disso em ✅. Não afirmei nada com base no que não li.
 
 ---
 

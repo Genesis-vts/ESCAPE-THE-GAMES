@@ -178,7 +178,8 @@ Mapa completo: [DATA_SOURCES.md](./DATA_SOURCES.md).
 - [ ] `research`: consultar PNS via Base dos Dados (SQL) para SAM/SOM — 2 dias
 - [ ] `research`: **pedido via LAI à SPA/MF** — série histórica de autoexclusão, prazos, motivos declarados e perfil demográfico — **maior retorno por esforço**
 - [ ] `research`: confirmar na página oficial a regra de reversão do bloqueio indeterminado (fontes divergem: 30 dias vs. 12 meses)
-- [ ] `clinical`: **identificar o rastreio de 3 perguntas** citado por Hermano Tavares (pesquisa populacional com a Caixa) — se existir e for validado, **substitui o instrumento de triagem que hoje bloqueia o E9** — [DATA_SOURCES.md §3.3](./DATA_SOURCES.md) — **maior retorno clínico por esforço**
+- [ ] `clinical`: **ler a tese de Tovar Velásquez (FMUSP, 2021, orient. Hermano Tavares)** e extrair nome do instrumento, os 3 itens, ponto de corte e sensibilidade/especificidade — [PDF público](https://teses.usp.br/teses/disponiveis/5/5142/tde-29032022-125916/publico/JuanDavidTovarVelasquez.pdf) — **desbloqueia o E9 e substitui a lista de palavras do `panic.service.ts`** — 1 tarde — **maior retorno clínico por esforço**
+- [ ] `research`: confirmar **LENAD III** (10,9 mi jogadores de risco · 1,4 mi com transtorno do jogo) na fonte primária — OBID/MJ e Unifesp/UNIAD — 1 dia — _fecha a maior lacuna do plano de negócios_
 - [ ] `research`: resolver 800 mil (Tavares, 27/07) vs. 925 mil (imprensa, julho) — assistir ao Roda Viva e checar se "usaram a ferramenta" ≠ "cadastro concluído"
 - [ ] `research`: cotar SMS com três provedores (Twilio, Zenvia, Infobip) — 2 h
 - [ ] `research`: mapear obrigações de jogo responsável da SPA/MF — 1 semana

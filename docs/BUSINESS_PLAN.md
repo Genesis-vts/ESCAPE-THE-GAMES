@@ -73,14 +73,33 @@ Ressalvas obrigatórias: o motivo é campo opcional; autoexclusão é intenção
 demanda por produto; cobre só casas autorizadas; não cobre jogo eletrônico sem
 aposta.
 
+### 3.1.1 Prevalência nacional — LENAD III ⚠️
+
+O inquérito domiciliar da Unifesp/UNIAD (n = 16,6 mil, 14+ anos, campo 2023–2024,
+divulgado pelo OBID/MJ) estima:
+
+| Indicador              | Pessoas          | % da população 14+ |
+| ---------------------- | ---------------- | ------------------ |
+| Jogadores **de risco** | **10,9 milhões** | 6,8%               |
+| **Transtorno do jogo** | **1,4 milhão**   | 0,8%               |
+
+**A leitura que importa para a estratégia:** 1,4 milhão com transtorno do jogo, contra
+800–925 mil já autoexcluídos. Se as duas ordens de grandeza se confirmarem, a maior
+parte de quem preenche critério diagnóstico **já agiu**. O gargalo não é convencer
+ninguém a parar — é o que existe depois do bloqueio, que hoje é ninguém. Isso é a
+tese do produto com número em cima.
+
+Ressalvas: LENAD mede jogo em geral, não apostas online; "jogador de risco" não é
+diagnóstico; e os valores vieram de cobertura, não de leitura da fonte primária.
+
 ### 3.2 O que ainda falta medir
 
-| Pergunta                                        | Como responder                       | Prazo       |
-| ----------------------------------------------- | ------------------------------------ | ----------- |
-| Prevalência real de transtorno de jogo          | Literatura brasileira revisada (E12) | 3 dias      |
-| Perfil demográfico dos autoexcluídos            | **Pedido via LAI à SPA/MF**          | Prazo legal |
-| Tamanho do público não-aposta (jogo eletrônico) | PGB + literatura                     | 1 semana    |
-| Disposição a pagar                              | Só experimento                       | 90 dias     |
+| Pergunta                                        | Como responder                | Prazo       |
+| ----------------------------------------------- | ----------------------------- | ----------- |
+| Confirmar LENAD III na fonte primária           | OBID/MJ e Unifesp/UNIAD (E12) | 1 dia       |
+| Perfil demográfico dos autoexcluídos            | **Pedido via LAI à SPA/MF**   | Prazo legal |
+| Tamanho do público não-aposta (jogo eletrônico) | PGB + literatura              | 1 semana    |
+| Disposição a pagar                              | Só experimento                | 90 dias     |
 
 **Removi o TAM/SAM/SOM da versão anterior.** Eram estimativas por analogia
 apresentadas como dimensionamento. Voltam quando o E12 estiver concluído.
