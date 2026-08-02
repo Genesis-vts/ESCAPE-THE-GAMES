@@ -8,7 +8,17 @@ import {
   NODS3_PONTO_DE_CORTE,
   type Nods3Avaliacao,
 } from './nods3';
-import type { Nods3Input } from './screening.schema';
+import {
+  avaliarOgdq,
+  mensagemDeDevolutivaOgdq,
+  OGDQ_CONFIABILIDADE,
+  OGDQ_DURACOES,
+  OGDQ_ESCALA,
+  OGDQ_ITENS,
+  OGDQ_PREAMBULO,
+  type OgdqAvaliacao,
+} from './ogdq';
+import type { Nods3Input, OgdqInput } from './screening.schema';
 
 /** Canais públicos e gratuitos oferecidos junto com a devolutiva. */
 const CAMINHOS_DE_APOIO = [
@@ -39,6 +49,27 @@ export interface ScreeningResult {
   supportPaths: typeof CAMINHOS_DE_APOIO;
   disclaimer: string;
 }
+
+export interface OgdqScreeningResult {
+  instrument: {
+    id: 'ogdq-br';
+    version: '1.0.0';
+    source: string;
+    /** Confiabilidade na amostra brasileira. NÃO é acurácia diagnóstica. */
+    reliability: typeof OGDQ_CONFIABILIDADE;
+    generalizationWarning: string;
+  };
+  assessment: OgdqAvaliacao;
+  message: string;
+  supportPaths: typeof CAMINHOS_DE_APOIO;
+  disclaimer: string;
+}
+
+const AVISO_OGDQ =
+  'Validado em aposta online na população brasileira (n=298), com alta ' +
+  'consistência interna. O estudo mede confiabilidade e estrutura fatorial — ' +
+  'NÃO reporta sensibilidade nem especificidade. A classificação indica ' +
+  'intensidade declarada, nunca diagnóstico.';
 
 const AVISO_DE_GENERALIZACAO =
   'Instrumento validado em apostadores de loteria (idade média 50 anos, 83,9% ' +
@@ -101,6 +132,55 @@ export class ScreeningService {
       },
       assessment,
       message: mensagemDeDevolutiva(assessment),
+      supportPaths: CAMINHOS_DE_APOIO,
+      disclaimer: DISCLAIMER,
+    };
+  }
+
+  /** Itens e escala do OGD-Q BR, para o cliente renderizar. */
+  getOgdqInstrument(): {
+    preamble: string;
+    items: typeof OGDQ_ITENS;
+    scale: typeof OGDQ_ESCALA;
+    durations: typeof OGDQ_DURACOES;
+    warning: string;
+  } {
+    return {
+      preamble: OGDQ_PREAMBULO,
+      items: OGDQ_ITENS,
+      scale: OGDQ_ESCALA,
+      durations: OGDQ_DURACOES,
+      warning: AVISO_OGDQ,
+    };
+  }
+
+  async submitOgdq(userId: string, input: OgdqInput): Promise<OgdqScreeningResult> {
+    const user = await this.deps.users.findById(userId);
+    if (!user) throw AppError.unauthorized('Usuário não encontrado ou inativo.');
+
+    const assessment = avaliarOgdq(input.respostas, input.duracao);
+
+    // Mesma política do NODS-3-BR: audita o agregado, nunca item a item.
+    this.deps.audit.append({
+      actorId: userId,
+      actorType: 'user',
+      action: 'SCREENING_COMPLETED',
+      entityType: 'screening',
+      entityId: 'ogdq-br',
+      metadata: { escore: assessment.escoreTotal, resultado: assessment.classificacao },
+    });
+
+    return {
+      instrument: {
+        id: 'ogdq-br',
+        version: '1.0.0',
+        source:
+          'Rego MCS, Souza VHM, Martins LF, Sanvicente-Vieira B. J Gambling Studies, 2026. doi 10.1007/s10899-026-10480-9.',
+        reliability: OGDQ_CONFIABILIDADE,
+        generalizationWarning: AVISO_OGDQ,
+      },
+      assessment,
+      message: mensagemDeDevolutivaOgdq(assessment),
       supportPaths: CAMINHOS_DE_APOIO,
       disclaimer: DISCLAIMER,
     };

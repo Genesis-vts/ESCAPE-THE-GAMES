@@ -572,6 +572,83 @@ amostra **clínica** (quem procurou tratamento), não populacional. Duas consequ
 pesquisa mais atraente para levar ao PRO-AMITI, porque une o dado deles com o
 fenômeno novo.
 
+### 4.1.3 OGD-Q BR — o instrumento que faltava ✅ LIDO E IMPLEMENTADO
+
+> **Rego MCS, Souza VHM, Martins LF, Sanvicente-Vieira B.** "Translation and
+> Adaptation of the Online Gambling Disorder Questionnaire (OGD-Q) into Brazilian
+> Portuguese." _Journal of Gambling Studies_, aceito em 27/01/2026.
+> doi [10.1007/s10899-026-10480-9](https://doi.org/10.1007/s10899-026-10480-9) · PUC-Rio.
+> Instrumento original: González-Cabrera et al. (2020), Espanha.
+
+**Por que este é o achado mais importante desde a dissertação do Tovar Velásquez:**
+o NODS-3-BR foi validado em **apostadores de loteria** (idade média 50 anos), e seus
+autores declaram que a acurácia **não generaliza** para não-lotéricos — o que deixava
+o nosso público exatamente fora. O OGD-Q BR foi validado em **aposta online na
+população brasileira**. É a lacuna que o [§4.0.1](#401-o-instrumento-de-triagem--lido-na-íntegra-e-implementado)
+apontava como bloqueio clínico.
+
+**Status:** implementado em `services/api/src/modules/screening/ogdq.ts`, com testes
+que travam enunciados, escala e regras de pontuação.
+
+| Característica          | Valor                                                                |
+| ----------------------- | -------------------------------------------------------------------- |
+| Itens                   | 11 + 1 pergunta de duração (item 12)                                 |
+| Escala                  | Likert de 5 pontos (1 Nunca … 5 Todos os dias)                       |
+| Escore bruto            | 11 a 55                                                              |
+| Indicador de "problema" | nota **≥ 3** no item                                                 |
+| Critério                | nota **≥ 4 em pelo menos 4 itens**, nos últimos 12 meses             |
+| Estratificação          | >12 meses → transtorno · 6–12 meses → problema · <6 meses → em risco |
+| Confiabilidade (BR)     | alfa 0,92 · ômega 0,93 · AFC unifatorial com bom ajuste              |
+| Amostra de validação    | n = 298, survey online                                               |
+
+#### 🎯 O item que atravessa a decisão de escopo
+
+O preâmbulo do instrumento define aposta online como incluindo **"a compra de pacotes,
+caixas de itens aleatórios (as loot boxes) em videogames (FIFA, Hearthstone, CS-GO)"**.
+
+É o único instrumento que temos que **cobre os dois lados** da decisão apostas × jogo
+eletrônico do [BUSINESS_PLAN.md](./BUSINESS_PLAN.md) §10 — e sugere que a fronteira
+clínica relevante não é "aposta vs. videogame", e sim **"tem mecânica de azar vs. não
+tem"**. Loot box está do lado da aposta. Isso não fecha a decisão, mas reenquadra a
+pergunta.
+
+#### ⚠️ Diferença crucial em relação ao NODS-3-BR
+
+O estudo brasileiro do OGD-Q mede **confiabilidade e estrutura fatorial** — **não**
+reporta sensibilidade nem especificidade. O NODS-3-BR reporta. Consequência prática:
+
+|                             | NODS-3-BR                        | OGD-Q BR                  |
+| --------------------------- | -------------------------------- | ------------------------- |
+| População validada          | Apostadores de loteria, ~50 anos | **Aposta online, Brasil** |
+| Acurácia diagnóstica        | ✅ sens. 100% / esp. 72,9%       | ❌ não reportada          |
+| O que o resultado significa | Probabilidade de caso            | **Intensidade declarada** |
+
+Nenhum substitui o outro, e **nenhum dos dois é diagnóstico**. `TODO [CLINICAL]`:
+confirmar com o serviço clínico parceiro qual usar em qual momento da jornada.
+
+#### ⚠️ Contradição de prevalência — resolver antes de citar
+
+O artigo cita **Laranjeira et al. (2025)**: **17,6%** dos brasileiros apostaram online
+no último ano e **7,3%** apresentam comportamento de jogo problemático.
+
+Isso **não bate** com o LENAD III do [§4.0](#40-lenad-iii--a-fonte-que-fecha-a-maior-lacuna-do-plano-️-prioridade-máxima-de-leitura)
+(6,8% jogadores de risco, 0,8% transtorno). As diferenças plausíveis são de escopo
+(aposta **online** vs. jogo em geral), de método (survey vs. inquérito domiciliar) e de
+definição de "problemático". **Não usar os dois lado a lado sem resolver isso.**
+
+### 4.1.4 Duas fontes brasileiras de menor peso ⚠️
+
+Registradas por transparência, com peso probatório menor — não sustentam número:
+
+| Fonte                                                                                                                                                             | Peso               | O que oferece                                                                                                                          |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **Bondan EE.** "Explorando a mente: dark nudges, vieses cognitivos e a psicologia das apostas online no Brasil." TCC de graduação, UFSC, 2025                     | TCC de graduação   | Taxonomia de **dark nudges** e vieses (ilusão de controle, desconto hiperbólico, falácia do apostador) aplicados ao mercado brasileiro |
+| **Mendieta FHP, Queiroz AF et al.** "Bets e apostas online: o jogo do Tigrinho e seu efeito tangerina." _Contribuciones a las Ciencias Sociales_, v.17 n.10, 2024 | Periódico regional | Descrição do fenômeno Fortune Tiger no Brasil                                                                                          |
+
+**Uso legítimo:** o TCC dá vocabulário para a seção de **anti-padrões** — a lista do
+que o produto nunca deve fazer é, em boa medida, o inverso do catálogo de dark nudges
+da indústria. **Uso ilegítimo:** citar qualquer número deles como evidência.
+
 ### 4.2 O achado que valida a estratégia ⚠️
 
 A literatura brasileira associa transtorno de jogo pela internet a **sexo

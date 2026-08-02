@@ -21,6 +21,8 @@ export function createScreeningRouter(deps: Container): Router {
 
   router.get('/screening/nods3', requireAuth(), controller.instrument);
   router.post('/screening/nods3', requireAuth(), limite.middleware, controller.submit);
+  router.get('/screening/ogdq', requireAuth(), controller.ogdqInstrument);
+  router.post('/screening/ogdq', requireAuth(), limite.middleware, controller.submitOgdq);
 
   return router;
 }

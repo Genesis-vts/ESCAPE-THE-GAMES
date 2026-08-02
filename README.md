@@ -131,6 +131,8 @@ Responda SAIR para nao receber mais.
 | DELETE   | `/api/v1/contacts/:id`           | Revoga contato                                                | —                        |
 | GET      | `/api/v1/screening/nods3`        | Itens do rastreio breve de transtorno do jogo                 | —                        |
 | POST     | `/api/v1/screening/nods3`        | Aplica o rastreio (NODS-3-BR) e devolve caminhos de apoio     | 20/h por usuário         |
+| GET      | `/api/v1/screening/ogdq`         | Itens do OGD-Q BR — rastreio de **aposta online**             | —                        |
+| POST     | `/api/v1/screening/ogdq`         | Aplica o OGD-Q BR (11 itens) e classifica a intensidade       | 20/h por usuário         |
 | GET/POST | `/api/v1/opt-out`                | **Público.** Descadastro do contato pelo link assinado        | 30/min por IP            |
 | POST     | `/api/v1/webhooks/sms/inbound`   | **Público.** Resposta "SAIR" do contato (assinatura validada) | 30/min por IP            |
 
@@ -184,7 +186,7 @@ de Privacidade voltados ao usuário final serão publicados em `apps/web/src/app
 
 ```bash
 npm run dev                                  # API em watch mode
-npm test                                     # 76 testes (Jest + Supertest)
+npm test                                     # 97 testes (Jest + Supertest)
 npm run test:coverage --workspace services/api
 npm run lint                                 # ESLint
 npm run typecheck --workspace services/api   # tsc --noEmit
