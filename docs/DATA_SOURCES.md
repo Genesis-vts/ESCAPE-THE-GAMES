@@ -147,6 +147,14 @@ confirmados em navegador antes de virar dado oficial nosso.
 Ritmo recente da ordem de **+200 mil cadastros por mês**. A plataforma existe desde
 o fim de 2025 — ou seja, quase um milhão de pessoas em cerca de sete meses.
 
+> 🔴 **O número de julho está sob contestação.** Em 27/07/2026, Hermano Tavares
+> (coordenador do Ambulatório do Jogo Patológico do IPq HC-FMUSP) falou em **"quase
+> 800 mil"** no Roda Viva — dez dias depois da imprensa noticiar 925 mil. Pode ser
+> defasagem da fala, pode ser métrica diferente: as manchetes dizem "**usaram** a
+> ferramenta", que não é sinônimo de "concluíram o cadastro". Enquanto não houver
+> fonte primária, **use a faixa de 800–925 mil**, nunca o número cravado. Detalhe em
+> [§3.3](#33-roda-viva-com-hermano-tavares--27072026-).
+
 ### O dado que vale mais que o total
 
 Do balanço de junho (~700 mil cadastros):
@@ -210,6 +218,67 @@ solicitando a série histórica de cadastros, a distribuição por prazo escolhi
 motivos declarados com a base de cada percentual, e o perfil demográfico agregado.
 É gratuito, tem prazo legal de resposta e transforma cobertura de imprensa em dado
 oficial citável. **É a ação de maior retorno por esforço de todo este documento.**
+
+---
+
+## 3.3 Roda Viva com Hermano Tavares — 27/07/2026 ⚠️
+
+**Origem:** post no LinkedIn de 28/07/2026 (data extraída do próprio identificador do
+post, `7487878264473116672`). **O post não pôde ser lido** — o LinkedIn responde 403 a
+qualquer acesso não autenticado. O que está abaixo veio de cobertura secundária sobre
+o programa a que o post quase certamente se refere, exibido na véspera.
+
+**Quem é:** psiquiatra, livre-docente da USP, pós-doutorado em jogo patológico pela
+Universidade de Calgary, fundador e coordenador do **Ambulatório do Jogo Patológico
+(PRO-AMJO) do IPq HC-FMUSP** desde os anos 1990. É o interlocutor nomeado no
+[PUBLIC_SECTOR_STRATEGY.md](./PUBLIC_SECTOR_STRATEGY.md) §3, Caminho 1.
+
+**Programa:** Roda Viva, TV Cultura, segunda-feira **27/07/2026**, 22 h
+([vídeo](https://www.youtube.com/live/6QyBVMzWd-g)).
+
+### O que a cobertura atribui a ele
+
+| #   | Afirmação                                                                                                                                            | Confiança                      |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| 1   | Classifica o fenômeno como **"tsunami"**, mas reconhece avanços concretos na regulação                                                               | ⚠️ duas fontes independentes   |
+| 2   | **A SPA/MF procurou o setor de saúde** para construir soluções em conjunto — segundo ele, a primeira vez que o regulador toma essa iniciativa        | ⚠️ duas fontes                 |
+| 3   | Existe um **questionário de autoavaliação de 3 perguntas** embutido no ambiente digital, derivado de pesquisa populacional feita **com a Caixa**     | 🔶 uma fonte só                |
+| 4   | Autoexclusão: **"quase 800 mil"** brasileiros                                                                                                        | 🔶 conflita com §3.2           |
+| 5   | O que mudou não foi o cérebro, foi o acesso: o cassino passou a caber no bolso, a "dois cliques" — mecanismo cerebral comparável a álcool e nicotina | ⚠️ várias fontes               |
+| 6   | Atendimentos por vício em apostas **triplicaram em três anos** em SP; o PRO-AMJO iniciou tratamento de **66 pacientes em 2023**; há fila de espera   | ⚠️ Metrópoles, não o Roda Viva |
+
+### Por que o item 3 é o achado mais importante deste documento
+
+Se existe um **rastreio de 3 itens validado em pesquisa populacional brasileira**,
+então o instrumento de triagem que o `MVP_SPEC.md` trata como pendência aberta e o
+E9 trata como bloqueio **já existe, é curto, é nacional e é público**. Adotá-lo
+substitui critério inventado por instrumento validado — exatamente o que o
+`TODO [CLINICAL]` do `panic.service.ts` pede.
+
+**Não use antes de confirmar.** Vem de uma única fonte secundária, sem nome do
+instrumento, sem citação e sem os pontos de corte. Confirmar é pergunta de uma
+mensagem para o próprio grupo do IPq — e já é um bom motivo para escrever a carta do
+Caminho 1.
+
+### O que o item 2 muda na estratégia
+
+O `PUBLIC_SECTOR_STRATEGY.md` supunha que aproximar regulador e saúde seria trabalho
+nosso. Se o regulador já fez isso por conta própria, a **janela do Caminho 2**
+(obrigação regulatória sobre as operadoras) está aberta agora, não daqui a dois anos.
+Aumenta o retorno de participar de consulta pública da SPA/MF — e aumenta a urgência,
+porque essa janela fecha quando a regra é publicada.
+
+### O que **não** foi possível apurar 🔒
+
+- O texto do post no LinkedIn (403).
+- A transcrição do programa — YouTube, TV Cultura, IPq, BNLData, Folha de Londrina,
+  Locomotiva Social e Observatório 3º Setor **todos** devolveram 403 ao fetcher.
+- Se o post é de fato sobre o Roda Viva. A data (véspera) e o texto do slug
+  (`o-prof-dr-hermano-tavares-do-departamento…`) apontam para sim, mas é **inferência**.
+- Qualquer número de prevalência que ele tenha citado no programa.
+
+**Ação:** assistir ao vídeo em navegador e transcrever as passagens dos itens 3 e 4.
+São ~90 minutos e resolvem tanto o bloqueio clínico quanto a contradição do §3.2.
 
 ---
 

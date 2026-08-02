@@ -178,6 +178,8 @@ Mapa completo: [DATA_SOURCES.md](./DATA_SOURCES.md).
 - [ ] `research`: consultar PNS via Base dos Dados (SQL) para SAM/SOM — 2 dias
 - [ ] `research`: **pedido via LAI à SPA/MF** — série histórica de autoexclusão, prazos, motivos declarados e perfil demográfico — **maior retorno por esforço**
 - [ ] `research`: confirmar na página oficial a regra de reversão do bloqueio indeterminado (fontes divergem: 30 dias vs. 12 meses)
+- [ ] `clinical`: **identificar o rastreio de 3 perguntas** citado por Hermano Tavares (pesquisa populacional com a Caixa) — se existir e for validado, **substitui o instrumento de triagem que hoje bloqueia o E9** — [DATA_SOURCES.md §3.3](./DATA_SOURCES.md) — **maior retorno clínico por esforço**
+- [ ] `research`: resolver 800 mil (Tavares, 27/07) vs. 925 mil (imprensa, julho) — assistir ao Roda Viva e checar se "usaram a ferramenta" ≠ "cadastro concluído"
 - [ ] `research`: cotar SMS com três provedores (Twilio, Zenvia, Infobip) — 2 h
 - [ ] `research`: mapear obrigações de jogo responsável da SPA/MF — 1 semana
 - [ ] `research`: obter relatório PGB completo — corrige TAM e persona

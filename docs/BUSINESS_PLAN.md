@@ -20,7 +20,8 @@ Uso problemático de jogos e de apostas causa dano financeiro, sofrimento psíqu
 na janela aguda pós-perda, risco à vida. No Brasil, entre o fim de 2025 e julho de
 2026, o poder público passou a atuar de forma direta:
 
-- Plataforma Centralizada de Autoexclusão — **~925 mil cadastros** em jul/2026 ⚠️
+- Plataforma Centralizada de Autoexclusão — **800 a 925 mil cadastros** em jul/2026 ⚠️
+  (as fontes divergem; ver [DATA_SOURCES.md §3.3](./DATA_SOURCES.md))
 - Guia de Cuidado do Ministério da Saúde para a rede pública ✅
 - Triagem e teleatendimento dentro do Meu SUS Digital ✅
 - 2,8 milhões de beneficiários do Bolsa Família e BPC bloqueados de apostar ⚠️
@@ -58,7 +59,7 @@ episódio; nós fazemos o dia a dia e a madrugada. Complementares, não concorre
 
 | Indicador                                              | Valor        | Tipo |
 | ------------------------------------------------------ | ------------ | ---- |
-| Cadastros na autoexclusão (jul/2026)                   | ~925 mil     | ⚠️   |
+| Cadastros na autoexclusão (jul/2026)                   | 800–925 mil  | ⚠️   |
 | Ritmo de crescimento recente                           | ~200 mil/mês | ⚠️   |
 | Optaram por bloqueio indeterminado                     | 69%          | ⚠️   |
 | Declararam perda de controle e impacto na saúde mental | 41%          | ⚠️   |
