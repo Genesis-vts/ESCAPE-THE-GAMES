@@ -309,16 +309,53 @@ Teste de restauração: trimestral, com registro em ata. Simulação de falha de
 
 ## 8. Decisões arquiteturais (ADR resumido)
 
-| ID      | Decisão                                    | Alternativas             | Justificativa                                                                                  |
-| ------- | ------------------------------------------ | ------------------------ | ---------------------------------------------------------------------------------------------- |
-| ADR-001 | Monorepo único (npm workspaces)            | polirepo                 | Time pequeno; contratos compartilhados; PRs atômicos                                           |
-| ADR-002 | Express + TypeScript no MVP                | NestJS, Fastify          | Menor tempo até o primeiro endpoint; migração a NestJS prevista na v1 quando houver ≥3 módulos |
-| ADR-003 | Fila in-process no MVP, BullMQ/Redis na v1 | SQS desde o início       | Evita infra externa para rodar local; interface `NotificationQueue` isola a troca              |
-| ADR-004 | PostgreSQL como banco único                | Mongo, DynamoDB          | Relacionamentos fortes (usuário↔contatos↔eventos) e necessidade de auditoria transacional      |
-| ADR-005 | Double opt-in obrigatório para contatos    | opt-in simples           | Base legal e antiabuso: impede uso do app para spam/assédio                                    |
-| ADR-006 | WhatsApp apenas por deep link              | Business API no MVP      | Aprovação de template e opt-in demandam prazo; risco de bloqueio                               |
-| ADR-007 | Providers atrás de interface               | SDK direto no controller | Testabilidade, troca de fornecedor, custo                                                      |
-| ADR-008 | Auditoria WORM com hash encadeado          | log comum                | Prova de integridade em investigação/incidente                                                 |
+| ID      | Decisão                                                | Alternativas             | Justificativa                                                                                  |
+| ------- | ------------------------------------------------------ | ------------------------ | ---------------------------------------------------------------------------------------------- |
+| ADR-001 | Monorepo único (npm workspaces)                        | polirepo                 | Time pequeno; contratos compartilhados; PRs atômicos                                           |
+| ADR-002 | Express + TypeScript no MVP                            | NestJS, Fastify          | Menor tempo até o primeiro endpoint; migração a NestJS prevista na v1 quando houver ≥3 módulos |
+| ADR-003 | Fila in-process no MVP, BullMQ/Redis na v1             | SQS desde o início       | Evita infra externa para rodar local; interface `NotificationQueue` isola a troca              |
+| ADR-004 | PostgreSQL como banco único                            | Mongo, DynamoDB          | Relacionamentos fortes (usuário↔contatos↔eventos) e necessidade de auditoria transacional      |
+| ADR-005 | Double opt-in obrigatório para contatos                | opt-in simples           | Base legal e antiabuso: impede uso do app para spam/assédio                                    |
+| ADR-006 | WhatsApp apenas por deep link                          | Business API no MVP      | Aprovação de template e opt-in demandam prazo; risco de bloqueio                               |
+| ADR-007 | Providers atrás de interface                           | SDK direto no controller | Testabilidade, troca de fornecedor, custo                                                      |
+| ADR-008 | Auditoria WORM com hash encadeado                      | log comum                | Prova de integridade em investigação/incidente                                                 |
+| ADR-009 | Workbench de pesquisa **adiado**, com gatilho definido | adotar agora             | Ver detalhamento abaixo                                                                        |
+
+### ADR-009 — Ferramenta de análise de pesquisa: adiar, com gatilho
+
+**Contexto.** Avaliamos o **Claude Science** (workbench de pesquisa da Anthropic, beta,
+executa localmente em macOS/Linux; execução de Python/R/shell, conectores, ~60 skills
+curadas, artefatos reprodutíveis e um agente revisor que sinaliza números sem
+procedência rastreável).
+
+**Decisão: não adotar agora.**
+
+Para o **produto**, não se aplica — não roda em produção e não serve nenhum endpoint.
+A camada de IA do [AI_COACHING_TEAM.md](./AI_COACHING_TEAM.md) depende da **API do
+Claude**, não de um workbench; e continua bloqueada pelos portões de governança do E9,
+que são decisão de gestão clínica, não escolha de ferramenta.
+
+Para o **braço de pesquisa** o encaixe é real — o agente revisor automatiza a
+disciplina de procedência ✅/⚠️/🔶/🔒 do [DATA_SOURCES.md](./DATA_SOURCES.md), o
+artefato carrega o código e o ambiente que o geraram (formato que comitê de ética e
+publicação exigem), e a execução local mantém microdado de saúde dentro da instituição.
+**Mas as três ações que mais destravam o projeto hoje não são análise:** o pedido via
+LAI à SPA/MF, a carta ao PRO-AMITI, e a nomeação de diretor clínico. Nenhum workbench
+resolve nenhuma delas. Adotar ferramenta antes de ter dado e parceria repete o erro do
+plano de R$ 650 mil já corrigido no [BUSINESS_PLAN.md](./BUSINESS_PLAN.md).
+
+**Gatilho para reavaliar — qualquer um dos dois:**
+
+1. A parceria com o IPq HC-FMUSP sair e existir **coorte para analisar** (é o caso da
+   validação do NODS-3-BR na nossa população, épico E12).
+2. A resposta da **LAI** chegar com série histórica e recorte demográfico.
+
+**Ressalvas registradas:** as skills curadas são de genômica, proteômica, biologia
+estrutural e química — o nosso domínio é **epidemiologia e psicometria**, então a maior
+parte não se aplica; serve o substrato genérico (execução local, conectores de
+literatura, reprodutibilidade, revisor). E a descrição do produto veio de **cobertura
+secundária** — `anthropic.com` e `claude.com` estão fora da allowlist de egresso desta
+sessão ([DATA_SOURCES.md §7](./DATA_SOURCES.md)). Confirmar na fonte antes de comprar.
 
 ---
 
