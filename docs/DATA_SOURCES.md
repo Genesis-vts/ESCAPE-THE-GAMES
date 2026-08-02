@@ -836,6 +836,50 @@ acima.
 
 ---
 
+## 4.5 Exposição precoce a telas — guarda contra a narrativa causal fácil ⚠️
+
+Registrado **como limite**, não como fundamento. A tentação de ligar "bebês em telas"
+a "futuros apostadores" é grande e a evidência não sustenta a ligação.
+
+### O que existe
+
+Estudos longitudinais associam exposição a tela na primeira infância (≤ 2 anos) a
+pior **autorregulação** e funções executivas mais fracas. Um seguimento até os 12 anos
+encontrou tela aos 4 anos associada a desregulação, mediando pior desempenho
+acadêmico e menor capacidade de ficar sozinho.
+
+Isso importa porque **autorregulação é o mecanismo central do transtorno do jogo** —
+"perda de controle" é o primeiro dos 3 Cs ([§3.3](#33-roda-viva-com-hermano-tavares--27072026-)).
+
+### 🛑 Três razões para não usar isso em material público
+
+1. **A relação é bidirecional.** Bebês com problemas de autorregulação assistem
+   _mais_ tela — crianças persistentemente difíceis tiveram **40% mais chance** de
+   passar de 2 h diárias em tela. Parte do que parece "a tela desregulou" é "a criança
+   desregulada foi posta na tela". É a mesma responsabilidade comum que aparece no
+   loot box ([§4.4](#44-convergência-jogo-eletrônico--aposta-gamblification-)).
+2. **Não existe cadeia de evidência de bebê a apostador.** Seriam 18–20 anos de
+   seguimento; ninguém fez. Afirmar essa ligação é extrapolação.
+3. **O elo forte é bem mais próximo:** exposição precoce a **mecânica de azar**, não a
+   telas em geral — e sobre isso a evidência é boa (10% dos adolescentes jogaram
+   online no último ano, 26% desses em risco; Lancet).
+
+### Consequência de escopo
+
+Prevenção na primeira infância é **política pública, regulação de publicidade e
+parentalidade** — não é este produto, que atende quem já tem o problema. Um produto
+que tentasse abraçar isso perderia foco.
+
+Onde entra de fato: reforça o **bloqueio de lançamento sobre menores de 18** (E7) e dá
+lastro à fronteira de escopo "tem mecânica de azar", que torna loot box em jogo
+infantil o ponto de entrada mais precoce e regulável que existe hoje.
+
+- [Early Screen Exposure and Preadolescent Outcomes](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12651574/)
+- [Screen Media Exposure in Early Childhood and Children's Self-Regulation](https://onlinelibrary.wiley.com/doi/10.1155/2022/4490166)
+- [Infant self-regulation and early childhood media exposure](https://pubmed.ncbi.nlm.nih.gov/24733868/)
+
+---
+
 ## 5. Mercado e dimensionamento
 
 ### 5.1 Pesquisa Game Brasil (PGB) ✅
