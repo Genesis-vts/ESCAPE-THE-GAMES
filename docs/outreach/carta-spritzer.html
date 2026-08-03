@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Carta — ESCAPE-THE-GAMES</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 18mm 18mm 16mm 18mm;
+      }
+
+      html {
+        font-size: 9.8pt;
+      }
+
+      body {
+        font-family: Georgia, 'Times New Roman', serif;
+        color: #1a1a1a;
+        line-height: 1.46;
+        margin: 0;
+        text-align: justify;
+        hyphens: auto;
+      }
+
+      /* ---- Regras de quebra de página ----
+         O pedido foi explícito: nada de conteúdo partido entre páginas.
+         `orphans`/`widows` impedem linha solta; `break-after: avoid` mantém
+         cada título colado ao parágrafo que ele abre. */
+      /* Parágrafo nunca é partido entre páginas. */
+      p,
+      li {
+        orphans: 3;
+        widows: 3;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      h2 {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+
+      .bloco {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      header {
+        border-bottom: 1.5px solid #1a1a1a;
+        padding-bottom: 10px;
+        margin-bottom: 22px;
+        break-inside: avoid;
+      }
+
+      .marca {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: 15pt;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        margin: 0;
+      }
+
+      .sub {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: 8.5pt;
+        color: #555;
+        margin: 3px 0 0;
+        letter-spacing: 0.02em;
+      }
+
+      .destinatario {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: 9pt;
+        color: #333;
+        margin-bottom: 20px;
+        line-height: 1.45;
+        break-inside: avoid;
+      }
+
+      .assunto {
+        font-weight: 700;
+        margin-bottom: 18px;
+        break-inside: avoid;
+        text-align: left;
+      }
+
+      h2 {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: 10pt;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #000;
+        margin: 17px 0 7px;
+      }
+
+      p {
+        margin: 0 0 9px;
+      }
+
+      .pergunta {
+        border-left: 2.5px solid #1a1a1a;
+        padding: 2px 0 2px 14px;
+        margin: 14px 0;
+        font-style: italic;
+        break-inside: avoid;
+      }
+
+      .assinatura {
+        margin-top: 22px;
+        break-inside: avoid;
+        text-align: left;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: 9.5pt;
+        line-height: 1.5;
+      }
+
+      .assinatura .nome {
+        font-weight: 700;
+        font-size: 10.5pt;
+      }
+
+      .assinatura .linha {
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p class="marca">ESCAPE-THE-GAMES</p>
+      <p class="sub">
+        Camada contínua de apoio entre consultas · uso problemático de apostas e jogos
+      </p>
+    </header>
+
+    <div class="destinatario">
+      <strong>Ao Dr. Daniel Tornaim Spritzer</strong><br />
+      Coordenador do Grupo de Estudos sobre Adições Tecnológicas (GEAT)<br />
+      Programa Ambulatorial Integrado dos Transtornos do Impulso (PRO-AMITI)<br />
+      Instituto de Psiquiatria — HC-FMUSP
+    </div>
+
+    <p class="assunto">
+      Assunto: O seu capítulo mudou uma decisão de desenho no nosso projeto — proposta de
+      colaboração científica
+    </p>
+
+    <p>Prezado Dr. Daniel Spritzer,</p>
+
+    <p>
+      Escrevo em nome do ESCAPE-THE-GAMES, projeto de software voltado a pessoas em recuperação
+      de uso problemático de apostas e jogos. O motivo direto desta carta é o seu capítulo sobre
+      dependência de jogos eletrônicos em crianças e adolescentes.
+    </p>
+
+    <p>
+      Duas passagens dele nos fizeram mudar o produto. A primeira é a de que, ao contrário das
+      dependências de substância, o objetivo de tratamento em jogo eletrônico usualmente não é a
+      abstinência, mas a moderação. A segunda é a de que o tempo de jogo é marcador indireto, já
+      que há jogadores de uso intenso sem prejuízo algum.
+    </p>
+
+    <p>
+      Nossa métrica principal era “horas de jogo evitadas”. Depois de ler o capítulo, registramos
+      no repositório que ela está errada para jogo eletrônico — mede o marcador indireto e
+      penaliza quem joga muito sem sofrer dano — e que apostas e jogo eletrônico podem exigir
+      produtos com meta terapêutica diferente. Essa decisão de escopo continua aberta, e é uma
+      das razões de procurarmos vocês.
+    </p>
+
+    <p>
+      Procuro o programa não para pedir avaliação de um produto, mas para propor uma colaboração
+      de pesquisa — e para submeter à crítica de vocês uma pergunta que nos parece relevante e
+      que hoje não tem resposta no Brasil.
+    </p>
+
+    <h2>O que construímos, e por quê</h2>
+
+    <p>
+      Ao estudar o cenário brasileiro, chegamos a uma conclusão que reorientou o projeto: o
+      Estado já entregou a camada episódica do cuidado — a Plataforma Centralizada de
+      Autoexclusão, o Guia de Cuidado do Ministério da Saúde, a triagem no Meu SUS Digital e o
+      teleatendimento. O que não existe é a camada <strong>contínua</strong>: o que acontece
+      entre uma consulta e a seguinte, quando a pessoa já se autoexcluiu e está sozinha.
+    </p>
+
+    <p>
+      É essa camada que estamos construindo: rede de apoio verificada com consentimento em duplo
+      opt-in, plano escrito em estado frio e recuperável no estado quente, preparo do familiar
+      sobre como responder, e telemetria de baixa intrusão. O código é aberto e a métrica que
+      adotamos é deliberadamente hostil ao engajamento — sucesso é a pessoa precisar menos do
+      aplicativo.
+    </p>
+
+    <h2>Por que procuramos o programa de vocês</h2>
+
+    <p>
+      <strong>Rigor sobre instrumentos.</strong> Implementamos o rastreio de três itens derivado
+      da dissertação de Juan David Tovar Velásquez, orientada pelo Prof. Dr. Hermano Tavares, e
+      também a versão brasileira do OGD-Q. Registramos explicitamente, no código e na
+      documentação, o limite declarado pelos próprios autores: a acurácia do primeiro foi
+      estabelecida em apostadores de loteria e não se generaliza para apostadores online. Não
+      usamos nenhum dos dois como diagnóstico. Gostaríamos da orientação de vocês sobre qual
+      instrumento aplicar em qual momento da jornada.
+    </p>
+
+    <p>
+      <strong>Governança clínica.</strong> Nosso módulo de crise está deliberadamente bloqueado
+      para lançamento. Ele não sobe sem diretor clínico responsável nomeado, plantão humano
+      definido e critérios de detecção revisados por quem tem competência para isso. Detectar
+      risco sem ter como responder é a pior combinação possível, e preferimos não lançar a
+      lançar mal.
+    </p>
+
+    <h2>As perguntas</h2>
+
+    <p>
+      A literatura registra o efeito telescópio — a progressão do jogo social ao patológico sendo
+      substancialmente mais rápida em mulheres do que em homens. A referência brasileira nesse
+      recorte é anterior à aposta online: descreve a era do bingo e do caça-níquel, com amostra
+      clínica. Desde então mudou o que talvez seja a variável mais importante, o acesso.
+    </p>
+
+    <div class="pergunta bloco">
+      O efeito telescópio se manteve, encurtou, ou desapareceu depois da aposta online? E ele se
+      comporta do mesmo modo nos dois sexos, quando o cassino cabe no bolso?
+    </div>
+
+    <p>
+      A segunda pergunta está mais perto do seu trabalho. A evidência internacional sustenta a
+      migração de loot box para aposta, mas cerca de 80% dos compradores de loot box que apostam
+      não relatam efeito passarela — o que sugere um subgrupo específico, e não uma progressão
+      geral.
+    </p>
+
+    <div class="pergunta bloco">
+      A trajetória jogo eletrônico → loot box → aposta online descreve um subgrupo identificável
+      no Brasil? Quem é esse subgrupo aqui?
+    </div>
+
+    <p>
+      As duas têm consequência prática direta. Se a janela entre o primeiro sinal e o quadro
+      instalado encolheu, toda estratégia baseada em agir cedo precisa ser recalibrada — inclusive
+      a nossa, hoje desenhada para uma janela que talvez não exista mais. E a segunda exige
+      observar quem <strong>ainda não</strong> chegou ao serviço, que é precisamente onde uma
+      camada contínua alcança e a clínica sozinha não.
+    </p>
+
+    <h2>O que podemos oferecer</h2>
+
+    <p>
+      Vocês têm a coorte, os instrumentos validados, o comitê de ética e duas décadas de prática
+      clínica. Nós temos a camada de software que opera continuamente entre as consultas e que
+      pode registrar, com consentimento e sem intrusão, exatamente o tipo de dado longitudinal
+      que esse tipo de pergunta exige.
+    </p>
+
+    <p>
+      Colocamos à disposição: o desenvolvimento sem custo de instrumentos de coleta conforme a
+      especificação de vocês; a infraestrutura de registro com trilha de auditoria íntegra,
+      adequada a exigência de comitê de ética; e o código-fonte aberto, auditável por qualquer
+      pessoa. Não buscamos validação comercial, selo, nem exclusividade.
+    </p>
+
+    <h2>Próximo passo</h2>
+
+    <p>
+      Se houver interesse, gostaríamos de propor uma conversa de trinta minutos, presencial ou
+      remota, em que apresentaríamos o que existe hoje e — mais importante — ouviríamos onde
+      estamos errados. Estamos preparados para descobrir que parte do que construímos não se
+      sustenta clinicamente; é justamente por isso que preferimos ouvir agora, e não depois de
+      lançar.
+    </p>
+
+    <div class="bloco">
+      <p>Agradeço a atenção e coloco-me à disposição.</p>
+
+      <div class="assinatura">
+      Atenciosamente,<br /><br />
+      <span class="nome">Itamar Muniz</span><br />
+      <span class="linha">ESCAPE-THE-GAMES · Genesis VTS</span><br />
+      <span class="linha">itamar.muniz@genesis-vts.tech</span><br />
+        <span class="linha">github.com/Genesis-vts/ESCAPE-THE-GAMES</span>
+      </div>
+    </div>
+  </body>
+</html>
