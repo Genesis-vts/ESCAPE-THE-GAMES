@@ -179,6 +179,7 @@ ESCAPE-THE-GAMES/
 | [docs/CRISIS_PROTOCOL.md](docs/CRISIS_PROTOCOL.md)                     | **Protocolo de crise** — escalonamento, limites duros, governança clínica |
 | [docs/FINANCIAL_CIRCUIT_BREAKER.md](docs/FINANCIAL_CIRCUIT_BREAKER.md) | Disjuntor financeiro — restrição de meios como proteção                   |
 | [docs/AI_COACHING_TEAM.md](docs/AI_COACHING_TEAM.md)                   | Equipe técnica de IA — papéis, limites e anti-engajamento                 |
+| [docs/outreach/](docs/outreach/)                                       | **Cartas prontas para enviar** — pedido via LAI à SPA/MF e carta ao IPq   |
 
 **Documentos legais e de conformidade** ficam em `docs/SECURITY_AND_COMPLIANCE.md`
 (checklists LGPD/GDPR/HIPAA, retenção, resposta a incidentes). Termos de Uso e Política

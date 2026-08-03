@@ -120,8 +120,11 @@ registrada aqui, com o custo de fadiga assumido e monitorado.
    └──────────┬──────────────────────────────────────────┘
               │
    ┌──────────▼──────────────────────────────────────────┐
-   │ N4 · PROFISSIONAL VINCULADO      conforme protocolo │
-   │  · somente com consentimento prévio e escopo aceito │
+   │ N4 · CUIDADO PROFISSIONAL          conforme protocolo│
+   │  · SUS: teleatendimento pelo Meu SUS Digital        │
+   │    gratuito, nacional, psicólogo e psiquiatra       │
+   │  · profissional vinculado, SE houver — com          │
+   │    consentimento prévio e escopo aceito             │
    │  · nunca apresentado como plantão                   │
    └──────────┬──────────────────────────────────────────┘
               │
@@ -136,6 +139,27 @@ registrada aqui, com o custo de fadiga assumido e monitorado.
 potencial de dano real (constrangimento, exposição, intervenção policial indevida) e
 destrói a confiança que faz a pessoa voltar a pedir ajuda. A decisão é humana,
 sempre. `TODO [LEGAL]` — validar essa posição com o jurídico.
+
+### 4.1 Por que o N4 aponta primeiro para o SUS
+
+Este degrau dependia exclusivamente de "profissional vinculado" — condição que
+**quase nenhum usuário do MVP terá**. Um degrau que a maioria não pode subir não é
+degrau; é buraco na escada, exatamente onde a pessoa mais precisa de apoio.
+
+O Estado já opera a alternativa: o **Meu SUS Digital** oferece triagem e
+teleatendimento com psicólogo e psiquiatra, gratuito e de alcance nacional
+([PUBLIC_SECTOR_STRATEGY.md](./PUBLIC_SECTOR_STRATEGY.md) §4, integração nº 2).
+Apontar para lá resolve o degrau de graça e em escala.
+
+**A ressalva que precisa acompanhar o encaminhamento:** teleatendimento não é
+plantão. Tem fila, horário e capacidade. O N4 nunca deve ser apresentado como resposta
+imediata — quem precisa de imediato está no N2 (CVV 188) ou no N5.
+
+E o tamanho do gargalo é conhecido: o serviço público de referência do país atende
+**80 casos novos por ano** contra **1,4 milhão** de pessoas com transtorno do jogo
+([DATA_SOURCES.md §4.1.1](./DATA_SOURCES.md)), e apenas **7 a 12%** das pessoas com o
+transtorno chegam a procurar tratamento ou grupo de apoio (NIDA). Encaminhar é
+necessário e insuficiente — é precisamente por isso que a camada contínua existe.
 
 ---
 

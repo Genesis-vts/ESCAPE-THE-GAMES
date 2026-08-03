@@ -172,11 +172,11 @@ provedor de IA fora do ar; painel adversarial fechado.
 Fontes públicas brasileiras cobrem quase todos, de graça.
 Mapa completo: [DATA_SOURCES.md](./DATA_SOURCES.md).
 
-- [ ] `partnership`: contato com **PRO-AMITI / IPq HC-FMUSP** — destrava o E9 inteiro — **primeiro**
+- [ ] `partnership`: contato com **PRO-AMITI / IPq HC-FMUSP** — carta pronta em [outreach/CARTA_PRO_AMITI.md](./outreach/CARTA_PRO_AMITI.md), falta confirmar o e-mail e enviar — **primeiro**
 - [ ] `research`: ler fontes primárias de prevalência e fechar os números marcados ⚠️ — 3 dias
 - [ ] `research`: extrair SINAN/TabNet (violência autoprovocada) por faixa etária e tendência — 2 dias
 - [ ] `research`: consultar PNS via Base dos Dados (SQL) para SAM/SOM — 2 dias
-- [ ] `research`: **pedido via LAI à SPA/MF** — série histórica de autoexclusão, prazos, motivos declarados e perfil demográfico — **maior retorno por esforço**
+- [ ] `research`: **pedido via LAI à SPA/MF** — texto pronto em [outreach/PEDIDO_LAI_SPA_MF.md](./outreach/PEDIDO_LAI_SPA_MF.md), falta enviar pelo Fala.BR — **maior retorno por esforço**
 - [ ] `research`: confirmar na página oficial a regra de reversão do bloqueio indeterminado (fontes divergem: 30 dias vs. 12 meses)
 - [x] `clinical`: ler a tese de Tovar Velásquez (FMUSP, 2021, orient. Hermano Tavares) e extrair itens, ponto de corte e acurácia — **feito**; instrumento implementado em `modules/screening/` — ver [DATA_SOURCES.md §4.0.1](./DATA_SOURCES.md)
 - [x] `clinical`: instrumento validado **para aposta online no Brasil** — resolvido pelo **OGD-Q BR** (Rego et al., _J Gambling Studies_ 2026), implementado em `modules/screening/ogdq.ts` — ver [DATA_SOURCES.md §4.1.3](./DATA_SOURCES.md)
@@ -211,7 +211,7 @@ porque reaproveitam serviço público existente em vez de reconstruí-lo.
 Detalhe: [PUBLIC_SECTOR_STRATEGY.md](./PUBLIC_SECTOR_STRATEGY.md) §4.
 
 - [ ] `feat`: conduzir o usuário à **autoexclusão oficial** no momento certo — 3 pts — _sem integração técnica_
-- [ ] `feat(api)`: degrau **N4 da escada de crise aponta para o teleatendimento do SUS** — 3 pts — _resolve a dependência de "profissional vinculado"_
+- [x] `feat(api)`: degrau **N4 da escada de crise aponta para o teleatendimento do SUS** — feito em `CRISIS_PROTOCOL.md` §4.1
 - [ ] `clinical`: ler o **Guia de Cuidado do MS** e alinhar critérios — 3 pts `TODO [CLINICAL]`
 - [ ] `feat`: login **gov.br** — 5 pts — depende de credenciamento
 - [ ] `research`: existe via oficial para verificar adesão à autoexclusão? `TODO [LEGAL]`
