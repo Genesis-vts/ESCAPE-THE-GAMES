@@ -21,22 +21,22 @@ Isso está no `PUBLIC_SECTOR_STRATEGY.md` §7 como mitigação de captura.
 
 ---
 
-## Quem é o alvo — e por que não é quem parece
+## Por onde começar o contato
 
-### O canal disponível é um portão, não um destino
+### O canal público é de triagem
 
 `proamiti.secretaria@gmail.com` é a secretaria do PRO-AMITI, ligada à **Associação
 Viver Bem**, que hospeda o programa e seus cursos. Esse endereço trata agendamento de
 paciente e inscrição em curso.
 
-**Consequência prática:** uma carta longa de parceria de pesquisa endereçada ao
-coordenador geral, chegando ali, tende a ser triada como "não é paciente" e parar.
-O canal serve — mas o formato precisa ser **mensagem curta pedindo encaminhamento**,
-com a carta em anexo. O trabalho da secretaria é rotear; facilite o roteamento.
+**Consequência prática:** por ali, uma carta longa de parceria de pesquisa precisa vir
+acompanhada de uma **mensagem curta pedindo encaminhamento**, com a carta em anexo, e
+dizendo logo na primeira linha que não é solicitação de atendimento. É o que permite à
+secretaria rotear corretamente, que é o trabalho dela.
 
 Há também o formulário do site https://www.proamiti.com.br/ — mesma lógica.
 
-### O primeiro contato recomendado: Dr. Daniel Tornaim Spritzer 🎯
+### O primeiro contato recomendado: Dr. Daniel Tornaim Spritzer
 
 | Por quê                                                                                                                                            |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -50,10 +50,11 @@ Há também o formulário do site https://www.proamiti.com.br/ — mesma lógica
 Ele é a ponte entre os dois lados do nosso escopo — o jogo eletrônico e a clínica do
 impulso. E existe uma abertura verdadeira que só ele recebe (ver variante abaixo).
 
-**Por que não começar pelo coordenador geral:** figura sênior recebe muito mais
-correspondência não solicitada. Pesquisador ativo em meio de carreira responde mais, e
-neste caso tem motivo próprio para se interessar. O Prof. Tavares entra na conversa
-depois — e entra melhor se vier apresentado por alguém de dentro.
+**Por que ele e não outro nome do programa:** a razão é de assunto, não de hierarquia.
+A carta parte de um capítulo que ele escreveu e de uma decisão de produto que mudamos
+por causa dele — essa abertura só é verdadeira endereçada a ele. O Prof. Tavares entra
+na conversa em seguida, e a segunda pergunta (efeito telescópio) é dirigida ao trabalho
+do grupo dele.
 
 **Contato:** o e-mail pessoal e o telefone do Dr. Spritzer aparecem em agregadores
 públicos de currículo Lattes. **Não os transcrevo aqui** — este repositório é público,
@@ -63,7 +64,7 @@ institucional do GEAT.
 
 ### Ordem sugerida
 
-| #   | Alvo                      | Canal                                         | Quando                                            |
+| #   | Interlocutor              | Canal                                         | Quando                                            |
 | --- | ------------------------- | --------------------------------------------- | ------------------------------------------------- |
 | 1   | **Dr. Daniel Spritzer**   | Lattes / GEAT                                 | Primeiro — abertura mais forte                    |
 | 2   | Secretaria PRO-AMITI      | `proamiti.secretaria@gmail.com` ou formulário | Em paralelo, com mensagem curta de encaminhamento |
