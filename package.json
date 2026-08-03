@@ -1,0 +1,27 @@
+{
+  "name": "escape-the-games",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Plataforma de apoio a pessoas com uso problemático de jogos eletrônicos, com botão de pânico que aciona contatos autorizados.",
+  "license": "MIT",
+  "workspaces": [
+    "services/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspace services/api",
+    "build": "npm run build --workspace services/api",
+    "test": "npm run test --workspace services/api",
+    "lint": "npm run lint --workspace services/api",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md,yml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md,yml}\"",
+    "docker:up": "docker compose -f infra/docker-compose.yml up --build",
+    "docker:down": "docker compose -f infra/docker-compose.yml down -v"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}

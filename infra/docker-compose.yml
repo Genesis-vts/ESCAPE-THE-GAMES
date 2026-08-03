@@ -1,0 +1,74 @@
+# Ambiente local completo: API + PostgreSQL + Redis + captura de e-mails.
+#
+# Subir tudo (a partir da raiz do repositório):
+#   docker compose -f infra/docker-compose.yml up --build
+#
+# Nenhum segredo real aqui: as credenciais abaixo servem apenas ao ambiente
+# local descartável. Em qualquer outro ambiente, use o cofre de segredos.
+
+name: escape-the-games
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: services/api/Dockerfile
+    container_name: escape-api
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: development
+      PORT: '3000'
+      LOG_LEVEL: info
+      DATABASE_URL: postgresql://escape:escape@db:5432/escape_the_games
+      REDIS_URL: redis://cache:6379
+      # Segredo apenas de desenvolvimento — gere o seu com: openssl rand -base64 48
+      JWT_SECRET: desenvolvimento-local-trocar-em-qualquer-outro-ambiente
+      WEB_BASE_URL: http://localhost:3001
+      # Sem TWILIO_*/SENDGRID_* a API usa os adaptadores de console:
+      # as mensagens aparecem no log em vez de serem enviadas de verdade.
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_started
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    container_name: escape-db
+    environment:
+      POSTGRES_USER: escape
+      POSTGRES_PASSWORD: escape
+      POSTGRES_DB: escape_the_games
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U escape -d escape_the_games']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  cache:
+    image: redis:7-alpine
+    container_name: escape-cache
+    command: ['redis-server', '--appendonly', 'yes']
+    ports:
+      - '6379:6379'
+    volumes:
+      - cache-data:/data
+
+  # Captura e-mails enviados em desenvolvimento (interface em http://localhost:8025).
+  # Útil quando um provedor SMTP for plugado no lugar do adaptador de console.
+  mail:
+    image: axllent/mailpit:latest
+    container_name: escape-mail
+    ports:
+      - '8025:8025'
+      - '1025:1025'
+
+volumes:
+  db-data:
+  cache-data:

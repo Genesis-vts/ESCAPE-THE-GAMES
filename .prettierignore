@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+.next/
+package-lock.json
+
+# Documento de impressão com layout ajustado manualmente para caber em duas
+# páginas A4 sem quebra no meio de parágrafo. O espaço em branco entre os
+# elementos inline da assinatura é significativo na renderização; reformatar
+# altera o PDF gerado.
+docs/outreach/carta-spritzer.html
