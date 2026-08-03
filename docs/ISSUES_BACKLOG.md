@@ -172,7 +172,7 @@ provedor de IA fora do ar; painel adversarial fechado.
 Fontes públicas brasileiras cobrem quase todos, de graça.
 Mapa completo: [DATA_SOURCES.md](./DATA_SOURCES.md).
 
-- [ ] `partnership`: contato com **PRO-AMITI / IPq HC-FMUSP** — carta pronta em [outreach/CARTA_PRO_AMITI.md](./outreach/CARTA_PRO_AMITI.md), falta confirmar o e-mail e enviar — **primeiro**
+- [ ] `partnership`: contato com **PRO-AMITI / IPq HC-FMUSP** — carta pronta em [outreach/CARTA_PRO_AMITI.md](./outreach/CARTA_PRO_AMITI.md) — alvo definido (**Dr. Daniel Spritzer**, GEAT + PRO-AMITI + grupo da OMS); falta preencher os dados do remetente e enviar — **primeiro**
 - [ ] `research`: ler fontes primárias de prevalência e fechar os números marcados ⚠️ — 3 dias
 - [ ] `research`: extrair SINAN/TabNet (violência autoprovocada) por faixa etária e tendência — 2 dias
 - [ ] `research`: consultar PNS via Base dos Dados (SQL) para SAM/SOM — 2 dias
