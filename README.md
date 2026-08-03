@@ -230,4 +230,31 @@ O CI roda `gitleaks` a cada push.
 
 ## Licença
 
-MIT — ver [LICENSE](LICENSE).
+**GNU AGPL-3.0-only** — ver [LICENSE](LICENSE).
+
+Copyright (C) 2026 Genesis VTS.
+
+Este programa é software livre: você pode redistribuí-lo e/ou modificá-lo sob os termos
+da GNU Affero General Public License, versão 3, publicada pela Free Software Foundation.
+Ele é distribuído na esperança de ser útil, mas **SEM NENHUMA GARANTIA**, nem mesmo a
+garantia implícita de COMERCIALIZAÇÃO ou ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA.
+
+### Por que AGPL e não uma licença permissiva
+
+A escolha é deliberada e tem a ver com o que este software faz. Uma licença permissiva
+autorizaria uma casa de apostas a pegar este código, remover as travas de segurança e as
+metas anti-engajamento, e oferecer o resultado como "ferramenta de jogo responsável" —
+sem publicar uma linha do que mudou, e sem que ninguém pudesse auditar a diferença.
+
+A AGPL fecha esse caminho por dois lados:
+
+- **Derivado fechado é proibido.** Quem modifica e redistribui precisa publicar o código
+  modificado sob a mesma licença.
+- **A brecha do serviço também.** Pela cláusula §13, oferecer uma versão modificada
+  **como serviço em rede** — que é exatamente a forma como um aplicativo destes chegaria
+  ao usuário — obriga a disponibilizar o código-fonte a quem usa o serviço.
+
+Em outras palavras: qualquer um pode usar, estudar, modificar e até cobrar por isso. O
+que ninguém pode é transformar em caixa-preta um sistema que promete proteger pessoas em
+sofrimento. Auditabilidade não é um detalhe deste projeto — é parte do que ele oferece a
+quem confia nele.
