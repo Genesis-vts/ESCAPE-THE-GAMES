@@ -5,6 +5,10 @@ on:
     branches: ['**']
   pull_request:
     branches: [main]
+  # Permite reexecutar a esteira manualmente pela aba Actions, sem precisar de
+  # um commit vazio. Útil quando uma execução falha por causa do ambiente e não
+  # do código — foi o caso das execuções anteriores à abertura do repositório.
+  workflow_dispatch:
 
 # Cancela execuções antigas do mesmo branch — economiza minutos de runner.
 concurrency:
