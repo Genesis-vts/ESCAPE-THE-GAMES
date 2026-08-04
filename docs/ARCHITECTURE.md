@@ -320,6 +320,7 @@ Teste de restauração: trimestral, com registro em ata. Simulação de falha de
 | ADR-007 | Providers atrás de interface                           | SDK direto no controller | Testabilidade, troca de fornecedor, custo                                                      |
 | ADR-008 | Auditoria WORM com hash encadeado                      | log comum                | Prova de integridade em investigação/incidente                                                 |
 | ADR-009 | Workbench de pesquisa **adiado**, com gatilho definido | adotar agora             | Ver detalhamento abaixo                                                                        |
+| ADR-010 | **Verticalizar** em jogo e aposta; não generalizar     | plataforma horizontal    | Ver detalhamento abaixo                                                                        |
 
 ### ADR-009 — Ferramenta de análise de pesquisa: adiar, com gatilho
 
@@ -356,6 +357,57 @@ parte não se aplica; serve o substrato genérico (execução local, conectores 
 literatura, reprodutibilidade, revisor). E a descrição do produto veio de **cobertura
 secundária** — `anthropic.com` e `claude.com` estão fora da allowlist de egresso desta
 sessão ([DATA_SOURCES.md §7](./DATA_SOURCES.md)). Confirmar na fonte antes de comprar.
+
+### ADR-010 — Verticalizar em jogo e aposta; a plataforma emerge depois
+
+**Contexto.** Boa parte do que foi construído não é específica de jogo. Separando por
+transferibilidade, são três camadas bem distintas:
+
+| Camada                                  | O que é                                                                                             | Transferível?                       |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| 1. Infraestrutura genérica              | Fila com retry, adaptadores de provedor, rate limit, JWT, envelope de erro                          | Sim, mas vale pouco — existe pronto |
+| 2. Primitivas de consentimento e trilha | Duplo opt-in, opt-out por token HMAC, blocklist permanente, WORM encadeado, status por destinatário | **Sim — é o ativo reaproveitável**  |
+| 3. Semântica clínica                    | NODS-3-BR, OGD-Q, escada de crise, _chasing_, moderação × abstinência                               | **Não** — muda por transtorno       |
+
+A camada 2 resolve um problema genérico e difícil: notificar terceiros a respeito de uma
+pessoa, com consentimento verificado, saída real garantida e registro inviolável. Serve a
+qualquer domínio que toque rede de apoio. E a ideia mais portátil do projeto não é código
+nenhum — é a tese da **camada contínua entre atendimentos episódicos**, que descreve uma
+lacuna existente em toda condição crônica, não só em jogo.
+
+**Decisão: verticalizar.** Aprofundar o domínio de jogo e aposta até ter validação
+clínica, e só então considerar extensão. A plataforma, se vier, vem como subproduto
+validado — não como ponto de partida.
+
+**Justificativa.** O ativo mais escasso deste projeto é credibilidade clínica, que é a
+única coisa que ele não consegue comprar. Anunciar plataforma horizontal antes de ter uma
+vertical validada converte o projeto, aos olhos de um grupo de pesquisa, de parceiro
+científico em fornecedor de tecnologia — e é o caminho mais curto para perder a parceria
+que hoje destrava o instrumento, o comitê de ética e a coorte.
+
+**A disciplina que preserva a opção.** Manter as primitivas da camada 2 **sem acoplamento
+com semântica de jogo**, para que uma extração futura seja refatoração e não reescrita.
+
+**Verificação do estado atual (feita, não presumida).** `audit/`, `modules/optout/` e
+`modules/contacts/` não importam nada de `panic`, `screening`, `journal` ou `goals`. A
+dependência existente é a esperada e no sentido correto: opt-out revoga contato.
+
+A **única exceção** é `AuditAction`, em `audit/auditLog.ts`: união fechada que enumera
+ações do domínio (`PANIC_TRIGGERED`, `SCREENING_COMPLETED`, `JOURNAL_ENTRY_CREATED`,
+`GOAL_LAPSE_REGISTERED`). O núcleo de auditoria conhece, portanto, o vocabulário deste
+produto.
+
+**Decisão sobre a exceção: não corrigir agora.** Generalizar esse tipo hoje seria
+construir para um reúso que acabamos de adiar — exatamente o erro que este ADR evita. O
+acoplamento é de **um tipo, em um arquivo**, e a união fechada tem valor real enquanto o
+produto é um só: o compilador recusa ação de auditoria inventada. Fica registrado como
+dívida deliberada, com custo de desfazer conhecido e baixo.
+
+**Gatilho para reavaliar:** um segundo transtorno entrar em escopo com meta terapêutica
+própria, ou um parceiro institucional pedir a camada de consentimento e trilha sem a
+semântica de jogo. Antes disso, discussão de plataforma é prematura por um motivo
+concreto: persistência e fila ainda são em memória (E1 e E3), e é justamente a parte que
+precisaria ser sólida para sustentar reúso.
 
 ---
 
